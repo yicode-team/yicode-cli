@@ -1,0 +1,57 @@
+// 自带模块
+let path = require('path');
+// 第三方模块
+let _ = require('lodash');
+let fs = require('fs-extra');
+let { merge } = require('webpack-merge');
+let shell = require('shelljs');
+let { table } = require('table');
+let chalk = require('chalk');
+let ora = require('ora');
+let tool = require('../tool.js');
+// 配置相关
+let myConfig = require('../../yicode/yicode.paths.js');
+let yicodePackage = require('../../package.json');
+let yicodeConfig = require('../../yicode/yicode.config.js');
+module.exports = async function newComp(cmd) {
+    console.log(chalk.blueBright('yicode all 查看所有命令'));
+    console.log('------------------------------');
+    console.log(chalk.blueBright('yicode dev 启动开发环境'));
+    console.log(chalk.green('yicode dev --env <环境配置文件名称>'));
+    console.log(chalk.green('yicode dev --write 编译打包写入硬盘'));
+    console.log('------------------------------');
+    console.log(chalk.blueBright('yicode build 打包编译项目'));
+    console.log(chalk.green('yicode build --env 环境配置文件名称 '));
+    console.log(chalk.green('yicode build --analyzer 启动分析模式'));
+    console.log('------------------------------');
+    console.log(chalk.blueBright('yicode new 创建元素'));
+    console.log(chalk.green('yicode new -i,--api <通用接口名称> 创建通用接口'));
+    console.log(chalk.green('yicode new -f,--filter <过滤器名称> 创建全局过滤器'));
+    console.log(chalk.green('yicode new -d,--directive <指令名称> 创建全局指令'));
+    console.log(chalk.green('yicode new -p,--page <页面名称> 创建页面'));
+    console.log(chalk.green('yicode new -c,--comp <组件名称> 创建全局组件'));
+    console.log(chalk.green('yicode new -p,--page <页面名称> -c,--comp <组件名称> 创建页面组件'));
+    console.log('------------------------------');
+    console.log(chalk.blueBright('yicode rename 重命名元素'));
+    console.log(chalk.green('yicode rename -p,--page <页面名称> --np,--new-page <新页面名称> 重命名页面'));
+    console.log(chalk.green('yicode rename -c,--comp <组件名称> --nc,--new-comp <新组件名称> 重命名全局组件'));
+    console.log(chalk.green('yicode rename -p,--page <页面名称> --sp,--sub-page <子页面名称> --nsp,--new-sub-page <新子页面名称> 重命名子页面'));
+    console.log(chalk.green('yicode rename -p,--page <页面名称> --sv,--sub-view <子视图名称> --nsv,--new-sub-view <新子视图名称> 重命名子视图'));
+    console.log(chalk.green('yicode rename -p,--page <页面名称> -c,--comp <组件名称> --nc,--new-comp <新组件名称> 重命名页面组件'));
+    console.log(chalk.green('yicode rename -p,--page <页面名称> --sp,--sub-page <子页面名称> -c,--comp <组件名称> --nc,--new-comp <新组件名称> 重命名子页面组件'));
+    console.log(chalk.green('yicode rename -p,--page <页面名称> --sv,--sub-view <子视图名称> -c,--comp <组件名称> --nc,--new-comp <新组件名称> 重命名子视图组件'));
+    console.log('------------------------------');
+    console.log(chalk.blueBright('yicode tpl 初始化项目模板'));
+    console.log(chalk.green('yicode tpl --type=init 初始化通用前端项目模板'));
+    console.log(chalk.green('yicode tpl --type=admin 初始化后台项目模板'));
+    console.log(chalk.green('yicode tpl --type=api 初始化接口项目模板'));
+    console.log(chalk.green('yicode tpl --type=uniapp 初始化uniapp项目模板'));
+    console.log(chalk.green('yicode tpl --type=blog 初始化博客项目模板'));
+    console.log('------------------------------');
+    console.log(chalk.blueBright('yicode fix 修复元素'));
+    console.log(chalk.green('yicode fix --type=all 修复所有元素'));
+    console.log('------------------------------');
+    console.log(chalk.blueBright('yicode show 查看项目相关信息'));
+    console.log(chalk.green('yicode show --pages 查看所有页面'));
+    console.log(chalk.green('yicode show --comps 查看所有全局组件'));
+};
