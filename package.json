@@ -1,5 +1,5 @@
 {
-    "name": "yicode-cli",
+    "name": "@yicode/cli",
     "version": "0.0.1",
     "description": "a cli tool that makes code development easier.",
     "main": "index.js",
@@ -39,6 +39,21 @@
         "web",
         "脚手架"
     ],
+    "np": {
+        "anyBranch": false,
+        "branch": "master",
+        "cleanup": false,
+        "tests": false,
+        "yolo": true,
+        "publish": true,
+        "preview": false,
+        "tag": "latest",
+        "yarn": false,
+        "contents": ".",
+        "releaseDraft": false,
+        "testScript": "test",
+        "2fa": false
+    },
     "author": "chensuiyi <bimostyle@qq.com>",
     "license": "Apache-2.0",
     "dependencies": {
