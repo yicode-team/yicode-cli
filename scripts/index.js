@@ -88,35 +88,35 @@ function chooseProjectType() {
                     {
                         name: yicodeUtils.print(_.padEnd('web-single', 14, ' ')) + chalk.cyanBright('  webpack单页应用开发'),
                         value: 'web-single'
-                    },
-                    {
-                        name: yicodeUtils.print(_.padEnd('web-multiple', 14, ' ')) + chalk.cyanBright('  webpack多页应用开发'),
-                        value: 'web-multiple'
-                    },
-                    {
-                        name: yicodeUtils.print(_.padEnd('web-static', 14, ' ')) + chalk.cyanBright('  gulp多页静态项目开发'),
-                        value: 'web-static'
-                    },
-                    {
-                        name: yicodeUtils.print(_.padEnd('uniapp-mini', 14, ' ')) + chalk.cyanBright('  基于uniapp开发小程序'),
-                        value: 'uniapp-mini'
-                    },
-                    {
-                        name: yicodeUtils.print(_.padEnd('weixin-mini', 14, ' ')) + chalk.cyanBright('  微信原生小程序项目'),
-                        value: 'weixinMini'
-                    },
-                    {
-                        name: yicodeUtils.print(_.padEnd('php-api', 14, ' ')) + chalk.cyanBright('  基于php开发后端接口'),
-                        value: 'phpApi'
-                    },
-                    {
-                        name: yicodeUtils.print(_.padEnd('node-api', 14, ' ')) + chalk.cyanBright('  基于nodejs开发后端接口'),
-                        value: 'nodeApi'
-                    },
-                    {
-                        name: yicodeUtils.print(_.padEnd('java-api', 14, ' ')) + chalk.cyanBright('  基于java开发后端接口'),
-                        value: 'javaApi'
                     }
+                    // {
+                    //     name: yicodeUtils.print(_.padEnd('web-multiple', 14, ' ')) + chalk.cyanBright('  webpack多页应用开发'),
+                    //     value: 'web-multiple'
+                    // },
+                    // {
+                    //     name: yicodeUtils.print(_.padEnd('web-static', 14, ' ')) + chalk.cyanBright('  gulp多页静态项目开发'),
+                    //     value: 'web-static'
+                    // },
+                    // {
+                    //     name: yicodeUtils.print(_.padEnd('uniapp-mini', 14, ' ')) + chalk.cyanBright('  基于uniapp开发小程序'),
+                    //     value: 'uniapp-mini'
+                    // },
+                    // {
+                    //     name: yicodeUtils.print(_.padEnd('weixin-mini', 14, ' ')) + chalk.cyanBright('  微信原生小程序项目'),
+                    //     value: 'weixinMini'
+                    // },
+                    // {
+                    //     name: yicodeUtils.print(_.padEnd('php-api', 14, ' ')) + chalk.cyanBright('  基于php开发后端接口'),
+                    //     value: 'phpApi'
+                    // },
+                    // {
+                    //     name: yicodeUtils.print(_.padEnd('node-api', 14, ' ')) + chalk.cyanBright('  基于nodejs开发后端接口'),
+                    //     value: 'nodeApi'
+                    // },
+                    // {
+                    //     name: yicodeUtils.print(_.padEnd('java-api', 14, ' ')) + chalk.cyanBright('  基于java开发后端接口'),
+                    //     value: 'javaApi'
+                    // }
                 ]
             }
         ])

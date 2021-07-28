@@ -37,19 +37,15 @@ module.exports = function yicodeTemplateWebSingle() {
                     {
                         name: 'build' + chalk.cyanBright('  发布到线上（测试/正式）服务器环境'),
                         value: 'build'
-                    },
-                    {
-                        name: 'new' + chalk.cyanBright('  创建新的（页面/组件路由/指令/过滤器）文件'),
-                        value: 'new'
-                    },
-                    {
-                        name: 'rename' + chalk.cyanBright('  重命名（页面/组件路由/指令/过滤器）文件'),
-                        value: 'rename'
-                    },
-                    {
-                        name: 'tpl' + chalk.cyanBright('  下载项目模板（管理后台/web/小程序/接口等）'),
-                        value: 'tpl'
                     }
+                    // {
+                    //     name: 'new' + chalk.cyanBright('  创建新的（页面/组件/路由/指令/过滤器）文件'),
+                    //     value: 'new'
+                    // },
+                    // {
+                    //     name: 'rename' + chalk.cyanBright('  重命名（页面/组件/路由/指令/过滤器）文件'),
+                    //     value: 'rename'
+                    // }
                 ]
             }
         ])
