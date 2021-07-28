@@ -1,15 +1,19 @@
 // 自带模块
 let path = require('path');
+
 // 第三方模块
 let _ = require('lodash');
 let fs = require('fs-extra');
 let chalk = require('chalk');
 let ora = require('ora');
-let tool = require('../tool.js');
+
 // 配置相关
-let myConfig = require('../../yicode/yicode.paths.js');
-let yicodePackage = require('../../package.json');
-let yicodeConfig = require(path.join(myConfig.webpackDir, 'yicode.config.js'));
+let yicodePaths = require('../../../yicode/yicode.paths.js');
+let yicodePackage = require(path.resolve(yicodePaths.cliDir, 'package.json'));
+let yicodeConfig = require(path.resolve(yicodePaths.cliDir, 'yicode', 'yicode.config.js'));
+let yicodeUtils = require(path.resolve(yicodePaths.cliDir, 'yicode', 'yicode.utils.js'));
+let tool = require('../tool.js');
+
 let aliasObject = require('../../yicode/config/alias.js');
 let aliasNames = aliasObject[yicodeConfig.type || 'init'];
 
@@ -19,7 +23,7 @@ module.exports = async function newPage(cmd) {
     let pageParams = {
         names: {},
         aliasNames: aliasNames,
-        path: myConfig.pageDir,
+        path: yicodePaths.pageDir,
         // 小写短横线文件名数组
         lowerCaseNameRoute: [],
         lowerCaseNameRouteDot: '', // 点号拼接
@@ -63,7 +67,7 @@ module.exports = async function newPage(cmd) {
         // 创建页面
         let htmlFilePath = path.join(pageParams.path, 'index.vue');
         if (fs.existsSync(htmlFilePath) === false) {
-            let htmlFileData = _.template(require(path.join(myConfig.webpackDir, 'template', 'pageHtml.js')))(pageParams);
+            let htmlFileData = _.template(require(path.join(yicodePaths.webpackDir, 'template', 'pageHtml.js')))(pageParams);
             fs.outputFileSync(htmlFilePath, htmlFileData);
             spinner.succeed(chalk.green(chalk.blue(pageParams.lowerCaseNameRouteBackslash + '/index.vue') + ' 页面创建成功'));
         } else {
@@ -75,10 +79,10 @@ module.exports = async function newPage(cmd) {
         if (fs.existsSync(routeFilePath) === false) {
             let routeFileData = '';
             if (aliasNames.platform === 'uniapp') {
-                routeFileData = _.template(require(path.join(myConfig.webpackDir, 'template', 'miniPageRoute.js')))(pageParams);
+                routeFileData = _.template(require(path.join(yicodePaths.webpackDir, 'template', 'miniPageRoute.js')))(pageParams);
             }
             if (aliasNames.platform === 'web') {
-                routeFileData = _.template(require(path.join(myConfig.webpackDir, 'template', 'pageRoute.js')))(pageParams);
+                routeFileData = _.template(require(path.join(yicodePaths.webpackDir, 'template', 'pageRoute.js')))(pageParams);
             }
             fs.outputFileSync(routeFilePath, routeFileData);
             spinner.succeed(chalk.green(chalk.blue(pageParams.lowerCaseNameRouteBackslash + '/route.js') + ' 页面路由创建成功'));
@@ -89,7 +93,7 @@ module.exports = async function newPage(cmd) {
         // 创建页面接口
         let apiFilePath = path.join(pageParams.path, 'api.js');
         if (fs.existsSync(apiFilePath) === false) {
-            let apiFileData = _.template(require(path.join(myConfig.webpackDir, 'template', 'api.js')))(pageParams);
+            let apiFileData = _.template(require(path.join(yicodePaths.webpackDir, 'template', 'api.js')))(pageParams);
             fs.outputFileSync(apiFilePath, apiFileData);
             spinner.succeed(chalk.green(chalk.blue(pageParams.lowerCaseNameRouteBackslash + '/api.js') + ' 页面接口创建成功'));
         } else {
@@ -99,7 +103,7 @@ module.exports = async function newPage(cmd) {
         // 创建页面说明
         let readmeFilePath = path.join(pageParams.path, 'readme.md');
         if (fs.existsSync(readmeFilePath) === false) {
-            let readmeFileData = _.template(require(path.join(myConfig.webpackDir, 'template', 'readme.js')))(pageParams);
+            let readmeFileData = _.template(require(path.join(yicodePaths.webpackDir, 'template', 'readme.js')))(pageParams);
             fs.outputFileSync(readmeFilePath, readmeFileData);
             spinner.succeed(chalk.green(chalk.blue(pageParams.lowerCaseNameRouteBackslash + '/readme.md') + ' 页面说明书创建成功'));
         } else {
@@ -118,7 +122,7 @@ module.exports = async function newPage(cmd) {
         // 创建页面组件目录说明
         let componentReadmeFilePath = path.join(componentDirectory, 'readme.md');
         if (fs.existsSync(componentReadmeFilePath) === false) {
-            let componentReadmeFileData = _.template(require(path.join(myConfig.webpackDir, 'template', 'readme.js')))(pageParams);
+            let componentReadmeFileData = _.template(require(path.join(yicodePaths.webpackDir, 'template', 'readme.js')))(pageParams);
             fs.outputFileSync(componentReadmeFilePath, componentReadmeFileData);
             spinner.succeed(chalk.green(chalk.blue(pageParams.lowerCaseNameRouteBackslash + '/readme.md') + ' 页面组件目录说明书创建成功'));
         } else {
@@ -137,7 +141,7 @@ module.exports = async function newPage(cmd) {
         // 创建页面组件
         let htmlFilePath = path.join(componentDirectory, 'index.vue');
         if (fs.existsSync(htmlFilePath) === false) {
-            let htmlFileData = _.template(require(path.join(myConfig.webpackDir, 'template', 'pageCompHtml.js')))(compParams);
+            let htmlFileData = _.template(require(path.join(yicodePaths.webpackDir, 'template', 'pageCompHtml.js')))(compParams);
             fs.outputFileSync(htmlFilePath, htmlFileData);
             spinner.succeed(chalk.green(chalk.blue(pageParams.lowerCaseNameRouteBackslash + '/' + compParams.names.lowerCaseName + '/index.vue') + ' 页面组件创建成功'));
         } else {
@@ -147,7 +151,7 @@ module.exports = async function newPage(cmd) {
         // 创建页面组件说明
         let readmeFilePath = path.join(componentDirectory, 'readme.md');
         if (fs.existsSync(readmeFilePath) === false) {
-            let readmeFileData = _.template(require(path.join(myConfig.webpackDir, 'template', 'readme.js')))(compParams);
+            let readmeFileData = _.template(require(path.join(yicodePaths.webpackDir, 'template', 'readme.js')))(compParams);
             fs.outputFileSync(readmeFilePath, readmeFileData);
             spinner.succeed(chalk.green(chalk.blue(pageParams.lowerCaseNameRouteBackslash + '/' + compParams.names.lowerCaseName + '/readme.md') + ' 页面组件说明书创建成功'));
         } else {

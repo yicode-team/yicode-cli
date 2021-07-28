@@ -1,7 +1,13 @@
-let myConfig = require('../yicode.paths.js');
-let yicodeConfig = require('../yicode.config.js');
-let autoprefixer = require('autoprefixer');
+let path = require('path');
 let _ = require('lodash');
+let autoprefixer = require('autoprefixer');
+
+// 配置
+let yicodePaths = require('../helper/paths.js');
+let yicodePackage = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'package.js'));
+let yicodeConfig = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'config.js'));
+let yicodeUtils = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'utils.js'));
+
 let postcssPlugin = [autoprefixer()];
 if (yicodeConfig.px2viewport && yicodeConfig.px2viewport.enable === true) {
     postcssPlugin.push([

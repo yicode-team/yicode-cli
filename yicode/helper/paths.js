@@ -1,7 +1,7 @@
 let path = require('path');
 
 // yicode命令路径
-let cliDir = path.join(__dirname, '..');
+let cliDir = path.join(__dirname, '..', '..');
 // 项目根目录路径
 let rootDir = path.join(process.cwd());
 // 项目源码路径

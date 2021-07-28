@@ -1,13 +1,13 @@
 let path = require('path');
-let myConfig = require('../yicode.paths.js');
+let yicodePaths = require('../helper/paths.js');
 
 module.exports = {
     loader: 'babel-loader',
     options: {
-        cwd: myConfig.cliDir,
-        root: myConfig.cliDir,
+        cwd: yicodePaths.cliDir,
+        root: yicodePaths.cliDir,
         rootMode: 'upward',
-        configFile: path.join(myConfig.cliDir, 'babel.config.js'),
+        configFile: path.join(yicodePaths.cliDir, 'babel.config.js'),
         presets: [
             [
                 '@babel/preset-env',

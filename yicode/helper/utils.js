@@ -1,21 +1,17 @@
-// 自带模块
+// 外部模块
 let path = require('path');
-
-// 第三方模块
 let _ = require('lodash');
 let download = require('download-git-repo');
 let fs = require('fs-extra');
+let chalk = require('chalk');
 
 // 配置相关
-let yicodePaths = require('../yicode/yicode.paths.js');
-let yicodePackage = require(path.resolve(yicodePaths.cliDir, 'package.json'));
-let yicodeConfig = require(path.resolve(yicodePaths.cliDir, 'yicode', 'yicode.config.js'));
-let yicodeUtils = require(path.resolve(yicodePaths.cliDir, 'scripts', 'yicode.utils.js'));
+let yicodePaths = require('./paths.js');
 
 // 下载项目
 exports.downloadProject = async function downloadProject(gitUrl, tempDir) {
     return new Promise((resolve, reject) => {
-        download(gitUrl, tempDir || yicodePaths.tempDir, { clone: true }, function (err) {
+        download(gitUrl, tempDir || yicodePaths.rootDir, { clone: true }, function (err) {
             if (err) {
                 reject(err);
             } else {
@@ -24,6 +20,7 @@ exports.downloadProject = async function downloadProject(gitUrl, tempDir) {
         });
     });
 };
+
 exports.getNames = function getNames(name) {
     // 页面名称转化 HelL_o-wOrld
     let lowerCaseName = _.toLower(name); // hell_o-world
@@ -96,4 +93,19 @@ exports.getEnvNames = function getEnvNames() {
     } else {
         return [];
     }
+};
+
+// 判断目录是否为空
+exports.isEmptyDirectory = function isEmptyDirectory(path) {
+    return fs.readdirSync(path).length === 0;
+};
+
+exports.print = function print(strs) {
+    let chalkArray = [
+        //
+        chalk.yellowBright(' [ '),
+        chalk.yellowBright(strs),
+        chalk.yellowBright(' ] ')
+    ];
+    return chalkArray.join('');
 };

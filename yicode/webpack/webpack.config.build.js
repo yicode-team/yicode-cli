@@ -1,10 +1,16 @@
+// 第三方模块
 let path = require('path');
 let { merge } = require('webpack-merge');
 let { WebpackConfigDumpPlugin } = require('webpack-config-dump-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 let configCommon = require('./webpack.config.common.js');
-let myConfig = require('./yicode.paths.js');
-let yicodeConfig = require('./yicode.config.js');
+
+// 配置
+let yicodePaths = require('../helper/paths.js');
+let yicodePackage = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'package.js'));
+let yicodeConfig = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'config.js'));
+let yicodeUtils = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'utils.js'));
+
 let currentConfig = {
     // 生产环境禁用缓存
     cache: false,
@@ -92,7 +98,7 @@ let currentConfig = {
 if (process.env.NODE_ANALYZER === 'true') {
     currentConfig.plugins.push(
         new WebpackConfigDumpPlugin({
-            outputPath: path.join(myConfig.cacheDir),
+            outputPath: path.join(yicodePaths.cacheDir),
             name: 'webpack.config.dump.js',
             keepCircularReferences: true,
             showFunctionNames: false,

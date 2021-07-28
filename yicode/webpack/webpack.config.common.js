@@ -13,10 +13,10 @@ let ProgressBarPlugin = require('progress-bar-webpack-plugin');
 let Dotenv = require('dotenv-webpack');
 
 //  配置文件
-let yicodePaths = require('../yicode.paths.js');
-let yicodePackage = require(path.resolve(yicodePaths.cliDir, 'package.json'));
-let yicodeConfig = require(path.resolve(yicodePaths.cliDir, 'yicode', 'yicode.config.js'));
-let yicodeUtils = require(path.resolve(yicodePaths.cliDir, 'scripts', 'yicode.utils.js'));
+let yicodePaths = require('../helper/paths.js');
+let yicodePackage = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'package.js'));
+let yicodeConfig = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'config.js'));
+let yicodeUtils = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'utils.js'));
 
 //  loader配置文件
 let dirLoader = path.resolve(yicodePaths.cliDir, 'yicode', 'loader');
@@ -47,7 +47,8 @@ let webpackConfigCommon = {
     output: {
         path: yicodePaths.distDir,
         filename: 'js/[name].[fullhash:7].js',
-        publicPath: './'
+        publicPath: './',
+        clean: true
     },
     // 解析
     resolve: {

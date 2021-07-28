@@ -1,4 +1,4 @@
-let myConfig = require('./yicode/yicode.paths.js');
+let myConfig = require('./yicode/helper/config.js');
 module.exports = {
     presets: [
         [
