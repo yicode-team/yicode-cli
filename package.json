@@ -1,5 +1,5 @@
 {
-    "name": "@yicode/cli",
+    "name": "yicode-cli",
     "version": "0.0.2",
     "description": "a cli tool that makes code development easier.",
     "main": "index.js",
