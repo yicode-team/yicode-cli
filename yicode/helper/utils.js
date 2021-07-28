@@ -9,9 +9,10 @@ let chalk = require('chalk');
 let yicodePaths = require('./paths.js');
 
 // 下载项目
-exports.downloadProject = async function downloadProject(gitUrl, tempDir) {
+exports.downloadProject = async function downloadProject(url, isRewrite = false) {
     return new Promise((resolve, reject) => {
-        download(gitUrl, tempDir || yicodePaths.rootDir, { clone: true }, function (err) {
+        let downloadDir = isRewrite ? yicodePaths.tempDir : yicodePaths.rootDir;
+        download(url, downloadDir, { clone: true }, function (err) {
             if (err) {
                 reject(err);
             } else {
@@ -103,9 +104,9 @@ exports.isEmptyDirectory = function isEmptyDirectory(path) {
 exports.print = function print(strs) {
     let chalkArray = [
         //
-        chalk.yellowBright(' [ '),
-        chalk.yellowBright(strs),
-        chalk.yellowBright(' ] ')
+        chalk.greenBright(' [ '),
+        chalk.greenBright(strs),
+        chalk.greenBright(' ] ')
     ];
     return chalkArray.join('');
 };

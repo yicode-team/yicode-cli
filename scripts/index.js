@@ -5,9 +5,11 @@ let fs = require('fs-extra');
 let chalk = require('chalk');
 let inquirer = require('inquirer');
 let requireFresh = require('import-fresh');
+let ora = require('ora');
 
 // yicode相关
 let yicodePaths = require('../yicode/helper/paths.js');
+let yicodePackage = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'package.js'));
 let yicodeUtils = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'utils.js'));
 
 // 提示参数收集
@@ -15,7 +17,8 @@ let promptParams = {};
 // 项目路径
 let projectGitPath = {
     'web-single': {
-        url: 'https://e.coding.net:chensuiyi/yicode/yicode-template-web#master',
+        url: 'https://e.coding.net:chensuiyi/yicode/yicode-template-web-single#master',
+        // url: 'https://gitee.com:banshiweichen/yicode-template-web-single#master',
         type: 'web-single',
         name: 'webpack单页应用开发'
     }
@@ -37,7 +40,7 @@ function check_yicodeDevlopmentEnvironment() {
             .then((answer) => {
                 promptParams = _.merge(promptParams, answer);
                 if (promptParams.isCreateProject === false) {
-                    console.log(chalk.red(`您选择了${yicodeUtils.print('否')}，不创建新项目`));
+                    console.log(chalk.whiteBright(`您选择了${yicodeUtils.print('否')}，不创建新项目`));
                     process.exit(1);
                 } else {
                     if (yicodeUtils.isEmptyDirectory(yicodePaths.rootDir) === false) {
@@ -53,13 +56,15 @@ function check_yicodeDevlopmentEnvironment() {
                             .then((answer) => {
                                 promptParams = _.merge(promptParams, answer);
                                 if (promptParams.isCoverFile === false) {
-                                    console.log(chalk.red(`您选择了${yicodeUtils.print('否')}，不覆盖当前目录下的文件`));
-                                    process.exit(1);
+                                    console.log(chalk.whiteBright(`您选择了${yicodeUtils.print('否')}，不覆盖当前目录下的文件`));
+                                    fs.removeSync(yicodePaths.tempDir);
+                                    fs.ensureDirSync(yicodePaths.tempDir);
+                                    chooseProjectType(true);
                                 } else {
                                     if (fs.emptyDirSync(yicodePaths.rootDir) === undefined) {
                                         chooseProjectType();
                                     } else {
-                                        console.log(chalk.red(`清空${yicodeUtils.print('当前目录')}，失败`));
+                                        console.log(chalk.whiteBright(`清空${yicodeUtils.print('当前目录')}，失败`));
                                     }
                                 }
                             });
@@ -76,7 +81,7 @@ function check_yicodeDevlopmentEnvironment() {
 }
 
 // 选择项目类型
-function chooseProjectType() {
+function chooseProjectType(isRewrite = false) {
     inquirer
         .prompt([
             {
@@ -122,15 +127,23 @@ function chooseProjectType() {
         ])
         .then((answer) => {
             promptParams = _.merge(promptParams, answer);
+            let spinner = ora();
+            spinner.start(chalk.green('模板下载中...'));
             yicodeUtils
-                .downloadProject(projectGitPath[promptParams.projectType].url)
+                .downloadProject(projectGitPath[promptParams.projectType].url, isRewrite)
                 .then((res) => {
-                    console.log(chalk.greenBright(`${yicodeUtils.print(projectGitPath[promptParams.projectType].type + ' - ' + projectGitPath[promptParams.projectType].name)}，下载成功`));
+                    if (isRewrite === true) {
+                        fs.copySync(yicodePaths.tempDir, yicodePaths.rootDir, { overwrite: true });
+                        fs.removeSync(yicodePaths.tempDir);
+                    }
+                    spinner.succeed(chalk.greenBright(`${yicodeUtils.print(projectGitPath[promptParams.projectType].type + ' - ' + projectGitPath[promptParams.projectType].name)}，下载成功`));
+                    // console.log(chalk.greenBright(`${yicodeUtils.print(projectGitPath[promptParams.projectType].type + ' - ' + projectGitPath[promptParams.projectType].name)}，下载成功`));
                     console.log(chalk.whiteBright(`请首先使用${yicodeUtils.print('npm install')}命令，安装项目依赖`));
                     console.log(chalk.whiteBright(`然后使用${yicodeUtils.print('yicode dev')}命令，启动本地开发环境`));
                     process.exit(1);
                 })
                 .catch((err) => {
+                    spinner.fail('模板下载失败');
                     console.log('===err');
                     console.log(err);
                 });
@@ -138,10 +151,3 @@ function chooseProjectType() {
 }
 
 check_yicodeDevlopmentEnvironment();
-// if (yicodeHelper2.config.projectType) {
-//     require(path.resolve(yicodeHelper2.paths.cliDir, 'scripts', yicodeHelper2.config.projectType, 'index.js'));
-//     console.log(yicodeHelper2);
-// } else {
-//     // 执行项目创建
-//     require('./prompt.js').chooseProjectType();
-// }
