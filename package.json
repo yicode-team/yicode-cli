@@ -126,5 +126,7 @@
         "husky": "^7.0.1",
         "prettier": "^2.3.2"
     },
-    "devDependencies": {}
+    "devDependencies": {
+        "np": "^7.5.0"
+    }
 }
