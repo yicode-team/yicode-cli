@@ -3,7 +3,7 @@
     "version": "0.0.1",
     "description": "a cli tool that makes code development easier.",
     "main": "index.js",
-    "private": false,
+    "private": true,
     "publishConfig": {
         "access": "public"
     },
