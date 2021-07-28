@@ -13,7 +13,7 @@
     },
     "scripts": {
         "postinstall": "husky install",
-        "publish": "np"
+        "release": "np"
     },
     "repository": {
         "type": "git",
