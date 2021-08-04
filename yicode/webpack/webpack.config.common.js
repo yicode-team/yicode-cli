@@ -37,6 +37,7 @@ let webpackConfigCommon = {
     name: 'yicode-cli',
     // TODO: 搞清楚这个参数的含义 2021.2.13
     profile: false,
+
     // 编译记录文件记录
     recordsPath: path.join(yicodePaths.cacheDir, 'records.json'),
     // 入口
@@ -158,6 +159,7 @@ let webpackConfigCommon = {
     },
     module: {
         // unsafeCache: process.env.NODE_MODE === 'production' ? false : true,
+        generator: {},
         rules: [
             {
                 test: /\.css$/,
@@ -196,48 +198,28 @@ let webpackConfigCommon = {
             },
             {
                 test: /\.(png|jpg|gif|jpeg|webp)$/,
-                use: {
-                    loader: 'url-loader',
-                    options: {
-                        limit: 1000,
-                        name: '[hash:7].[ext]',
-                        outputPath: 'assets/images',
-                        esModule: false
-                    }
+                type: 'asset',
+                generator: {
+                    filename: 'images/[hash][ext][query]'
                 }
             },
             {
                 test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
-                use: {
-                    loader: 'url-loader',
-                    options: {
-                        limit: 1000,
-                        name: '[hash:7].[ext]',
-                        outputPath: 'assets/fonts',
-                        esModule: false
-                    }
+                type: 'asset/resource',
+                generator: {
+                    filename: 'images/[hash][ext][query]'
                 }
             },
             {
                 test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)$/,
-                use: {
-                    loader: 'url-loader',
-                    options: {
-                        limit: 1000,
-                        name: '[hash:7].[ext]',
-                        outputPath: 'assets/videos',
-                        esModule: false
-                    }
+                type: 'asset/resource',
+                generator: {
+                    filename: 'images/[hash][ext][query]'
                 }
             },
             {
                 test: /\.(md)$/,
-                use: {
-                    loader: 'raw-loader',
-                    options: {
-                        esModule: false
-                    }
-                }
+                type: 'asset/source'
             }
             // TODO: 添加svg和雪碧图的相关loader
         ]

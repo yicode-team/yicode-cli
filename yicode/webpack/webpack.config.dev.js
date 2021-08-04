@@ -18,17 +18,16 @@ let webpackConfigCommon = require(path.resolve(yicodePaths.cliDir, 'yicode', 'we
 
 let webpackConfigCurrent = {
     // 开发环境开启缓存
-    cache: true,
-    devtool: 'eval-source-map',
-    parallelism: 1,
+    cache: { type: 'memory' },
+    // devtool: 'eval-source-map',
+    devtool: 'source-map',
+    parallelism: 100,
     // 打包发生错误时不停止打包
     bail: false,
     optimization: {
         // minimize: false,
         // namedModules: true,
         // namedChunks: true,
-        moduleIds: 'named',
-        chunkIds: 'named',
         // 在设置为 true 时，告知 webpack 通过将导入修改为更短的字符串，来减少 WASM 大小。
         mangleWasmImports: false,
         // 会影响webpack性能，默认禁用

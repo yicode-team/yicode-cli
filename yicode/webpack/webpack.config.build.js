@@ -14,7 +14,7 @@ let yicodeUtils = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', '
 let currentConfig = {
     // 生产环境禁用缓存
     cache: false,
-    parallelism: 100,
+    parallelism: 10,
     profile: false,
     // 打包发生错误时停止打包
     bail: true,
@@ -22,8 +22,6 @@ let currentConfig = {
         // minimize: false,
         // namedModules: true,
         // namedChunks: true,
-        moduleIds: 'deterministic',
-        chunkIds: 'deterministic',
         // 在设置为 true 时，告知 webpack 通过将导入修改为更短的字符串，来减少 WASM 大小。
         mangleWasmImports: true,
         // 会影响webpack性能，默认禁用
