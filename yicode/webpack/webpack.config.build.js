@@ -15,6 +15,7 @@ let currentConfig = {
     // 生产环境禁用缓存
     cache: false,
     parallelism: 10,
+    devtool: 'hidden-source-map',
     profile: false,
     // 打包发生错误时停止打包
     bail: true,

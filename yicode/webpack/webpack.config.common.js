@@ -37,9 +37,6 @@ let webpackConfigCommon = {
     name: 'yicode-cli',
     // TODO: 搞清楚这个参数的含义 2021.2.13
     profile: false,
-
-    // 编译记录文件记录
-    recordsPath: path.join(yicodePaths.cacheDir, 'records.json'),
     // 入口
     entry: path.join(yicodePaths.srcDir, 'main.js'),
     // 基础目录，绝对路径，用于从配置中解析入口点(entry point)和 加载器(loader)。
@@ -48,8 +45,7 @@ let webpackConfigCommon = {
     output: {
         path: yicodePaths.distDir,
         filename: 'js/[name].[fullhash:7].js',
-        publicPath: './',
-        clean: true
+        publicPath: './'
     },
     // 解析
     resolve: {
@@ -159,7 +155,6 @@ let webpackConfigCommon = {
     },
     module: {
         // unsafeCache: process.env.NODE_MODE === 'production' ? false : true,
-        generator: {},
         rules: [
             {
                 test: /\.css$/,
@@ -198,7 +193,7 @@ let webpackConfigCommon = {
             },
             {
                 test: /\.(png|jpg|gif|jpeg|webp)$/,
-                type: 'asset',
+                type: 'asset/resource',
                 generator: {
                     filename: 'images/[hash][ext][query]'
                 }
@@ -207,14 +202,14 @@ let webpackConfigCommon = {
                 test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
                 type: 'asset/resource',
                 generator: {
-                    filename: 'images/[hash][ext][query]'
+                    filename: 'fonts/[hash][ext][query]'
                 }
             },
             {
                 test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)$/,
                 type: 'asset/resource',
                 generator: {
-                    filename: 'images/[hash][ext][query]'
+                    filename: 'videos/[hash][ext][query]'
                 }
             },
             {
