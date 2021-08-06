@@ -17,43 +17,15 @@ let yicodeUtils = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', '
 let webpackConfigCommon = require(path.resolve(yicodePaths.cliDir, 'yicode', 'webpack', 'webpack.config.common.js'));
 
 let webpackConfigCurrent = {
-    // 开发环境开启缓存
-    cache: { type: 'memory' },
-    // devtool: 'eval-source-map',
-    devtool: 'source-map',
-    parallelism: 100,
     // 打包发生错误时不停止打包
     bail: false,
+    // 开发环境开启缓存
+    cache: {
+        type: 'memory',
+        maxGenerations: 3
+    },
+    devtool: 'eval-source-map',
     optimization: {
-        // minimize: false,
-        // namedModules: true,
-        // namedChunks: true,
-        // 在设置为 true 时，告知 webpack 通过将导入修改为更短的字符串，来减少 WASM 大小。
-        mangleWasmImports: false,
-        // 会影响webpack性能，默认禁用
-        removeAvailableModules: false,
-        // 移除空的chunks
-        removeEmptyChunks: false,
-        // 合并相同模块的chunks，生产模式优化
-        mergeDuplicateChunks: false,
-        // 生成模式优化，其他模式禁用，加载较大的chunk后，是否引入子集一起打包
-        flagIncludedChunks: false,
-        // 为export * from 生成更高效的代码，摇树优化
-        providedExports: false,
-        // 由webpack决定每个模块的导出内容，与providedExports有关，摇树优化
-        usedExports: false,
-        // 合并模块，生产模式启用，与providedExports和usedExports有关
-        concatenateModules: false,
-        // 副作用
-        sideEffects: true,
-        // 压缩导出
-        mangleExports: false,
-        // 内部图分析，用于摇树优化
-        innerGraph: false,
-        // 资源变动不重新计算内容hash
-        realContentHash: true,
-        // 先对记录
-        portableRecords: false,
         splitChunks: {
             automaticNameDelimiter: '~',
             chunks: 'all',
@@ -92,7 +64,7 @@ let webpackConfigCurrent = {
     },
     plugins: [
         //
-        new Webpack.HotModuleReplacementPlugin()
+        // new Webpack.HotModuleReplacementPlugin()
         // new ESLintPlugin(yicodeConfig.eslint.options),
         // new StylelintPlugin(yicodeConfig.stylelint.options)
     ]

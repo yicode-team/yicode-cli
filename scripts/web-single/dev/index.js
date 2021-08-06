@@ -19,6 +19,8 @@ let yicodePaths = require('../../../yicode/helper/paths.js');
 let yicodePackage = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'package.js'));
 let yicodeConfig = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'config.js'));
 let yicodeUtils = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'utils.js'));
+// 友好错误插件配置
+let friendlyErrorsConfig = require(path.resolve(yicodePaths.cliDir, 'yicode', 'plugin', 'friendly-errors.config.js'));
 
 // 提示参数收集
 let promptParams = {};
@@ -38,9 +40,9 @@ async function runDevelopment() {
     let defaultDevServer = require('./devServer.js');
 
     // 合并开发服务配置参数
-    let devServerConfig = merge(defaultDevServer, yicodeConfig.devServer, { devMiddleware: { writeToDisk: promptParams.isWriteToDisk } });
+    let devServerConfig = merge(defaultDevServer, yicodeConfig.devServer);
 
-    // 确保port是有值的
+    // 如果port没有值，则从8000 - 9000端口中选择一个
     if (!devServerConfig.port) {
         devServerConfig.port = await portfinder.getPortPromise({ port: 8000, stopPort: 9000 });
     }
@@ -48,20 +50,14 @@ async function runDevelopment() {
     // 判断协议类型
     let protocol = devServerConfig.https === true ? 'https' : 'http';
 
-    // 追加开发环境插件
-    webpackConfig.plugins.push(
-        new FriendlyErrorsWebpackPlugin({
-            compilationSuccessInfo: {
-                messages: [`应用已启动：${protocol}://${devServerConfig.host}:${devServerConfig.port}`],
-                notes: ['使用文档请访问网址 [ https://yicode.site ]']
-            }
-        })
-    );
+    // 追加友好错误提示插件
+    friendlyErrorsConfig.compilationSuccessInfo.messages.push(`应用已启动：${protocol}://${devServerConfig.host}:${devServerConfig.port}`);
+    friendlyErrorsConfig.compilationSuccessInfo.notes.unshift('官方文档：[ https://yicode.site ]');
+    webpackConfig.plugins.push(new FriendlyErrorsWebpackPlugin(friendlyErrorsConfig));
 
     // 模块热替换
-    // webpackDevServer.addDevServerEntrypoints(webpackConfig, devServerConfig);
     let compiler = webpack(webpackConfig);
-    let server = new webpackDevServer(compiler, devServerConfig);
+    let server = new webpackDevServer(devServerConfig, compiler);
 
     server.listen(devServerConfig.port, devServerConfig.host, () => {
         // console.log(`开发环境已启动：${protocol}://${devServerConfig.host}:${port}`);
@@ -71,39 +67,27 @@ function main(options) {
     promptParams = _.merge(promptParams, options);
     // 通知更新
     updateNotifier({ pkg: yicodePackage.cli }).notify();
+
+    // 动态读取环境变量文件;
+    let envFiles = fs.readdirSync(path.resolve(yicodePaths.srcDir, 'env')).map((fileName) => {
+        return {
+            value: path.basename(fileName, '.env'),
+            name: fileName
+        };
+    });
     inquirer
         .prompt([
             {
-                type: 'confirm',
-                name: 'isWriteToDisk',
-                message: '是否将打包文件存放到本地？（默认：否）',
-                default: false
+                type: 'list',
+                name: 'envFile',
+                choices: envFiles,
+                message: '请选择使用的环境变量文件'
             }
         ])
         .then((answer) => {
             promptParams = _.merge(promptParams, answer);
-
-            // 动态读取环境变量文件;
-            let envFiles = fs.readdirSync(path.resolve(yicodePaths.srcDir, 'env')).map((fileName) => {
-                return {
-                    value: path.basename(fileName, '.env'),
-                    name: fileName
-                };
-            });
-            inquirer
-                .prompt([
-                    {
-                        type: 'list',
-                        name: 'envFile',
-                        choices: envFiles,
-                        message: '选择使用的环境变量文件'
-                    }
-                ])
-                .then((answer) => {
-                    promptParams = _.merge(promptParams, answer);
-                    // 开发脚本
-                    runDevelopment();
-                });
+            // 开发脚本
+            runDevelopment();
         });
 }
 

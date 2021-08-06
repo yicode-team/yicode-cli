@@ -10,10 +10,7 @@ module.exports = {
     allowedHosts: 'all',
     bonjour: false,
     client: {
-        logging: 'none',
-        overlay: true,
-        progress: true,
-        webSocketURL: {}
+        logging: 'none'
     },
     compress: true,
     devMiddleware: {
@@ -22,13 +19,16 @@ module.exports = {
         publicPath: '/',
         serverSideRender: false
     },
-    http2: false,
-    https: false,
+    // headers: {},
     host: '127.0.0.1',
     hot: 'only',
+    http2: false,
+    https: false,
+    // ipc: {},
     liveReload: true,
     open: false,
     port: '',
+    // proxy: {},
     static: {
         directory: path.resolve(yicodePaths.srcDir, 'static'),
         staticOptions: {},

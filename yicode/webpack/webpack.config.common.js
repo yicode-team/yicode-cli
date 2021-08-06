@@ -32,11 +32,13 @@ let _loaderSassResourcesConfig = require(path.resolve(dirLoader, 'sass-resources
 
 // 导出webpack通用配置
 let webpackConfigCommon = {
+    name: 'yicode-cli',
+    // 打包发生错误时停止打包
+    bail: false,
+    // 缓存，生产模式禁用
+    cache: false,
     // 编译模式
     mode: process.env.NODE_MODE,
-    name: 'yicode-cli',
-    // TODO: 搞清楚这个参数的含义 2021.2.13
-    profile: false,
     // 入口
     entry: path.join(yicodePaths.srcDir, 'main.js'),
     // 基础目录，绝对路径，用于从配置中解析入口点(entry point)和 加载器(loader)。
@@ -45,8 +47,17 @@ let webpackConfigCommon = {
     output: {
         path: yicodePaths.distDir,
         filename: 'js/[name].[fullhash:7].js',
-        publicPath: './'
+        publicPath: './',
+        sourceMapFilename: 'sourcemaps/[file].map[query]'
     },
+    amd: false,
+    profile: false,
+    parallelism: 100,
+    infrastructureLogging: {
+        level: 'none'
+    },
+    // stats: 'errors-warnings',
+    stats: 'none',
     // 解析
     resolve: {
         // 别名
@@ -74,64 +85,7 @@ let webpackConfigCommon = {
             'node_modules'
         ]
     },
-    infrastructureLogging: {
-        // level: "info",
-        level: 'verbose'
-    },
-    // stats: "errors-warnings",
-    stats: {
-        assets: false,
-        assetsSort: '!size',
-        builtAt: false,
-        moduleAssets: false,
-        cached: false,
-        assetsSpace: 1,
-        modulesSpace: 1,
-        cachedModules: false,
-        runtimeModules: false,
-        dependentModules: false,
-        groupAssetsByChunk: false,
-        groupAssetsByEmitStatus: false,
-        groupAssetsByInfo: false,
-        groupModulesByAttributes: false,
-        cachedAssets: false,
-        children: false,
-        chunks: false,
-        chunkGroups: false,
-        chunkModules: false,
-        chunkOrigins: false,
-        chunksSort: 'name',
-        colors: false,
-        depth: false,
-        entrypoints: false,
-        env: false,
-        orphanModules: false,
-        errors: false,
-        errorDetails: false,
-        errorStack: false,
-        hash: false,
-        logging: 'verbose',
-        loggingTrace: false,
-        modules: false,
-        modulesSort: '!size',
-        moduleTrace: false,
-        outputPath: false,
-        performance: false,
-        providedExports: false,
-        errorsCount: false,
-        warningsCount: false,
-        publicPath: false,
-        reasons: false,
-        relatedAssets: false,
-        source: false,
-        timings: false,
-        usedExports: false,
-        version: false,
-        chunkGroupAuxiliary: false,
-        chunkGroupChildren: false,
-        chunkGroupMaxAssets: 1,
-        warnings: false
-    },
+    watch: false,
     // 外部扩展
     externals: yicodeConfig.externals,
     // node
@@ -242,27 +196,22 @@ let webpackConfigCommon = {
         new Webpack.ProvidePlugin(yicodeConfig.providePlugin)
     ]
 };
+
+// 设置环境变量文件
+let envPath = '';
 if (process.env.NODE_ENV_FILE && process.env.NODE_ENV_FILE !== 'undefined') {
-    webpackConfigCommon.plugins.push(
-        new Dotenv({
-            path: path.join(yicodePaths.srcDir, 'env', process.env.NODE_ENV_FILE + '.env'),
-            safe: false,
-            allowEmptyValues: true,
-            systemvars: true,
-            silent: false,
-            defaults: false
-        })
-    );
+    envPath = path.join(yicodePaths.srcDir, 'env', process.env.NODE_ENV_FILE + '.env');
 } else {
-    webpackConfigCommon.plugins.push(
-        new Dotenv({
-            path: path.join(yicodePaths.srcDir, 'env', process.env.NODE_MODE + '.env'),
-            safe: false,
-            allowEmptyValues: true,
-            systemvars: true,
-            silent: false,
-            defaults: false
-        })
-    );
+    envPath = path.join(yicodePaths.srcDir, 'env', process.env.NODE_MODE + '.env');
 }
+webpackConfigCommon.plugins.push(
+    new Dotenv({
+        path: envPath,
+        safe: false,
+        allowEmptyValues: true,
+        systemvars: true,
+        silent: false,
+        defaults: false
+    })
+);
 module.exports = webpackConfigCommon;
