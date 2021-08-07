@@ -12,6 +12,7 @@ let CopyWebpackPlugin = require('copy-webpack-plugin');
 let MiniCssExtractPlugin = require('mini-css-extract-plugin');
 let ProgressBarPlugin = require('progress-bar-webpack-plugin');
 let Dotenv = require('dotenv-webpack');
+let ImportFresh = require('import-fresh');
 
 //  配置文件
 let yicodePaths = require('../helper/paths.js');
@@ -198,14 +199,28 @@ let webpackConfigCommon = {
     ]
 };
 
-// 设置环境变量文件
-let envPath = require(path.join(yicodePaths.srcDir, 'env', process.env.NODE_ENV_FILE + '.js'));
-let envObject = {};
-_.forOwn(envPath, (value, key) => {
-    envObject['YICODE_' + _.toUpper(key)] = JSON.stringify(value);
-});
-console.log(envObject);
-webpackConfigCommon.plugins.push(new Webpack.DefinePlugin(envObject));
+/**
+ * 设置环境变量文件
+ * [修改/新增/删除]环境变量时，自动更新其值，无需重新启动yicode
+ */
+let envFilePath = path.join(yicodePaths.srcDir, 'env', process.env.NODE_ENV_FILE + '.js');
+webpackConfigCommon.plugins.push(
+    new Webpack.DefinePlugin({
+        YICODE_ENV: Webpack.DefinePlugin.runtimeValue(
+            function getRuntimeValue() {
+                let envFileHash = ImportFresh(envFilePath);
+                return JSON.stringify(envFileHash);
+            },
+            {
+                fileDependencies: [
+                    //
+                    envFilePath,
+                    path.resolve(yicodePaths.rootDir, 'yicode.config.js')
+                ]
+            }
+        )
+    })
+);
 
 // 导出通用配置
 module.exports = webpackConfigCommon;
