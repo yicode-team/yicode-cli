@@ -58,7 +58,6 @@ async function runProduction() {
 function main(options) {
     promptParams = _.merge(promptParams, options);
     // 动态读取环境变量文件;
-    // 动态读取环境变量文件;
     let envFiles = fastGlob
         .sync('*.js', {
             dot: false,
