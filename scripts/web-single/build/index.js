@@ -58,12 +58,20 @@ async function runProduction() {
 function main(options) {
     promptParams = _.merge(promptParams, options);
     // 动态读取环境变量文件;
-    let envFiles = fs.readdirSync(path.resolve(yicodePaths.srcDir, 'env')).map((fileName) => {
-        return {
-            value: path.basename(fileName, '.env'),
-            name: fileName
-        };
-    });
+    // 动态读取环境变量文件;
+    let envFiles = fastGlob
+        .sync('*.js', {
+            dot: false,
+            absolute: false,
+            cwd: path.resolve(yicodePaths.srcDir, 'env'),
+            onlyFiles: true
+        })
+        .map((fileName) => {
+            return {
+                value: path.basename(fileName, '.js'),
+                name: fileName
+            };
+        });
     inquirer
         .prompt([
             {

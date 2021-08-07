@@ -5,6 +5,7 @@ let path = require('path');
 let _ = require('lodash');
 let fs = require('fs-extra');
 let webpack = require('webpack');
+let fastGlob = require('fast-glob');
 let { merge } = require('webpack-merge');
 let portfinder = require('portfinder');
 let FriendlyErrorsWebpackPlugin = require('@nuxt/friendly-errors-webpack-plugin');
@@ -69,12 +70,19 @@ function main(options) {
     updateNotifier({ pkg: yicodePackage.cli }).notify();
 
     // 动态读取环境变量文件;
-    let envFiles = fs.readdirSync(path.resolve(yicodePaths.srcDir, 'env')).map((fileName) => {
-        return {
-            value: path.basename(fileName, '.env'),
-            name: fileName
-        };
-    });
+    let envFiles = fastGlob
+        .sync('*.js', {
+            dot: false,
+            absolute: false,
+            cwd: path.resolve(yicodePaths.srcDir, 'env'),
+            onlyFiles: true
+        })
+        .map((fileName) => {
+            return {
+                value: path.basename(fileName, '.js'),
+                name: fileName
+            };
+        });
     inquirer
         .prompt([
             {
@@ -86,7 +94,6 @@ function main(options) {
         ])
         .then((answer) => {
             promptParams = _.merge(promptParams, answer);
-            // 开发脚本
             runDevelopment();
         });
 }

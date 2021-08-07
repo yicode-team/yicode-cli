@@ -3,6 +3,7 @@ let path = require('path');
 
 // 第三方模块
 let Webpack = require('webpack');
+let _ = require('lodash');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
 let VueLoaderPlugin = require('vue-loader/lib/plugin');
 let { merge } = require('webpack-merge');
@@ -198,20 +199,13 @@ let webpackConfigCommon = {
 };
 
 // 设置环境变量文件
-let envPath = '';
-if (process.env.NODE_ENV_FILE && process.env.NODE_ENV_FILE !== 'undefined') {
-    envPath = path.join(yicodePaths.srcDir, 'env', process.env.NODE_ENV_FILE + '.env');
-} else {
-    envPath = path.join(yicodePaths.srcDir, 'env', process.env.NODE_MODE + '.env');
-}
-webpackConfigCommon.plugins.push(
-    new Dotenv({
-        path: envPath,
-        safe: false,
-        allowEmptyValues: true,
-        systemvars: true,
-        silent: false,
-        defaults: false
-    })
-);
+let envPath = require(path.join(yicodePaths.srcDir, 'env', process.env.NODE_ENV_FILE + '.js'));
+let envObject = {};
+_.forOwn(envPath, (value, key) => {
+    envObject['YICODE_' + _.toUpper(key)] = JSON.stringify(value);
+});
+console.log(envObject);
+webpackConfigCommon.plugins.push(new Webpack.DefinePlugin(envObject));
+
+// 导出通用配置
 module.exports = webpackConfigCommon;
