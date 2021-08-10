@@ -35,7 +35,7 @@ module.exports = function yicodeTemplateWebSingle() {
                         value: 'dev'
                     },
                     {
-                        name: 'build' + chalk.cyanBright('  发布到线上（测试/正式）服务器环境'),
+                        name: 'build' + chalk.cyanBright(' 进行线上（测试/正式）环境编译打包'),
                         value: 'build'
                     },
                     {
@@ -51,6 +51,6 @@ module.exports = function yicodeTemplateWebSingle() {
         ])
         .then((answer) => {
             promptParams = _.merge(promptParams, answer);
-            require(path.resolve(yicodePaths.cliDir, 'scripts', yicodeConfig.projectType, promptParams.command, 'index.js'))(promptParams);
+            require(path.resolve(yicodePaths.cliDir, 'scripts', yicodeConfig.projectScript, promptParams.command, 'index.js'))(promptParams);
         });
 };

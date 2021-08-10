@@ -4,6 +4,7 @@ let path = require('path');
 let fs = require('fs-extra');
 let _ = require('lodash');
 let schemeUtils = require('schema-utils');
+let requireFresh = require('import-fresh');
 
 // 内部模块
 let yicodePaths = require('./paths.js');
@@ -14,18 +15,19 @@ let projectConfigPath = path.join(yicodePaths.rootDir, 'yicode.config.js');
 let projectConfig = {};
 
 // 工具配置路径
-let yicodeCacheConfig = require(path.resolve(yicodePaths.cliDir, 'cache', 'yicode.config.json'));
+// let yicodeCacheConfig = require(path.resolve(yicodePaths.cliDir, 'cache', 'yicode.config.json'));
 
 /**
  * 如果项目路径存在，则导入该配置
  */
-if (fs.pathExists(projectConfigPath) === true) {
+if (fs.pathExistsSync(projectConfigPath) === true) {
     try {
-        projectConfig = require(projectConfigPath);
+        projectConfig = requireFresh(projectConfigPath);
         if (_.isObject(projectConfig) === false) {
             console.log('yicode.config.js文件必须导出一个对象');
             process.exit(1);
         }
+        projectConfig.projectScript = projectConfig.projectType.split('@')[0];
     } catch (err) {
         console.log('yicode.config.js文件必须导出一个对象');
         console.log(err);
@@ -87,5 +89,5 @@ let yicodeConfig = {
 // schemeUtils.validate(yicodeScheme, yicodeConfig, { name: '[ yicode.config.js ]' });
 
 // 配置合并
-let AllConfig = _.merge(yicodeConfig, projectConfig, yicodeCacheConfig);
+let AllConfig = _.merge(yicodeConfig, projectConfig);
 module.exports = AllConfig;

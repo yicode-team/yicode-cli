@@ -14,15 +14,23 @@ let yicodeUtils = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', '
 
 // 提示参数收集
 let promptParams = {};
-// 项目路径
-let projectGitPath = {
-    'web-single': {
-        url: 'https://e.coding.net:chensuiyi/yicode/yicode-template-web-single#master',
-        // url: 'https://gitee.com:banshiweichen/yicode-template-web-single#master',
-        type: 'web-single',
-        name: 'webpack单页应用开发'
+
+// 项目配置
+let projectSetup = [
+    {
+        name: yicodeUtils.print(_.padEnd('vue-single', 20, ' ')) + chalk.cyanBright(` 通用vue单页应用开发`),
+        value: 'vue-single',
+        url: 'https://e.coding.net:chensuiyi/yicode/yicode-template-vue-single#master',
+        describe: '通用vue单页应用开发'
+    },
+    {
+        name: yicodeUtils.print(_.padEnd('vue-single@blog', 20, ' ')) + chalk.cyanBright(` yicode官方博客模板`),
+        value: 'vue-single@blog',
+        url: 'https://e.coding.net:chensuiyi/yicode/yicode-template-vue-single-blog#master',
+        describe: 'yicode官方博客模板'
     }
-};
+];
+let projectObjct = _.keyBy(projectSetup, 'value');
 
 // 检查yicode开发环境
 function check_yicodeDevlopmentEnvironment() {
@@ -33,7 +41,7 @@ function check_yicodeDevlopmentEnvironment() {
                 {
                     type: 'confirm',
                     name: 'isCreateProject',
-                    message: `当前目录不是合法的yicode项目，是否创建新项目？`,
+                    message: `当前目录不是合法的yicode项目，是否创建新项目？（默认：是）`,
                     default: true
                 }
             ])
@@ -75,8 +83,8 @@ function check_yicodeDevlopmentEnvironment() {
                 }
             });
     } else {
-        let yicodeConfig = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'config.js'));
-        require(path.resolve(yicodePaths.cliDir, 'scripts', yicodeConfig.projectType, 'index.js'))();
+        let yicodeConfig = requireFresh(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'config.js'));
+        require(path.resolve(yicodePaths.cliDir, 'scripts', yicodeConfig.projectScript, 'index.js'))();
     }
 }
 
@@ -89,55 +97,22 @@ function chooseProjectType(isRewrite = false) {
                 name: 'projectType',
                 message: '请选择一个项目类型',
                 loop: false,
-                choices: [
-                    {
-                        name: yicodeUtils.print(_.padEnd('web-single', 14, ' ')) + chalk.cyanBright('  webpack单页应用开发'),
-                        value: 'web-single'
-                    }
-                    // {
-                    //     name: yicodeUtils.print(_.padEnd('web-multiple', 14, ' ')) + chalk.cyanBright('  webpack多页应用开发'),
-                    //     value: 'web-multiple'
-                    // },
-                    // {
-                    //     name: yicodeUtils.print(_.padEnd('web-static', 14, ' ')) + chalk.cyanBright('  gulp多页静态项目开发'),
-                    //     value: 'web-static'
-                    // },
-                    // {
-                    //     name: yicodeUtils.print(_.padEnd('uniapp-mini', 14, ' ')) + chalk.cyanBright('  基于uniapp开发小程序'),
-                    //     value: 'uniapp-mini'
-                    // },
-                    // {
-                    //     name: yicodeUtils.print(_.padEnd('weixin-mini', 14, ' ')) + chalk.cyanBright('  微信原生小程序项目'),
-                    //     value: 'weixinMini'
-                    // },
-                    // {
-                    //     name: yicodeUtils.print(_.padEnd('php-api', 14, ' ')) + chalk.cyanBright('  基于php开发后端接口'),
-                    //     value: 'phpApi'
-                    // },
-                    // {
-                    //     name: yicodeUtils.print(_.padEnd('node-api', 14, ' ')) + chalk.cyanBright('  基于nodejs开发后端接口'),
-                    //     value: 'nodeApi'
-                    // },
-                    // {
-                    //     name: yicodeUtils.print(_.padEnd('java-api', 14, ' ')) + chalk.cyanBright('  基于java开发后端接口'),
-                    //     value: 'javaApi'
-                    // }
-                ]
+                choices: projectSetup
             }
         ])
         .then((answer) => {
             promptParams = _.merge(promptParams, answer);
             let spinner = ora();
             spinner.start(chalk.green('模板下载中...'));
+            promptParams.script = promptParams.projectType.split('@')[0];
             yicodeUtils
-                .downloadProject(projectGitPath[promptParams.projectType].url, isRewrite)
+                .downloadProject(projectObjct[promptParams.projectType].url, isRewrite)
                 .then((res) => {
                     if (isRewrite === true) {
                         fs.copySync(yicodePaths.tempDir, yicodePaths.rootDir, { overwrite: true });
                         fs.removeSync(yicodePaths.tempDir);
                     }
-                    spinner.succeed(chalk.greenBright(`${yicodeUtils.print(projectGitPath[promptParams.projectType].type + ' - ' + projectGitPath[promptParams.projectType].name)}，下载成功`));
-                    // console.log(chalk.greenBright(`${yicodeUtils.print(projectGitPath[promptParams.projectType].type + ' - ' + projectGitPath[promptParams.projectType].name)}，下载成功`));
+                    spinner.succeed(chalk.greenBright(`${yicodeUtils.print(promptParams.projectType + ' - ' + projectObjct[promptParams.projectType].name)}，下载成功`));
                     console.log(chalk.whiteBright(`请首先使用${yicodeUtils.print('npm install')}命令，安装项目依赖`));
                     console.log(chalk.whiteBright(`然后使用${yicodeUtils.print('yicode dev')}命令，启动本地开发环境`));
                     process.exit(1);

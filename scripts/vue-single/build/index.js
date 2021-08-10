@@ -7,6 +7,7 @@ let shell = require('shelljs');
 let { table } = require('table');
 let FriendlyErrorsWebpackPlugin = require('@nuxt/friendly-errors-webpack-plugin');
 let inquirer = require('inquirer');
+let fastGlob = require('fast-glob');
 
 // 配置相关
 let yicodePaths = require('../../../yicode/helper/paths.js');
