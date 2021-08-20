@@ -99,7 +99,7 @@ let webpackConfigCommon = {
     //
     performance: {
         hints: 'warning',
-        maxEntrypointSize: 1024 * 1024 * 20,
+        maxEntrypointSize: 1024 * 1024 * 50,
         maxAssetSize: 1024 * 1024 * 30
     },
     // 优化
