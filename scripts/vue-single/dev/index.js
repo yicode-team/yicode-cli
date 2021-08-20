@@ -60,9 +60,13 @@ async function runDevelopment() {
     let compiler = webpack(webpackConfig);
     let server = new webpackDevServer(devServerConfig, compiler);
 
-    server.listen(devServerConfig.port, devServerConfig.host, () => {
-        // console.log(`开发环境已启动：${protocol}://${devServerConfig.host}:${port}`);
+    server.startCallback(() => {
+        // console.log("Running");
     });
+
+    // server.listen(devServerConfig.port, devServerConfig.host, () => {
+    // console.log(`开发环境已启动：${protocol}://${devServerConfig.host}:${port}`);
+    // });
 }
 function main(options) {
     promptParams = _.merge(promptParams, options);
