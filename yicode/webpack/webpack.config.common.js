@@ -11,7 +11,7 @@ let { CleanWebpackPlugin } = require('clean-webpack-plugin');
 let CopyWebpackPlugin = require('copy-webpack-plugin');
 let MiniCssExtractPlugin = require('mini-css-extract-plugin');
 let ProgressBarPlugin = require('progress-bar-webpack-plugin');
-let Dotenv = require('dotenv-webpack');
+// let Dotenv = require('dotenv-webpack');
 let ImportFresh = require('import-fresh');
 
 //  配置文件
