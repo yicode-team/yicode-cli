@@ -46,10 +46,6 @@ let yicodeConfig = {
         enable: false,
         options: {}
     },
-    providePlugin: {},
-    externals: {},
-    // 开发配置
-    devServer: {},
     eslint: {
         options: {
             // 检测根目录
@@ -83,6 +79,14 @@ let yicodeConfig = {
             // 只检测改变的文件
             lintDirtyModulesOnly: true
         }
+    },
+    webpack: {
+        // 全局模块
+        providePlugin: {},
+        // 外部链接
+        externals: {},
+        // 开发配置
+        devServer: {}
     }
 };
 
