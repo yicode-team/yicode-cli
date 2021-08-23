@@ -1,6 +1,6 @@
 {
     "name": "yicode-cli",
-    "version": "0.0.15",
+    "version": "0.0.16",
     "description": "a cli tool that makes code development easier.",
     "main": "index.js",
     "private": false,
