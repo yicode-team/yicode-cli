@@ -56,7 +56,6 @@ async function runDevelopment() {
     friendlyErrorsConfig.compilationSuccessInfo.notes.unshift('官方文档：[ https://yicode.site ]');
     webpackConfig.plugins.push(new FriendlyErrorsWebpackPlugin(friendlyErrorsConfig));
 
-    // 模块热替换
     let compiler = webpack(webpackConfig);
     let server = new webpackDevServer(devServerConfig, compiler);
 
