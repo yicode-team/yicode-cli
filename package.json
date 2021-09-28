@@ -12,7 +12,6 @@
         "yicode": "bin/yicode-cli.js"
     },
     "scripts": {
-        "postinstall": "husky install",
         "release": "release-it"
     },
     "repository": {
