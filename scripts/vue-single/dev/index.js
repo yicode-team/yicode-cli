@@ -41,7 +41,7 @@ async function runDevelopment() {
     let defaultDevServer = require('./devServer.js');
 
     // 合并开发服务配置参数
-    let devServerConfig = merge(defaultDevServer, yicodeConfig.devServer);
+    let devServerConfig = merge(defaultDevServer, yicodeConfig.devServer || yicodeConfig.webpackConfig.devServer);
 
     // 如果port没有值，则从8000 - 9000端口中选择一个
     if (!devServerConfig.port) {
