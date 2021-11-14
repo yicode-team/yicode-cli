@@ -1,4 +1,4 @@
-module.exports = `
+export default `
 <template>
     <<%= aliasNames.tag %> class="comp-<%= names.lowerCaseName %>">
         comp-<%= names.lowerCaseName %>

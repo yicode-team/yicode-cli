@@ -1,4 +1,4 @@
-module.exports = `import Vue from 'vue';
+export default `import Vue from 'vue';
 Vue.directive('<%= names.startCaseName %>', {
 
 });

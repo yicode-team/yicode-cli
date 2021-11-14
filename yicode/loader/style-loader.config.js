@@ -1,13 +1,13 @@
-let MiniCssExtractPlugin = require('mini-css-extract-plugin');
-let obj = {
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+let lodaerOptions = {
     loader: 'style-loader'
 };
 if (process.env.NODE_MODE === 'production') {
-    obj = {
+    lodaerOptions = {
         loader: MiniCssExtractPlugin.loader,
         options: {
             publicPath: '../'
         }
     };
 }
-module.exports = obj;
+export default lodaerOptions;

@@ -1,18 +1,18 @@
-let path = require('path');
-let _ = require('lodash');
-let autoprefixer = require('autoprefixer');
+import { merge } from 'lodash-es';
+import autoprefixer from 'autoprefixer';
 
 // 配置
-let yicodePaths = require('../helper/paths.js');
-let yicodePackage = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'package.js'));
-let yicodeConfig = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'config.js'));
-let yicodeUtils = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'utils.js'));
+import { cliDir } from '../paths.js';
+import yicodeConfig from '../config.js';
 
+// 默认内置插件
 let postcssPlugin = [autoprefixer()];
+
+// 动态载入插件
 if (yicodeConfig.px2viewport && yicodeConfig.px2viewport.enable === true) {
     postcssPlugin.push([
         'postcss-px-to-viewport',
-        _.merge(
+        merge(
             {
                 unitToConvert: 'px',
                 viewportWidth: 750,
@@ -33,7 +33,7 @@ if (yicodeConfig.px2viewport && yicodeConfig.px2viewport.enable === true) {
         )
     ]);
 }
-module.exports = {
+export default {
     loader: 'postcss-loader',
     options: {
         sourceMap: process.env.NODE_MODE === 'development' ? true : false,

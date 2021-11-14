@@ -1,4 +1,4 @@
-module.exports = `
+export default `
 export default {
     path: '<%= lowerCaseNameRoutePath %>',
     component: () => import('<%= aliasNames.src %>/layout/default/index.vue'),

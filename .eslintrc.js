@@ -1,6 +1,6 @@
-let path = require('path');
-let myConfig = require('./yicode/yicode.paths.js');
-module.exports = {
+import { resolve } from 'path';
+import { cliDir } from './yicode/paths.js';
+export default {
     // 找到当前目录就不往上找了
     root: true,
     parser: 'vue-eslint-parser',
@@ -16,7 +16,7 @@ module.exports = {
         sourceType: 'module',
         // 指定babel的参数 https://github.com/babel/babel/tree/main/eslint/babel-eslint-parser#additional-parser-configuration
         babelOptions: {
-            configFile: path.join(myConfig.cliDir, 'babel.config.js')
+            configFile: resolve(cliDir, 'babel.config.js')
         }
     },
     plugins: [

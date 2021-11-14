@@ -1,4 +1,4 @@
-module.exports = {
+const exportJSON = {
     compilationSuccessInfo: {
         messages: ['---------------------------------------'],
         notes: ['联系微信：[ c91374286 ]', '更多作品：[ https://chensuiyi.com ]']
@@ -26,3 +26,5 @@ module.exports = {
     additionalFormatters: [],
     additionalTransformers: []
 };
+
+export default exportJSON;

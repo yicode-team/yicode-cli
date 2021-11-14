@@ -1,33 +1,29 @@
 // 内部模块
-let path = require('path');
+import { resolve } from 'path';
 
 // 第三方模块
-let Webpack = require('webpack');
-let _ = require('lodash');
-let HtmlWebpackPlugin = require('html-webpack-plugin');
-let VueLoaderPlugin = require('vue-loader/lib/plugin');
-let { merge } = require('webpack-merge');
-let { CleanWebpackPlugin } = require('clean-webpack-plugin');
-let CopyWebpackPlugin = require('copy-webpack-plugin');
-let MiniCssExtractPlugin = require('mini-css-extract-plugin');
-let ProgressBarPlugin = require('progress-bar-webpack-plugin');
-// let Dotenv = require('dotenv-webpack');
-let ImportFresh = require('import-fresh');
+import Webpack from 'webpack';
+import * as _ from 'lodash-es';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import { VueLoaderPlugin } from 'vue-loader';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import ProgressBarPlugin from 'progress-bar-webpack-plugin';
+import ImportFresh from 'import-fresh';
 
 //  配置文件
-let yicodePaths = require('../helper/paths.js');
-let yicodePackage = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'package.js'));
-let yicodeConfig = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'config.js'));
-let yicodeUtils = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'utils.js'));
+import { cliDir, srcDir, rootDir, distDir } from '../paths.js';
+import { yicodePackage } from '../package.js';
+import yicodeConfig from '../config.js';
 
 //  loader配置文件
-let dirLoader = path.resolve(yicodePaths.cliDir, 'yicode', 'loader');
-let _loaderPostCssConfig = require(path.resolve(dirLoader, 'postcss-loader.config.js'));
-let _loaderBabelConfig = require(path.resolve(dirLoader, 'babel-loader.config.js'));
-let _loaderCssConfig = require(path.resolve(dirLoader, 'css-loader.config.js'));
-let _loaderSassConfig = require(path.resolve(dirLoader, 'sass-loader.config.js'));
-let _loaderStyleConfig = require(path.resolve(dirLoader, 'style-loader.config.js'));
-let _loaderSassResourcesConfig = require(path.resolve(dirLoader, 'sass-resources-loader.config.js'));
+import _loaderPostCssConfig from '../loader/postcss-loader.config.js';
+import _loaderBabelConfig from '../loader/babel-loader.config.js';
+import _loaderCssConfig from '../loader/css-loader.config.js';
+import _loaderSassConfig from '../loader/sass-loader.config.js';
+import _loaderStyleConfig from '../loader/style-loader.config.js';
+import _loaderSassResourcesConfig from '../loader/sass-resources-loader.config.js';
 
 // plugin 配置文件
 // let _pluginProvideConfig = require("./plugin/provide-plugin.config.js");
@@ -40,14 +36,15 @@ let webpackConfigCommon = {
     // 缓存，生产模式禁用
     cache: false,
     // 编译模式
-    mode: process.env.NODE_MODE,
+    mode: 'development',
+    // mode: 'production',
     // 入口
-    entry: path.join(yicodePaths.srcDir, 'main.js'),
+    entry: resolve(srcDir, 'main.js'),
     // 基础目录，绝对路径，用于从配置中解析入口点(entry point)和 加载器(loader)。
-    context: yicodePaths.rootDir,
+    context: rootDir,
     // 出口
     output: {
-        path: yicodePaths.distDir,
+        path: distDir,
         filename: 'js/[name].[fullhash:7].js',
         publicPath: './',
         sourceMapFilename: 'sourcemaps/[file].map[query]'
@@ -56,45 +53,43 @@ let webpackConfigCommon = {
     profile: false,
     parallelism: 100,
     infrastructureLogging: {
-        level: 'none'
+        level: 'error'
     },
+    // stats: 'verbose',
+    stats: 'errors-warnings',
     // stats: 'errors-warnings',
-    stats: 'none',
     // 解析
     resolve: {
         // 别名
         alias: {
-            '@': yicodePaths.srcDir
+            '@': srcDir
         },
         // 模块加载路径
         modules: [
             //
-            path.join(yicodePaths.cliDir, 'node_modules'),
-            path.join(__dirname, 'node_modules'),
+            resolve(cliDir, 'node_modules'),
             'node_modules'
         ],
         fallback: {
-            crypto: require.resolve('crypto-browserify'),
-            stream: require.resolve('stream-browserify')
+            // crypto: require.resolve('crypto-browserify'),
+            // stream: require.resolve('stream-browserify')
         }
     },
     // loader加载路径
     resolveLoader: {
         modules: [
             //
-            path.join(yicodePaths.cliDir, 'yicode'),
-            path.join(yicodePaths.cliDir, 'node_modules'),
+            resolve(cliDir, 'yicode'),
+            resolve(cliDir, 'node_modules'),
             'node_modules'
         ]
     },
     watch: false,
     // 外部扩展
-    externals: yicodeConfig.externals,
+    externals: yicodeConfig.webpack.externals,
     // node
     node: {
-        global: false,
-        __filename: true,
-        __dirname: true
+        global: false
     },
     //
     performance: {
@@ -135,9 +130,12 @@ let webpackConfigCommon = {
                 sideEffects: true
             },
             {
-                test: /\.js$/,
+                test: /\.m?js$/,
                 use: [_loaderBabelConfig],
-                exclude: /node_modules/
+                exclude: {
+                    and: [/node_modules/],
+                    not: []
+                }
             },
             {
                 test: /\.vue$/,
@@ -176,13 +174,12 @@ let webpackConfigCommon = {
         ]
     },
     plugins: [
-        //
         new CleanWebpackPlugin(),
         new CopyWebpackPlugin({
             patterns: [
                 {
-                    from: path.join(yicodePaths.srcDir, 'static'),
-                    to: path.join(yicodePaths.distDir, 'static')
+                    from: resolve(srcDir, 'static'),
+                    to: resolve(distDir, 'static')
                 }
             ]
         }),
@@ -191,11 +188,11 @@ let webpackConfigCommon = {
         }),
         new HtmlWebpackPlugin({
             minify: false,
-            template: path.join(yicodePaths.srcDir, 'tpls', 'index.html')
+            template: resolve(srcDir, 'tpls', 'index.html')
         }),
         new VueLoaderPlugin(),
         new ProgressBarPlugin(),
-        new Webpack.ProvidePlugin(yicodeConfig.providePlugin)
+        new Webpack.ProvidePlugin(yicodeConfig.webpack.providePlugin)
     ]
 };
 
@@ -203,7 +200,7 @@ let webpackConfigCommon = {
  * 设置环境变量文件
  * [修改/新增/删除]环境变量时，自动更新其值，无需重新启动yicode
  */
-let envFilePath = path.join(yicodePaths.srcDir, 'env', process.env.NODE_ENV_FILE + '.js');
+let envFilePath = resolve(srcDir, 'env', process.env.NODE_ENV_FILE + '.js');
 webpackConfigCommon.plugins.push(
     new Webpack.DefinePlugin({
         YICODE_ENV: Webpack.DefinePlugin.runtimeValue(
@@ -215,7 +212,7 @@ webpackConfigCommon.plugins.push(
                 fileDependencies: [
                     //
                     envFilePath,
-                    path.resolve(yicodePaths.rootDir, 'yicode.config.js')
+                    resolve(rootDir, 'yicode.config.js')
                 ]
             }
         )
@@ -223,4 +220,4 @@ webpackConfigCommon.plugins.push(
 );
 
 // 导出通用配置
-module.exports = webpackConfigCommon;
+export default webpackConfigCommon;

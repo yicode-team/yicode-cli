@@ -1,15 +1,11 @@
 // 第三方模块
-let path = require('path');
-let { merge } = require('webpack-merge');
-let { WebpackConfigDumpPlugin } = require('webpack-config-dump-plugin');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-let configCommon = require('./webpack.config.common.js');
+import { merge as webpackMerge } from 'webpack-merge';
+import { WebpackConfigDumpPlugin } from 'webpack-config-dump-plugin';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import configCommon from './webpack.config.common.js';
 
 // 配置
-let yicodePaths = require('../helper/paths.js');
-let yicodePackage = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'package.js'));
-let yicodeConfig = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'config.js'));
-let yicodeUtils = require(path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'utils.js'));
+import { cacheDir } from '../paths.js';
 
 let currentConfig = {
     // 生产环境禁用缓存
@@ -19,37 +15,6 @@ let currentConfig = {
     // 打包发生错误时停止打包
     bail: true,
     optimization: {
-        // minimize: false,
-        // namedModules: true,
-        // namedChunks: true,
-        // 在设置为 true 时，告知 webpack 通过将导入修改为更短的字符串，来减少 WASM 大小。
-        mangleWasmImports: true,
-        // 会影响webpack性能，默认禁用
-        removeAvailableModules: false,
-        // 移除空的chunks
-        removeEmptyChunks: true,
-        // 合并相同模块的chunks，生产模式优化
-        mergeDuplicateChunks: true,
-        // 更小的初始化文件模块顺序
-        // occurrenceOrder: false,
-        // 生成模式优化，其他模式禁用，加载较大的chunk后，是否引入子集一起打包
-        flagIncludedChunks: true,
-        // 为export * from 生成更高效的代码，摇树优化
-        providedExports: true,
-        // 由webpack决定每个模块的导出内容，与providedExports有关，摇树优化
-        usedExports: true,
-        // 合并模块，生产模式启用，与providedExports和usedExports有关
-        concatenateModules: true,
-        // 副作用
-        sideEffects: true,
-        // 压缩导出
-        mangleExports: true,
-        // 内部图分析，用于摇树优化
-        innerGraph: true,
-        // 资源变动不重新计算内容hash
-        realContentHash: true,
-        // 先对记录
-        portableRecords: true,
         splitChunks: {
             automaticNameDelimiter: '~',
             chunks: 'all',
@@ -96,7 +61,7 @@ let currentConfig = {
 if (process.env.NODE_ANALYZER === 'true') {
     currentConfig.plugins.push(
         new WebpackConfigDumpPlugin({
-            outputPath: path.join(yicodePaths.cacheDir),
+            outputPath: cacheDir,
             name: 'webpack.config.dump.js',
             keepCircularReferences: true,
             showFunctionNames: false,
@@ -112,5 +77,4 @@ if (process.env.NODE_ANALYZER === 'true') {
         })
     );
 }
-let config = merge(configCommon, currentConfig);
-module.exports = config;
+export const webpackConfig = webpackMerge(configCommon, currentConfig);

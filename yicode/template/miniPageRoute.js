@@ -1,7 +1,7 @@
 /**
  * 小程序路由模板
  */
-module.exports = `
+export default `
 module.exports = {
     style: {
         navigationBarTitleText: '<%= names.lowerCaseName %>/index'

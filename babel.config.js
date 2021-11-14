@@ -1,5 +1,4 @@
-let myConfig = require('./yicode/helper/config.js');
-module.exports = {
+export default {
     presets: [
         [
             '@babel/preset-env',
