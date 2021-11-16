@@ -85,14 +85,8 @@ async function isRewriteDirectory() {
             }
         ]);
         _.merge(promptParams, _isRewriteDirectory);
-        if (promptParams.isRewriteDirectory === false) {
-            process.exit(1);
-        } else {
-            await projectTemplateType();
-        }
-    } else {
-        await projectTemplateType();
     }
+    await projectTemplateType();
 }
 
 /**
@@ -121,7 +115,7 @@ async function projectTemplateType() {
     const zip = new AdmZip(path.resolve(tempDir, projectTemplateConfigByValue[promptParams.projectTemplateType].filename));
 
     // 解压zip到当前目录
-    await zip.extractAllTo(rootDir, true);
+    await zip.extractAllTo(rootDir, promptParams.isRewriteDirectory);
 
     // 移除临时目录
     fs.removeSync(tempDir);
