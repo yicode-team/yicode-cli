@@ -11,6 +11,7 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 import ImportFresh from 'import-fresh';
+// import WindiCSSWebpackPlugin from 'windicss-webpack-plugin';
 
 //  配置文件
 import { cliDir, srcDir, rootDir, distDir } from '../paths.js';
@@ -183,6 +184,7 @@ let webpackConfigCommon = {
                 }
             ]
         }),
+        // new WindiCSSWebpackPlugin(),
         new MiniCssExtractPlugin({
             filename: 'css/[name].[fullhash:7].css'
         }),

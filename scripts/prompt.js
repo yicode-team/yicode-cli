@@ -121,7 +121,7 @@ async function projectTemplateType() {
     fs.removeSync(tempDir);
 
     // 执行命令
-    await executeCommand();
+    // await executeCommand();
 }
 
 /**
