@@ -4,15 +4,12 @@
 
 ## 文档地址
 
-[就是这！就是这！就是这！https://yicode.site](https://yicode.site)
+[就是这！就是这！就是这！](https://chensuiyi.com)
 
 ## 仓库地址
 
-| 项目代号      | 项目名称   | github 仓库地址                                                                  | gitee 仓库地址                                                                           |
-| ------------- | ---------- | -------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| yicode 脚手架 | yicode-cli | [https://github.com/chenbimo/yicode-cli](https://github.com/chenbimo/yicode-cli) | [https://gitee.com/banshiweichen/yicode-cli](https://gitee.com/banshiweichen/yicode-cli) |
-
-喜欢的同学请点个 star，您的支持反正也不能让我发家致富，还不如点个 star 支持一下，点了也不吃亏，点了也不上当。
+> github 仓库地址 [https://github.com/chenbimo/yicode-cli](https://github.com/chenbimo/yicode-cli)
+> gitee 仓库地址 [https://gitee.com/banshiweichen/yicode-cli](https://gitee.com/banshiweichen/yicode-cli)
 
 ## 概述说明
 
