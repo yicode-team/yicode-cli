@@ -16,6 +16,15 @@ export const staticDir = path.join(rootDir, 'static');
 // 项目页面路径
 export const pageDir = path.join(srcDir, 'pages');
 
+// 全局组件路径
+export const componentDir = path.join(srcDir, 'components');
+
+// 全局过滤器路径
+export const filterDir = path.join(srcDir, 'filters');
+
+// 全局指令路径
+export const directiveDir = path.join(srcDir, 'directives');
+
 // 项目打包路径
 export const distDir = path.join(rootDir, 'dist');
 

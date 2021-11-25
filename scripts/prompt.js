@@ -1,6 +1,6 @@
 // 模块导入
 import path from 'path';
-import _ from 'lodash';
+import { keyBy, merge } from 'lodash';
 import fs from 'fs-extra';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
@@ -25,7 +25,7 @@ const projectTemplateConfig = [
         url: 'https://static.chensuiyi.com/download/yicode-template-vue-base.zip'
     }
 ];
-const projectTemplateConfigByValue = _.keyBy(projectTemplateConfig, 'value');
+const projectTemplateConfigByValue = keyBy(projectTemplateConfig, 'value');
 
 // 提示参数收集
 let promptParams = {
@@ -58,7 +58,7 @@ async function isCreateProject() {
                 default: promptParams.isCreateProject
             }
         ]);
-        _.merge(promptParams, _isCreateProject);
+        merge(promptParams, _isCreateProject);
 
         // 如果选择不创建新项目
         if (promptParams.isCreateProject === false) {
@@ -84,7 +84,7 @@ async function isRewriteDirectory() {
                 default: promptParams.isRewriteDirectory
             }
         ]);
-        _.merge(promptParams, _isRewriteDirectory);
+        merge(promptParams, _isRewriteDirectory);
     }
     await projectTemplateType();
 }
@@ -103,7 +103,7 @@ async function projectTemplateType() {
             choices: projectTemplateConfig
         }
     ]);
-    _.merge(promptParams, _projectTemplateType);
+    merge(promptParams, _projectTemplateType);
 
     // 清空当前目录
     fs.emptyDirSync(rootDir);
@@ -142,11 +142,11 @@ async function executeCommand() {
                 {
                     name: 'build' + chalk.cyanBright(' 进行线上（测试/正式）环境编译打包'),
                     value: 'build'
+                },
+                {
+                    name: 'new' + chalk.cyanBright('  创建（页面/组件/路由/指令/过滤器）文件'),
+                    value: 'new'
                 }
-                // {
-                //     name: 'new' + chalk.cyanBright('  创建新的（页面/组件/路由/指令/过滤器）文件'),
-                //     value: 'new'
-                // }
                 // {
                 //     name: 'rename' + chalk.cyanBright('  重命名（页面/组件/路由/指令/过滤器）文件'),
                 //     value: 'rename'
@@ -154,11 +154,11 @@ async function executeCommand() {
             ]
         }
     ]);
-    _.merge(promptParams, _executeCommand);
+    merge(promptParams, _executeCommand);
     // 命令执行路径
-    let commandPath = relativePath(__dirname(import.meta.url), path.resolve(cliDir, 'scripts', promptParams.executeCommand, 'index.js'));
-    let { main } = await import(commandPath);
-    main();
+    let commandPath = relativePath(__dirname(import.meta.url), path.resolve(cliDir, 'scripts', promptParams.executeCommand, 'prompt.js'));
+    let { prompt } = await import(commandPath);
+    await prompt();
 }
 
 export default isCreateProject;

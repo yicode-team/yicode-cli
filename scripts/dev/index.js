@@ -1,8 +1,6 @@
 // 自带模块
 import { resolve, basename } from 'path';
 
-// 第三方模块
-import { merge } from 'lodash-es';
 import fs from 'fs-extra';
 import Webpack from 'webpack';
 import { merge as webpackMerge } from 'webpack-merge';
@@ -10,8 +8,6 @@ import portfinder from 'portfinder';
 import FriendlyErrorsWebpackPlugin from '@nuxt/friendly-errors-webpack-plugin';
 import updateNotifier from 'update-notifier';
 import webpackDevServer from 'webpack-dev-server';
-import shell from 'shelljs';
-import inquirer from 'inquirer';
 
 // 配置相关
 import { cliDir, srcDir, staticDir, rootDir, distDir } from '../../yicode/paths.js';
@@ -19,9 +15,6 @@ import { relativePath, getEnvNames, __dirname } from '../../yicode/utils.js';
 import { yicodePackage } from '../../yicode/package.js';
 import yicodeConfig from '../../yicode/config.js';
 import friendlyErrorsConfig from '../../yicode/plugin/friendly-errors.config.js';
-
-// 提示参数收集
-let promptParams = {};
 
 let defaultDevServer = {
     allowedHosts: 'all',
@@ -61,7 +54,7 @@ let defaultDevServer = {
 };
 
 // 导出函数
-async function runDevelopment() {
+export async function devMain(options) {
     // 开发环境的webpack配置参数
     let { webpackConfig } = await import(relativePath(__dirname(import.meta.url), resolve(cliDir, 'yicode', 'webpack', 'webpack.config.dev.js')));
 
@@ -92,25 +85,4 @@ async function runDevelopment() {
     // server.listen(devServerConfig.port, devServerConfig.host, () => {
     // console.log(`开发环境已启动：${protocol}://${devServerConfig.host}:${port}`);
     // });
-}
-export async function main(options) {
-    promptParams = merge(promptParams, options);
-    // 通知更新
-    await updateNotifier({ pkg: yicodePackage }).notify();
-
-    // 提示使用的环境变量文件
-    let _envFile = await inquirer.prompt([
-        {
-            type: 'list',
-            name: 'envFile',
-            choices: getEnvNames(),
-            message: '请选择使用的环境变量文件'
-        }
-    ]);
-    promptParams = merge(promptParams, _envFile);
-    // 默认使用开发者模式
-    shell.env['NODE_MODE'] = 'development';
-    // 选择的环境变量文件
-    shell.env['NODE_ENV_FILE'] = promptParams.envFile;
-    runDevelopment();
 }

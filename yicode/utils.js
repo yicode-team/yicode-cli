@@ -1,6 +1,6 @@
 // 外部模块
 import { resolve, basename } from 'path';
-import _ from 'lodash';
+import { toLower, kebabCase, camelCase, replace, startCase } from 'lodash-es';
 import axios from 'axios';
 import fs from 'fs-extra';
 import chalk from 'chalk';
@@ -31,12 +31,12 @@ export async function downloadProject(options) {
     await downloader.download();
 }
 
-export function getNames(name) {
+export function getFileNames(name) {
     // 页面名称转化 HelL_o-wOrld
-    let lowerCaseName = _.toLower(name); // hell_o-world
-    let kebabCaseName = _.kebabCase(lowerCaseName); // hell-o-world
-    let camelCaseName = _.camelCase(kebabCaseName); // hellOWorld
-    let startCaseName = _.replace(_.startCase(camelCaseName), /\s+/g, ''); // HellOWorld
+    let lowerCaseName = toLower(name); // hell_o-world
+    let kebabCaseName = kebabCase(lowerCaseName); // hell-o-world
+    let camelCaseName = camelCase(kebabCaseName); // hellOWorld
+    let startCaseName = replace(startCase(camelCaseName), /\s+/g, ''); // HellOWorld
 
     return {
         lowerCaseName,

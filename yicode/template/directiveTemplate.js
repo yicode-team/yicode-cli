@@ -1,5 +1,5 @@
-export default `import Vue from 'vue';
-Vue.directive('<%= names.startCaseName %>', {
+export const directiveTemplate = `import Vue from 'vue';
+Vue.directive('<%= startCaseName %>', {
 
 });
 `;

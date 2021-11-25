@@ -9,6 +9,7 @@
 ## 仓库地址
 
 > github 仓库地址 [https://github.com/chenbimo/yicode-cli](https://github.com/chenbimo/yicode-cli)
+
 > gitee 仓库地址 [https://gitee.com/banshiweichen/yicode-cli](https://gitee.com/banshiweichen/yicode-cli)
 
 ## 概述说明
@@ -21,7 +22,7 @@
 
 ## 使用声明
 
-!> `yicode` 致力于解决中小型项目的快速开发以及维护等问题，大型项目请谨慎调研再做决定！！！
+> `yicode` 致力于解决中小型项目的快速开发以及维护等问题，大型项目请谨慎调研再做决定！！！
 
 ## 功能特性
 
