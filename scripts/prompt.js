@@ -1,6 +1,6 @@
 // 模块导入
 import path from 'path';
-import { keyBy, merge } from 'lodash';
+import { keyBy, merge } from 'lodash-es';
 import fs from 'fs-extra';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
