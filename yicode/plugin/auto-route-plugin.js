@@ -10,6 +10,8 @@ import { nanoid } from 'nanoid';
 import md5 from 'md5';
 //  配置文件
 import { pageDir, cacheDir, srcDir, rootDir } from '../paths.js';
+// 确保缓存目录存在
+fs.ensureDirSync(cacheDir);
 export default class RoutePlugin {
     // 在插件函数的 prototype 上定义一个 `apply` 方法，以 compiler 为参数。
     apply(compiler) {
