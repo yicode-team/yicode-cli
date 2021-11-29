@@ -25,8 +25,10 @@ import _loaderCssConfig from '../loader/css-loader.config.js';
 import _loaderSassConfig from '../loader/sass-loader.config.js';
 import _loaderStyleConfig from '../loader/style-loader.config.js';
 import _loaderSassResourcesConfig from '../loader/sass-resources-loader.config.js';
+import _loaderRouteConfig from '../loader/route-loader.config.js';
 
 // plugin 配置文件
+import AutoRoutePlugin from '../plugin/auto-route-plugin.js';
 // let _pluginProvideConfig = require("./plugin/provide-plugin.config.js");
 
 // 导出webpack通用配置
@@ -81,11 +83,17 @@ let webpackConfigCommon = {
         modules: [
             //
             resolve(cliDir, 'yicode'),
+            resolve(cliDir, 'yicode', 'webpack'),
             resolve(cliDir, 'node_modules'),
             'node_modules'
         ]
     },
     watch: false,
+    watchOptions: {
+        ignored: ['**/.cache/**/*', '**/node_modules', '**/routes.js'],
+        aggregateTimeout: 600,
+        poll: 1000
+    },
     // 外部扩展
     externals: yicodeConfig.webpack.externals,
     // node
@@ -147,6 +155,10 @@ let webpackConfigCommon = {
                 ]
             },
             {
+                resourceQuery: /blockType=route/,
+                use: [_loaderRouteConfig]
+            },
+            {
                 test: /\.(png|jpg|gif|jpeg|webp)$/,
                 type: 'asset/resource',
                 generator: {
@@ -185,6 +197,7 @@ let webpackConfigCommon = {
             ]
         }),
         // new WindiCSSWebpackPlugin(),
+        new AutoRoutePlugin(),
         new MiniCssExtractPlugin({
             filename: 'css/[name].[fullhash:7].css'
         }),

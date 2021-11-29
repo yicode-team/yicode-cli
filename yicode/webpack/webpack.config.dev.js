@@ -1,5 +1,5 @@
 // 内置模块
-
+import { resolve } from 'path';
 // 第三方模块
 import Webpack from 'webpack';
 import { merge as webpackMerge } from 'webpack-merge';
@@ -8,7 +8,8 @@ import ESLintPlugin from 'eslint-webpack-plugin';
 import StylelintPlugin from 'stylelint-webpack-plugin';
 
 // 配置
-import { cliDir } from '../paths.js';
+import { cliDir, cacheDir } from '../paths.js';
+import { __filename } from '../utils.js';
 // let yicodeConfig = require(path.resolve(cliDir, 'yicode', 'helper', 'config.js'));
 
 import webpackConfigCommon from './webpack.config.common.js';
@@ -17,9 +18,10 @@ let webpackConfigDevelopment = {
     // 打包发生错误时不停止打包
     bail: false,
     // 开发环境开启缓存
+    // cache: false,
     cache: {
         type: 'memory',
-        maxGenerations: 3
+        maxGenerations: 1
     },
     devtool: 'eval-source-map',
     // optimization: {

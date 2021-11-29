@@ -66,7 +66,27 @@ export async function prompt(options) {
             name: 'newName',
             message: '请输入页面名称'
         });
-        promptParams = merge(promptParams, _newName, { fileNames: getFileNames(_newName.newName) });
+
+        promptParams = merge(promptParams, _newName);
+
+        const _pageType = await inquirer.prompt({
+            type: 'list',
+            name: 'pageType',
+            choices: [
+                {
+                    name: `页面文件夹（${_newName.newName}/index.vue）`,
+                    value: 'pageDirectory'
+                },
+                {
+                    name: `页面文件（${_newName.newName}.vue）`,
+                    value: 'pageFile'
+                }
+            ],
+            message: '请选择页面类型'
+        });
+        promptParams = merge(promptParams, _pageType);
+
+        promptParams = merge(promptParams, { fileNames: getFileNames(_newName.newName) });
         await newPage(promptParams);
     }
 

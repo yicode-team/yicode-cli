@@ -76,8 +76,6 @@ export async function devMain(options) {
     friendlyErrorsConfig.compilationSuccessInfo.notes.unshift('官方文档：[ https://yicode.site ]');
     webpackConfig.plugins.push(new FriendlyErrorsWebpackPlugin(friendlyErrorsConfig));
 
-    // return;
-
     let compiler = await Webpack(webpackConfig);
     let server = new webpackDevServer(devServerConfig, compiler);
     await server.start();
