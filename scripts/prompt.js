@@ -146,6 +146,10 @@ async function executeCommand() {
                 {
                     name: 'new' + chalk.cyanBright('  创建（页面/组件/路由/指令/过滤器）文件'),
                     value: 'new'
+                },
+                {
+                    name: 'version' + chalk.cyanBright('  查看版本信息'),
+                    value: 'version'
                 }
                 // {
                 //     name: 'rename' + chalk.cyanBright('  重命名（页面/组件/路由/指令/过滤器）文件'),
