@@ -1,7 +1,7 @@
 const exportJSON = {
     compilationSuccessInfo: {
         messages: ['---------------------------------------'],
-        notes: ['联系微信：[ c91374286 ]', '更多作品：[ https://chensuiyi.com ]']
+        notes: []
     },
     onErrors: function (severity, errors) {
         // You can listen to errors transformed and prioritized by the plugin
