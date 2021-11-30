@@ -16,7 +16,8 @@ export async function newComponent(options) {
     // 创建页面
     let htmlFilePath = join(dirPath, options.fileNames.camelCaseName + '.vue');
     if (fs.existsSync(htmlFilePath) === false) {
-        const { componentTemplate } = await import(relativePath(__dirname(import.meta.url), resolve(webpackDir, 'template', 'componentTemplate.js')));
+        let compTemplate = options.componentType === 'globalComponent' ? 'globalComponentTemplate' : 'pageComponentTemplate';
+        const { componentTemplate } = await import(relativePath(__dirname(import.meta.url), resolve(webpackDir, 'template', `${compTemplate}.js`)));
         let htmlFileData = template(componentTemplate)(options.fileNames);
         fs.outputFileSync(htmlFilePath, htmlFileData);
         spinner.succeed(chalk.green(chalk.blue(options.fileNames.camelCaseName + '.vue') + ' 组件创建成功'));

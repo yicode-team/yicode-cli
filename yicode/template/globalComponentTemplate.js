@@ -1,12 +1,12 @@
 export const componentTemplate = `<template>
-    <div class="global-component-<%= kebabCaseName %>">
+    <div class="g-comp-<%= kebabCaseName %>">
         <%= kebabCaseName %>
     </div>
 </template>
 
 <script>
 export default {
-    name: "GlobalComponent<%= startCaseName %>",
+    name: "GComp<%= startCaseName %>",
     data(){
         return {
 
@@ -19,13 +19,16 @@ export default {
 
     },
     methods:{
+        // 通用简单事件注册中心
+        on(){
 
+        },
     }
 };
 </script>
 
 <style lang="scss" scoped>
-.global-component-<%= kebabCaseName %> {
+.g-comp-<%= kebabCaseName %> {
 }
 </style>
 `;
