@@ -4,7 +4,7 @@
 
 ## 文档地址
 
-[就是这！就是这！就是这！](https://chensuiyi.com)
+[就是这！就是这！就是这！](https://yicode.site)
 
 ## 仓库地址
 
