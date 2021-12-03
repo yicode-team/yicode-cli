@@ -2,7 +2,7 @@ import { merge } from 'lodash-es';
 import shell from 'shelljs';
 import inquirer from 'inquirer';
 import { getEnvNames } from '../../yicode/utils.js';
-import { build } from './index.js';
+import { buildMain } from './index.js';
 
 // 使用产品模式
 shell.env['NODE_MODE'] = 'production';
@@ -50,5 +50,5 @@ export async function prompt(options) {
     shell.env['NODE_ANALYZER'] = promptParams.isAnalyzer;
 
     // 开发脚本
-    build(promptParams);
+    buildMain(promptParams);
 }
