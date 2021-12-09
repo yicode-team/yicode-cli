@@ -11,8 +11,18 @@ import { rootDir, srcDir, cliDir } from './paths.js';
 import { relativePath, __dirname } from './utils.js';
 // let yicodeScheme = require('./scheme.js');
 
+/**
+ * 处理yiocde-cli安装位置和项目位置，不在同一个盘符的问题
+ * 比如：./D:\codes\project\test1\yicode.config.js
+ * 需要去掉前面的 ./
+ */
+let _relativePath = relativePath(__dirname(import.meta.url), resolve(rootDir, 'yicode.config.js'));
+if (_relativePath.indexOf(':') !== -1) {
+    _relativePath = _relativePath.replace('./', '');
+}
+
 // 项目配置
-const { default: projectConfig } = await import(relativePath(__dirname(import.meta.url), resolve(rootDir, 'yicode.config.js')));
+const { default: projectConfig } = await import(_relativePath);
 
 const yicodeConfig = {
     // 项目类型
