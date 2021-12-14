@@ -9,6 +9,7 @@ import ora from 'ora';
 import { relative, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import fastGlob from 'fast-glob';
+import { createRequire } from 'module';
 
 // 配置相关
 import { tempDir, srcDir } from './paths.js';
@@ -100,4 +101,8 @@ export function __filename(metaUrl) {
 export function __dirname(metaUrl) {
     const filename = fileURLToPath(metaUrl);
     return dirname(filename);
+}
+
+export function requireResolve(url, name) {
+    return createRequire(url).resolve(name);
 }

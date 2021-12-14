@@ -17,6 +17,7 @@ import ImportFresh from 'import-fresh';
 import { cliDir, srcDir, rootDir, distDir } from '../paths.js';
 import { yicodePackage } from '../package.js';
 import yicodeConfig from '../config.js';
+import { requireResolve } from '../utils.js';
 
 //  loader配置文件
 import _loaderPostCssConfig from '../loader/postcss-loader.config.js';
@@ -74,8 +75,29 @@ let webpackConfigCommon = {
             'node_modules'
         ],
         fallback: {
-            // crypto: require.resolve('crypto-browserify'),
-            // stream: require.resolve('stream-browserify')
+            assert: requireResolve(import.meta.url, 'assert'),
+            buffer: requireResolve(import.meta.url, 'buffer'),
+            // console: requireResolve(import.meta.url, 'console-browserify'),
+            // constants: requireResolve(import.meta.url, 'constants-browserify'),
+            crypto: requireResolve(import.meta.url, 'crypto-browserify'),
+            domain: requireResolve(import.meta.url, 'domain-browser'),
+            // events: requireResolve(import.meta.url, 'events'),
+            http: requireResolve(import.meta.url, 'stream-http'),
+            https: requireResolve(import.meta.url, 'https-browserify'),
+            os: requireResolve(import.meta.url, 'os-browserify'),
+            path: requireResolve(import.meta.url, 'path-browserify'),
+            // punycode: requireResolve(import.meta.url, 'punycode'),
+            process: requireResolve(import.meta.url, 'process/browser'),
+            // querystring: requireResolve(import.meta.url, 'querystring-es3'),
+            stream: requireResolve(import.meta.url, 'stream-browserify'),
+            // string_decoder: requireResolve(import.meta.url, 'string_decoder'),
+            sys: requireResolve(import.meta.url, 'util'),
+            // timers: requireResolve(import.meta.url, 'timers-browserify'),
+            // tty: requireResolve(import.meta.url, 'tty-browserify'),
+            // url: requireResolve(import.meta.url, 'url'),
+            util: requireResolve(import.meta.url, 'util')
+            // vm: requireResolve(import.meta.url, 'vm-browserify'),
+            // zlib: requireResolve(import.meta.url, 'browserify-zlib')
         }
     },
     // loader加载路径
@@ -98,7 +120,7 @@ let webpackConfigCommon = {
     externals: yicodeConfig.webpack.externals,
     // node
     node: {
-        global: false
+        global: true
     },
     //
     performance: {
