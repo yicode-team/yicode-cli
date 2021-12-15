@@ -18,7 +18,7 @@ import { relativePath, __dirname } from './utils.js';
  */
 let _relativePath = relativePath(__dirname(import.meta.url), resolve(rootDir, 'yicode.config.js'));
 if (_relativePath.indexOf(':') !== -1) {
-    _relativePath = _relativePath.replace('./', '');
+    _relativePath = _relativePath.replace('./', 'file://');
 }
 
 // 项目配置
