@@ -103,16 +103,21 @@ async function projectTemplateType() {
             choices: projectTemplateConfig
         }
     ]);
+
     merge(promptParams, _projectTemplateType);
 
     // 清空当前目录
-    fs.emptyDirSync(rootDir);
+    if (promptParams.isRewriteDirectory === true) {
+        fs.emptyDirSync(rootDir);
+    }
+
+    let projectItem = projectTemplateConfigByValue[promptParams.projectTemplateType];
 
     // 下载项目
-    await downloadProject(projectTemplateConfigByValue[promptParams.projectTemplateType]);
+    await downloadProject(projectItem);
 
     // 创建zip压缩实例
-    const zip = new AdmZip(path.resolve(tempDir, projectTemplateConfigByValue[promptParams.projectTemplateType].filename));
+    const zip = new AdmZip(path.resolve(tempDir, projectItem.filename));
 
     // 解压zip到当前目录
     await zip.extractAllTo(rootDir, promptParams.isRewriteDirectory);
