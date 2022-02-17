@@ -9,7 +9,7 @@ import StylelintPlugin from 'stylelint-webpack-plugin';
 
 // 配置
 import { cliDir, cacheDir } from '../paths.js';
-import { __filename } from '../utils.js';
+import { fn_filename } from '../utils.js';
 // let yicodeConfig = require(path.resolve(cliDir, 'yicode', 'helper', 'config.js'));
 
 import webpackConfigCommon from './webpack.config.common.js';

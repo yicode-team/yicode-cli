@@ -8,10 +8,11 @@ import portfinder from 'portfinder';
 import FriendlyErrorsWebpackPlugin from '@nuxt/friendly-errors-webpack-plugin';
 import updateNotifier from 'update-notifier';
 import webpackDevServer from 'webpack-dev-server';
+import isPortReachable from 'is-port-reachable';
 
 // 配置相关
 import { cliDir, srcDir, staticDir, rootDir, distDir } from '../../yicode/paths.js';
-import { relativePath, getEnvNames, __dirname } from '../../yicode/utils.js';
+import { relativePath, getEnvNames, fn_firname } from '../../yicode/utils.js';
 import { yicodePackage } from '../../yicode/package.js';
 import yicodeConfig from '../../yicode/config.js';
 import friendlyErrorsConfig from '../../yicode/plugin/friendly-errors.config.js';
@@ -56,7 +57,7 @@ let defaultDevServer = {
 // 导出函数
 export async function devMain(options) {
     // 开发环境的webpack配置参数
-    let { webpackConfig } = await import(relativePath(__dirname(import.meta.url), resolve(cliDir, 'yicode', 'webpack', 'webpack.config.dev.js')));
+    let { webpackConfig } = await import(relativePath(fn_firname(import.meta.url), resolve(cliDir, 'yicode', 'webpack', 'webpack.config.dev.js')));
 
     // 默认的devServer配置参数
 
@@ -74,6 +75,7 @@ export async function devMain(options) {
     // 追加友好错误提示插件
     friendlyErrorsConfig.compilationSuccessInfo.messages.push(`应用已启动：${protocol}://${devServerConfig.host}:${devServerConfig.port}`);
     friendlyErrorsConfig.compilationSuccessInfo.notes.unshift('官方文档：[ https://yicode.site ]');
+
     webpackConfig.plugins.push(new FriendlyErrorsWebpackPlugin(friendlyErrorsConfig));
 
     let compiler = await Webpack(webpackConfig);

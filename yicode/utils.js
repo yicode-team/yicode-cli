@@ -1,13 +1,13 @@
 // 外部模块
-import { resolve, basename } from 'path';
+import { resolve, basename, dirname, relative } from 'path';
+import { fileURLToPath } from 'url';
 import { toLower, kebabCase, camelCase, replace, startCase } from 'lodash-es';
 import axios from 'axios';
 import fs from 'fs-extra';
 import chalk from 'chalk';
 import Downloader from 'nodejs-file-downloader';
 import ora from 'ora';
-import { relative, dirname } from 'path';
-import { fileURLToPath } from 'url';
+
 import fastGlob from 'fast-glob';
 import { createRequire } from 'module';
 
@@ -94,11 +94,15 @@ export function relativePath(from, to) {
     return _covertPath;
 }
 
-export function __filename(metaUrl) {
+export function fn_filename(metaUrl) {
     return fileURLToPath(metaUrl);
 }
 
-export function __dirname(metaUrl) {
+export function fn_pureFilename(metaUrl) {
+    return basename(fn_filename(metaUrl)).split('.')[0];
+}
+
+export function fn_firname(metaUrl) {
     const filename = fileURLToPath(metaUrl);
     return dirname(filename);
 }

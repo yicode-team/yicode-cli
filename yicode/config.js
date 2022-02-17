@@ -8,7 +8,7 @@ import requireFresh from 'import-fresh';
 
 // 内部模块
 import { rootDir, srcDir, cliDir } from './paths.js';
-import { relativePath, __dirname } from './utils.js';
+import { relativePath, fn_firname } from './utils.js';
 // let yicodeScheme = require('./scheme.js');
 
 /**
@@ -16,7 +16,7 @@ import { relativePath, __dirname } from './utils.js';
  * 比如：./D:\codes\project\test1\yicode.config.js
  * 需要去掉前面的 ./
  */
-let _relativePath = relativePath(__dirname(import.meta.url), resolve(rootDir, 'yicode.config.js'));
+let _relativePath = relativePath(fn_firname(import.meta.url), resolve(rootDir, 'yicode.config.js'));
 if (_relativePath.indexOf(':') !== -1) {
     _relativePath = _relativePath.replace('./', 'file://');
 }

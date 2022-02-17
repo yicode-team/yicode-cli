@@ -12,17 +12,17 @@ import { fileURLToPath } from 'url';
 // yicode相关
 import { rootDir, tempDir, cliDir } from '../yicode/paths.js';
 // import yicodePackage from path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'package.js');
-import { isEmptyDirectory, downloadProject, relativePath, __dirname, __filename } from '../yicode/utils.js';
+import { isEmptyDirectory, downloadProject, relativePath, fn_firname, fn_filename } from '../yicode/utils.js';
 
 // TODO: 后期支持版本下载
 // 项目模板配置
 const projectTemplateConfig = [
     {
-        name: 'vue-base 基础模板',
-        value: 'vue-base',
+        name: 'vue2 基础模板',
+        value: 'vue2-base',
         describe: '通用Vue单页应用开发',
-        filename: 'yicode-template-vue-base.zip',
-        url: 'https://static.chensuiyi.com/download/yicode-template-vue-base.zip'
+        filename: 'yicode-template-vue2-base.zip',
+        url: 'https://static.chensuiyi.com/download/yicode-template-vue2-base.zip'
     }
 ];
 const projectTemplateConfigByValue = keyBy(projectTemplateConfig, 'value');
@@ -160,7 +160,7 @@ async function executeCommand() {
     ]);
     merge(promptParams, _executeCommand);
     // 命令执行路径
-    let commandPath = relativePath(__dirname(import.meta.url), path.resolve(cliDir, 'scripts', promptParams.executeCommand, 'prompt.js'));
+    let commandPath = relativePath(fn_firname(import.meta.url), path.resolve(cliDir, 'scripts', promptParams.executeCommand, 'prompt.js'));
     let { prompt } = await import(commandPath);
     await prompt();
 }

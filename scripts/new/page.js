@@ -4,7 +4,7 @@ import { template } from 'lodash-es';
 import ora from 'ora';
 import chalk from 'chalk';
 import { webpackDir, pageDir } from '../../yicode/paths.js';
-import { relativePath, __dirname } from '../../yicode/utils.js';
+import { relativePath, fn_firname } from '../../yicode/utils.js';
 const spinner = ora();
 export async function newPage(options) {
     let htmlFilePath = '';
@@ -22,7 +22,7 @@ export async function newPage(options) {
     options.filePaths.pageRoute = pagePath.replace(/(\/index)?\.vue/, '').replace(/\\+/g, '/');
 
     if (fs.existsSync(htmlFilePath) === false) {
-        const { pageTemplate } = await import(relativePath(__dirname(import.meta.url), resolve(webpackDir, 'template', 'pageTemplate.js')));
+        const { pageTemplate } = await import(relativePath(fn_firname(import.meta.url), resolve(webpackDir, 'template', 'pageTemplate.js')));
 
         let htmlFileData = template(pageTemplate)(options);
         fs.outputFileSync(htmlFilePath, htmlFileData);

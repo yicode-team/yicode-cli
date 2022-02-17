@@ -7,11 +7,11 @@ import FriendlyErrorsWebpackPlugin from '@nuxt/friendly-errors-webpack-plugin';
 
 // 配置相关
 import { cliDir } from '../../yicode/paths.js';
-import { relativePath, getEnvNames, __dirname } from '../../yicode/utils.js';
+import { relativePath, getEnvNames, fn_firname } from '../../yicode/utils.js';
 import friendlyErrorsConfig from '../../yicode/plugin/friendly-errors.config.js';
 
 export async function buildMain() {
-    let { webpackConfig } = await import(relativePath(__dirname(import.meta.url), resolve(cliDir, 'yicode', 'webpack', 'webpack.config.build.js')));
+    let { webpackConfig } = await import(relativePath(fn_firname(import.meta.url), resolve(cliDir, 'yicode', 'webpack', 'webpack.config.build.js')));
 
     // 追加友好错误提示插件
     friendlyErrorsConfig.compilationSuccessInfo.messages.push(`项目编译成功！！！`);
