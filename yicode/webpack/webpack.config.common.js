@@ -29,7 +29,7 @@ import _loaderSassResourcesConfig from '../loader/sass-resources-loader.config.j
 import _loaderRouteConfig from '../loader/route-loader.config.js';
 
 // plugin 配置文件
-import AutoRoutePlugin from '../plugin/auto-route-plugin.js';
+// import AutoRoutePlugin from '../plugin/auto-route-plugin.js';
 // let _pluginProvideConfig = require("./plugin/provide-plugin.config.js");
 
 // 导出webpack通用配置
@@ -219,7 +219,7 @@ let webpackConfigCommon = {
             ]
         }),
         // new WindiCSSWebpackPlugin(),
-        new AutoRoutePlugin(),
+        // new AutoRoutePlugin(),
         new MiniCssExtractPlugin({
             filename: 'css/[name].[fullhash:7].css'
         }),
