@@ -2,7 +2,6 @@
 import { resolve, basename, dirname, relative } from 'path';
 import { fileURLToPath } from 'url';
 import { toLower, kebabCase, camelCase, replace, startCase } from 'lodash-es';
-import axios from 'axios';
 import fs from 'fs-extra';
 import chalk from 'chalk';
 import Downloader from 'nodejs-file-downloader';
