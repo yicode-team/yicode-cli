@@ -153,13 +153,13 @@ async function executeCommand() {
                     value: 'new'
                 },
                 {
+                    name: 'npm' + chalk.cyanBright('  切换npm源地址'),
+                    value: 'npm'
+                },
+                {
                     name: 'version' + chalk.cyanBright('  查看版本信息'),
                     value: 'version'
                 }
-                // {
-                //     name: 'rename' + chalk.cyanBright('  重命名（页面/组件/路由/指令/过滤器）文件'),
-                //     value: 'rename'
-                // }
             ]
         }
     ]);

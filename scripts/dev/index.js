@@ -8,7 +8,6 @@ import portfinder from 'portfinder';
 import FriendlyErrorsWebpackPlugin from '@nuxt/friendly-errors-webpack-plugin';
 import updateNotifier from 'update-notifier';
 import webpackDevServer from 'webpack-dev-server';
-import isPortReachable from 'is-port-reachable';
 
 // 配置相关
 import { cliDir, srcDir, staticDir, rootDir, distDir } from '../../yicode/paths.js';
