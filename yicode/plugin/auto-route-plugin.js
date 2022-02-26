@@ -5,7 +5,6 @@ import { resolve, relative } from 'path';
 import { keyBy } from 'lodash-es';
 import vtc from 'vue-template-compiler';
 import prettier from 'prettier';
-import clearModule from 'clear-module';
 import { nanoid } from 'nanoid';
 import md5 from 'md5';
 //  配置文件

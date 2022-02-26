@@ -4,7 +4,6 @@ import { resolve } from 'path';
 import fs from 'fs-extra';
 import * as _ from 'lodash-es';
 // let schemeUtils = require('schema-utils');
-import requireFresh from 'import-fresh';
 
 // 内部模块
 import { rootDir, srcDir, cliDir } from './paths.js';

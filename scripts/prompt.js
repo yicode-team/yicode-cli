@@ -4,7 +4,6 @@ import { keyBy, merge } from 'lodash-es';
 import fs from 'fs-extra';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
-import requireFresh from 'import-fresh';
 import ora from 'ora';
 import AdmZip from 'adm-zip';
 import { fileURLToPath } from 'url';

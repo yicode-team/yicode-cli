@@ -17,7 +17,6 @@ specifiers:
     babel-loader: ^8.2.3
     chalk: ^5.0.0
     clean-webpack-plugin: ^4.0.0
-    clear-module: ^4.1.2
     copy-webpack-plugin: 10.2.4
     core-js: ^3.21.1
     css-loader: ^6.6.0
@@ -89,7 +88,6 @@ dependencies:
     babel-loader: 8.2.3_9351ded4f79a023849d74b5df047d562
     chalk: 5.0.0
     clean-webpack-plugin: 4.0.0_webpack@5.69.1
-    clear-module: 4.1.2
     copy-webpack-plugin: 10.2.4_webpack@5.69.1
     core-js: 3.21.1
     css-loader: 6.6.0_webpack@5.69.1
@@ -2455,14 +2453,6 @@ packages:
         dependencies:
             del: 4.1.1
             webpack: 5.69.1_webpack-cli@4.9.2
-        dev: false
-
-    /clear-module/4.1.2:
-        resolution: { integrity: sha512-LWAxzHqdHsAZlPlEyJ2Poz6AIs384mPeqLVCru2p0BrP9G/kVGuhNyZYClLO6cXlnuJjzC8xtsJIuMjKqLXoAw== }
-        engines: { node: '>=8' }
-        dependencies:
-            parent-module: 2.0.0
-            resolve-from: 5.0.0
         dev: false
 
     /cli-boxes/2.2.1:
@@ -5654,13 +5644,6 @@ packages:
     /parent-module/1.0.1:
         resolution: { integrity: sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g== }
         engines: { node: '>=6' }
-        dependencies:
-            callsites: 3.1.0
-        dev: false
-
-    /parent-module/2.0.0:
-        resolution: { integrity: sha512-uo0Z9JJeWzv8BG+tRcapBKNJ0dro9cLyczGzulS6EfeyAdeC9sbojtW6XwvYxJkEne9En+J2XEl4zyglVeIwFg== }
-        engines: { node: '>=8' }
         dependencies:
             callsites: 3.1.0
         dev: false
