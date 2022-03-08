@@ -52,6 +52,7 @@ let webpackConfigCommon = {
         publicPath: './',
         sourceMapFilename: 'sourcemaps/[file].map[query]'
     },
+    target: 'web',
     amd: false,
     profile: false,
     parallelism: 100,

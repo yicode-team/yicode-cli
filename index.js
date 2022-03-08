@@ -1,3 +1,3 @@
-#!/usr/bin/env node --trace-warnings --unhandled-rejections=strict --harmony-top-level-await --experimental-json-modules
+#!/usr/bin/env node
 import init from './scripts/prompt.js';
 init();

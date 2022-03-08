@@ -29,6 +29,8 @@ export async function prompt(options) {
     ]);
     promptParams = merge(promptParams, _envFile);
 
+    // 默认使用开发者模式
+    shell.env['NODE_MODE'] = 'production';
     // 选择的环境变量文件
     shell.env['NODE_ENV_FILE'] = promptParams.envFile;
 

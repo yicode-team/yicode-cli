@@ -6,6 +6,8 @@ import { merge as webpackMerge } from 'webpack-merge';
 import shell from 'shelljs';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import StylelintPlugin from 'stylelint-webpack-plugin';
+import { WebpackConfigDumpPlugin } from 'webpack-config-dump-plugin';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 // 配置
 import { cliDir, cacheDir } from '../paths.js';
@@ -14,9 +16,9 @@ import { fn_filename } from '../utils.js';
 
 import webpackConfigCommon from './webpack.config.common.js';
 
-let webpackConfigDevelopment = {
+let currentConfig = {
     // 打包发生错误时不停止打包
-    bail: false,
+    bail: true,
     // 开发环境开启缓存
     // cache: false,
     cache: {
@@ -64,4 +66,23 @@ let webpackConfigDevelopment = {
         // new StylelintPlugin(yicodeConfig.stylelint.options)
     ]
 };
-export const webpackConfig = webpackMerge(webpackConfigCommon, webpackConfigDevelopment);
+if (process.env.NODE_ANALYZER === 'true') {
+    currentConfig.plugins.push(
+        new WebpackConfigDumpPlugin({
+            outputPath: cacheDir,
+            name: 'webpack.config.dump.js',
+            keepCircularReferences: true,
+            showFunctionNames: false,
+            includeFalseValues: true
+        })
+    );
+    currentConfig.plugins.push(
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'static',
+            defaultSizes: 'parsed',
+            generateStatsFile: false,
+            openAnalyzer: true
+        })
+    );
+}
+export const webpackConfig = webpackMerge(webpackConfigCommon, currentConfig);

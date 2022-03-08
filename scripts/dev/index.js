@@ -20,8 +20,8 @@ let defaultDevServer = {
     allowedHosts: 'all',
     bonjour: false,
     client: {
-        logging: 'none',
-        // logging: 'verbose',
+        // logging: 'none',
+        logging: 'info',
         progress: false,
         reconnect: 10
     },
@@ -34,7 +34,7 @@ let defaultDevServer = {
     },
     // headers: {},
     host: '127.0.0.1',
-    hot: 'only',
+    hot: true,
     http2: false,
     https: false,
     // ipc: {},

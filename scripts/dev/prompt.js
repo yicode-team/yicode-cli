@@ -28,5 +28,23 @@ export async function prompt(options) {
     shell.env['NODE_MODE'] = 'development';
     // 选择的环境变量文件
     shell.env['NODE_ENV_FILE'] = promptParams.envFile;
+
+    /**
+     * ==========================================
+     * 选择是否启动分析模式
+     * ==========================================
+     */
+    const _isAnalyzer = await inquirer.prompt([
+        {
+            type: 'confirm',
+            name: 'isAnalyzer',
+            message: '是否启动分析模式？（默认：否）',
+            default: false
+        }
+    ]);
+    promptParams = merge(promptParams, _isAnalyzer);
+    // 是否启动分析模式
+    shell.env['NODE_ANALYZER'] = promptParams.isAnalyzer;
+
     devMain();
 }
