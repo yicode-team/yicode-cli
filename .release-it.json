@@ -27,7 +27,7 @@
         "otp": null,
         "ignoreVersion": false,
         "skipChecks": false,
-        "timeout": 10
+        "timeout": 100000
     },
     "github": {
         "release": false
