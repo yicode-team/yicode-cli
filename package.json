@@ -13,6 +13,7 @@
     },
     "scripts": {
         "np": "np",
+        "release": "release-it",
         "prepare": "husky install"
     },
     "repository": {
@@ -81,6 +82,7 @@
         "prettier": "^2.5.1",
         "process": "^0.11.10",
         "progress-bar-webpack-plugin": "^2.1.0",
+        "release-it": "^14.12.5",
         "sass": "^1.49.9",
         "sass-loader": "^12.6.0",
         "sass-resources-loader": "^2.2.4",
