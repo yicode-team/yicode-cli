@@ -70,7 +70,10 @@ const yicodeConfig = {
     },
     webpack: {
         // 全局模块
-        providePlugin: {},
+        providePlugin: {
+            process: 'process/browser.js',
+            Buffer: ['buffer', 'Buffer']
+        },
         // 外部链接
         externals: {},
         // 开发配置

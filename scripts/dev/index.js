@@ -20,8 +20,8 @@ let defaultDevServer = {
     allowedHosts: 'all',
     bonjour: false,
     client: {
-        // logging: 'none',
-        logging: 'info',
+        logging: 'none',
+        // logging: 'info',
         progress: false,
         reconnect: 10
     },
