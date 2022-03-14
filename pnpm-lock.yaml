@@ -15,6 +15,7 @@ specifiers:
     adm-zip: ^0.5.9
     autoprefixer: ^10.4.2
     babel-loader: ^8.2.3
+    buffer: ^6.0.3
     chalk: ^5.0.0
     clean-webpack-plugin: ^4.0.0
     copy-webpack-plugin: 10.2.4
@@ -47,6 +48,7 @@ specifiers:
     postcss-loader: ^6.2.1
     postcss-px-to-viewport: ^1.1.1
     prettier: ^2.5.1
+    process: ^0.11.10
     progress-bar-webpack-plugin: ^2.1.0
     sass: ^1.49.9
     sass-loader: ^12.6.0
@@ -86,6 +88,7 @@ dependencies:
     adm-zip: 0.5.9
     autoprefixer: 10.4.2_postcss@8.4.8
     babel-loader: 8.2.3_ed870ac3ba52c4ec230ba2bc3dbb311c
+    buffer: 6.0.3
     chalk: 5.0.0
     clean-webpack-plugin: 4.0.0_webpack@5.70.0
     copy-webpack-plugin: 10.2.4_webpack@5.70.0
@@ -118,6 +121,7 @@ dependencies:
     postcss-loader: 6.2.1_postcss@8.4.8+webpack@5.70.0
     postcss-px-to-viewport: 1.1.1
     prettier: 2.5.1
+    process: 0.11.10
     progress-bar-webpack-plugin: 2.1.0_webpack@5.70.0
     sass: 1.49.9
     sass-loader: 12.6.0_sass@1.49.9+webpack@5.70.0
@@ -5912,6 +5916,11 @@ packages:
 
     /process-nextick-args/2.0.1:
         resolution: { integrity: sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag== }
+        dev: false
+
+    /process/0.11.10:
+        resolution: { integrity: sha512-cdGef/drWFoydD1JsMzuFf8100nZl+GT+yacc2bEced5f9Rjk4z+WtFUTBu9PhOi9j/jfmBPu0mMEY4wIdAF8A== }
+        engines: { node: '>= 0.6.0' }
         dev: false
 
     /progress-bar-webpack-plugin/2.1.0_webpack@5.70.0:
