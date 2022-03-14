@@ -69,7 +69,7 @@ const yicodeConfig = {
         }
     },
     webpack: {
-        // 全局模块
+        // 全局模块，增加2个默认垫片模块
         providePlugin: {
             process: 'process/browser.js',
             Buffer: ['buffer', 'Buffer']
