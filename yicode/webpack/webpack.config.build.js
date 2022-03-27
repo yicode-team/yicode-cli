@@ -2,6 +2,7 @@
 import { merge as webpackMerge } from 'webpack-merge';
 import { WebpackConfigDumpPlugin } from 'webpack-config-dump-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+import TerserPlugin from 'terser-webpack-plugin';
 import configCommon from './webpack.config.common.js';
 
 // 配置
@@ -15,6 +16,19 @@ let currentConfig = {
     // 打包发生错误时停止打包
     bail: true,
     optimization: {
+        minimize: true,
+        minimizer: [
+            new TerserPlugin({
+                terserOptions: {
+                    compress: {
+                        warnings: false,
+                        drop_console: true,
+                        drop_debugger: true,
+                        pure_funcs: ['console.log']
+                    }
+                }
+            })
+        ],
         splitChunks: {
             automaticNameDelimiter: '~',
             chunks: 'all',

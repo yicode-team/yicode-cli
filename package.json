@@ -105,5 +105,8 @@
         "webpack-config-dump-plugin": "^3.0.1",
         "webpack-dev-server": "^4.7.4",
         "webpack-merge": "^5.8.0"
+    },
+    "devDependencies": {
+        "terser-webpack-plugin": "^5.3.1"
     }
 }
