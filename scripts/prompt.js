@@ -18,10 +18,10 @@ import { isEmptyDirectory, downloadProject, relativePath, fn_firname, fn_filenam
 const projectTemplateConfig = [
     {
         name: 'vue2 基础模板',
-        value: 'vue2-base',
+        value: 'vue2-base-webpack',
         describe: '通用Vue单页应用开发',
-        filename: 'yicode-template-vue2-base.zip',
-        url: 'https://static.chensuiyi.com/download/yicode-template-vue2-base.zip'
+        filename: 'yicode-template-vue2-base-webpack.zip',
+        url: 'https://static.chensuiyi.com/download/yicode-template-vue2-base-webpack.zip'
     }
 ];
 const projectTemplateConfigByValue = keyBy(projectTemplateConfig, 'value');
