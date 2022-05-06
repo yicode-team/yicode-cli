@@ -50,7 +50,7 @@ let defaultDevServer = {
         serveIndex: true,
         watch: true
     },
-    setupExitSignals: true
+    setupExitSignals: false
 };
 
 // 导出函数

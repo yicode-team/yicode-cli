@@ -14,21 +14,28 @@ import { createRequire } from 'module';
 import { tempDir, srcDir } from './paths.js';
 
 // 下载项目
-export async function downloadProject(options) {
+export function downloadProject(options) {
     const spinner = ora('Loading unicorns').start('模板下载中');
-    const downloader = new Downloader({
-        url: options.url,
-        directory: tempDir,
-        fileName: options.filename,
-        cloneFiles: false,
-        maxAttempts: 3,
-        onProgress: function (percentage, chunk, remainingSize) {
-            if (remainingSize === 0) {
-                spinner.succeed('下载成功');
-            }
+    return new Promise(async (resolve, reject) => {
+        try {
+            const downloader = new Downloader({
+                url: options.url,
+                directory: tempDir,
+                fileName: options.filename,
+                cloneFiles: false,
+                maxAttempts: 3,
+                onProgress: function (percentage, chunk, remainingSize) {
+                    if (remainingSize === 0) {
+                        spinner.succeed('下载成功');
+                    }
+                }
+            });
+            await downloader.download();
+        } catch (err) {
+            spinner.fail('下载失败');
+            reject(err);
         }
     });
-    await downloader.download();
 }
 
 export function getFileNames(name) {

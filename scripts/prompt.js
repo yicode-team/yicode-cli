@@ -17,7 +17,7 @@ import { isEmptyDirectory, downloadProject, relativePath, fn_firname, fn_filenam
 // 项目模板配置
 const projectTemplateConfig = [
     {
-        name: 'vue2 基础模板',
+        name: '基础模板(vue2-base-webpack)',
         value: 'vue2-base-webpack',
         describe: '通用Vue单页应用开发',
         filename: 'yicode-template-vue2-base-webpack.zip',
@@ -92,40 +92,45 @@ async function isRewriteDirectory() {
  * 选择创建的项目模板类型
  */
 async function projectTemplateType() {
-    const _projectTemplateType = await inquirer.prompt([
-        {
-            type: 'list',
-            name: 'projectTemplateType',
-            message: '请选择一个项目类型',
-            loop: false,
-            default: promptParams.projectTemplateType,
-            choices: projectTemplateConfig
+    try {
+        const _projectTemplateType = await inquirer.prompt([
+            {
+                type: 'list',
+                name: 'projectTemplateType',
+                message: '请选择一个项目类型',
+                loop: false,
+                default: promptParams.projectTemplateType,
+                choices: projectTemplateConfig
+            }
+        ]);
+
+        merge(promptParams, _projectTemplateType);
+
+        // 清空当前目录
+        if (promptParams.isRewriteDirectory === true) {
+            fs.emptyDirSync(rootDir);
         }
-    ]);
 
-    merge(promptParams, _projectTemplateType);
+        let projectItem = projectTemplateConfigByValue[promptParams.projectTemplateType];
 
-    // 清空当前目录
-    if (promptParams.isRewriteDirectory === true) {
-        fs.emptyDirSync(rootDir);
+        // 下载项目
+        await downloadProject(projectItem);
+
+        // 创建zip压缩实例
+        const zip = new AdmZip(path.resolve(tempDir, projectItem.filename));
+
+        // 解压zip到当前目录
+        // TODO: 如果为不覆盖解压，则不会解压文件
+        await zip.extractAllTo(rootDir, promptParams.isRewriteDirectory);
+
+        // 移除临时目录
+        fs.removeSync(tempDir);
+
+        // 执行命令
+        // await executeCommand();
+    } catch (err) {
+        chalk.bgRed('下载失败');
     }
-
-    let projectItem = projectTemplateConfigByValue[promptParams.projectTemplateType];
-
-    // 下载项目
-    await downloadProject(projectItem);
-
-    // 创建zip压缩实例
-    const zip = new AdmZip(path.resolve(tempDir, projectItem.filename));
-
-    // 解压zip到当前目录
-    await zip.extractAllTo(rootDir, promptParams.isRewriteDirectory);
-
-    // 移除临时目录
-    fs.removeSync(tempDir);
-
-    // 执行命令
-    // await executeCommand();
 }
 
 /**
