@@ -36,3 +36,9 @@ export const tempDir = path.join(rootDir, '.temp');
 
 // 项目缓存路径
 export const cacheDir = path.join(rootDir, '.cache');
+
+// NPM 镜像列表
+export const yicodeNpmrc = path.join(process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME'], '.yicode-npmrc');
+
+// NPM 配置地址
+export const npmrc = path.join(process.env[process.platform === 'win32' ? 'USERPROFILE' : 'HOME'], '.npmrc');

@@ -1,9 +1,13 @@
+import chalk from 'chalk';
 import shell from 'shelljs';
 import inquirer from 'inquirer';
+import ini from 'ini';
+import fs from 'fs-extra';
 // 第三方模块
 import { merge } from 'lodash-es';
 import { getEnvNames } from '../../yicode/utils.js';
-import { devMain } from './index.js';
+import { npmrc } from '../../yicode/paths.js';
+import npmLists from './npmLists.js';
 
 // 提示参数收集
 let promptParams = {};
@@ -12,7 +16,7 @@ export async function prompt(options) {
     promptParams = merge(promptParams, options);
 
     // 提示使用的环境变量文件
-    let _envFile = await inquirer.prompt([
+    let _executeCommand = await inquirer.prompt([
         {
             type: 'list',
             name: 'executeCommand',
@@ -23,19 +27,37 @@ export async function prompt(options) {
                     value: 'list'
                 },
                 {
-                    name: 'use' + chalk.cyanBright(' 切换npm源'),
-                    value: 'use'
-                },
-                {
                     name: 'current' + chalk.cyanBright('  显示当前npm源'),
                     value: 'current'
                 }
             ]
         }
     ]);
-    promptParams = merge(promptParams, _envFile);
-    // 命令执行路径
-    // let commandPath = relativePath(fn_firname(import.meta.url), path.resolve(cliDir, 'scripts', 'npm', promptParams.executeCommand, 'prompt.js'));
-    // let { prompt } = await import(commandPath);
-    // await prompt();
+    promptParams = merge(promptParams, _executeCommand);
+
+    if (promptParams.executeCommand === 'list') {
+        let _npmMirror = await inquirer.prompt([
+            {
+                type: 'list',
+                name: 'npmMirror',
+                message: '请选择要切换的NPM镜像',
+                choices: npmLists
+            }
+        ]);
+        promptParams = merge(promptParams, _npmMirror);
+
+        fs.ensureFileSync(npmrc);
+        let fileData = fs.readFileSync(npmrc, 'utf-8');
+        let fileConfig = ini.parse(fileData);
+        fileConfig.registry = promptParams.npmMirror;
+        fs.writeFileSync(npmrc, ini.stringify(fileConfig));
+        console.log('当前仓库地址' + chalk.cyanBright(`  ${fileConfig.registry}`));
+    }
+
+    if (promptParams.executeCommand === 'current') {
+        fs.ensureFileSync(npmrc);
+        let fileData = fs.readFileSync(npmrc, 'utf-8');
+        let fileConfig = ini.parse(fileData);
+        console.log('当前仓库地址' + chalk.cyanBright(`  ${fileConfig.registry}`));
+    }
 }

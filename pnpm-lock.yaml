@@ -33,6 +33,7 @@ specifiers:
     html-webpack-plugin: ^5.5.0
     husky: 8.0.1
     import-fresh: ^3.3.0
+    ini: ^3.0.0
     inquirer: ^8.2.4
     inquirer-file-tree-selection-prompt: ^1.0.19
     lint-staged: 12.4.1
@@ -106,6 +107,7 @@ dependencies:
     html-webpack-plugin: 5.5.0_webpack@5.72.1
     husky: 8.0.1
     import-fresh: 3.3.0
+    ini: 3.0.0
     inquirer: 8.2.4
     inquirer-file-tree-selection-prompt: 1.0.19
     lodash-es: 4.17.21
@@ -4220,6 +4222,11 @@ packages:
     /ini/2.0.0:
         resolution: { integrity: sha512-7PnF4oN3CvZF23ADhA5wRaYEQpJ8qygSkbtTXWBeXWXmEVRXK+1ITciHWwHhsjv1TmW0MgacIv6hEi5pX5NQdA== }
         engines: { node: '>=10' }
+
+    /ini/3.0.0:
+        resolution: { integrity: sha512-TxYQaeNW/N8ymDvwAxPyRbhMBtnEwuvaTYpOQkFx1nSeusgezHniEc/l35Vo4iCq/mMiTJbpD7oYxN98hFlfmw== }
+        engines: { node: ^12.13.0 || ^14.15.0 || >=16.0.0 }
+        dev: false
 
     /inquirer-file-tree-selection-prompt/1.0.19:
         resolution: { integrity: sha512-aL01njANm5bJhQtUNBKWurniroUJ9I+rnJ20DBG3xY9gtKBxgpRFSRs0lzjx42iCRJ4J083IZ2SrN4t8ejPlEQ== }
