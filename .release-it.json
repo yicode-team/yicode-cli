@@ -5,7 +5,7 @@
         "requireCleanWorkingDir": true,
         "requireBranch": false,
         "requireUpstream": true,
-        "requireCommits": false,
+        "requireCommits": true,
         "addUntrackedFiles": false,
         "commit": true,
         "commitMessage": "Release ${version}",
@@ -26,7 +26,7 @@
         "tag": null,
         "otp": null,
         "ignoreVersion": false,
-        "skipChecks": false,
+        "skipChecks": true,
         "timeout": 100000
     },
     "github": {
