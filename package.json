@@ -1,6 +1,6 @@
 {
     "name": "yicode-cli",
-    "version": "0.2.1",
+    "version": "0.2.2",
     "description": "专注于Vue的项目开发脚手架",
     "main": "index.js",
     "bin": {
