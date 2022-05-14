@@ -24,7 +24,7 @@ import _loaderBabelConfig from '../loader/babel-loader.config.js';
 import _loaderCssConfig from '../loader/css-loader.config.js';
 import _loaderSassConfig from '../loader/sass-loader.config.js';
 import _loaderStyleConfig from '../loader/style-loader.config.js';
-import _loaderSassResourcesConfig from '../loader/sass-resources-loader.config.js';
+// import _loaderSassResourcesConfig from '../loader/sass-resources-loader.config.js';
 import _loaderRouteConfig from '../loader/route-loader.config.js';
 
 // plugin 配置文件
@@ -155,8 +155,8 @@ let webpackConfigCommon = {
                     _loaderStyleConfig,
                     _loaderCssConfig,
                     _loaderPostCssConfig,
-                    _loaderSassConfig,
-                    _loaderSassResourcesConfig
+                    _loaderSassConfig
+                    // _loaderSassResourcesConfig
                 ],
                 sideEffects: true
             },
