@@ -30,7 +30,8 @@ export function downloadProject(options) {
                     }
                 }
             });
-            await downloader.download();
+            let res = await downloader.download();
+            resolve(res);
         } catch (err) {
             spinner.fail('下载失败');
             reject(err);
