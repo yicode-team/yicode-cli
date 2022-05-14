@@ -12,7 +12,6 @@
         "access": "public"
     },
     "scripts": {
-        "np": "np",
         "tonpm": "release-it",
         "prepare": "husky install"
     },
