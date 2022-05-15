@@ -1,16 +1,16 @@
 ## yicode-cli
 
-> 一个神奇的项目开发脚手架，一个强大的 yicode 生态！
+> 让 vue2 再次伟大！vue 一站式项目解决方案开发脚手架！
 
 ## 文档地址
 
-[就是这！就是这！就是这！](https://yicode.site)
+[请展开 开源项目/yicode](https://chensuiyi.com)
 
 ## 仓库地址
 
 > github 仓库地址 [https://github.com/chenbimo/yicode-cli](https://github.com/chenbimo/yicode-cli)
 
-> gitee 仓库地址 [https://gitee.com/banshiweichen/yicode-cli](https://gitee.com/banshiweichen/yicode-cli)
+> gitee 仓库地址 [https://gitee.com/chenbimo/yicode-cli](https://gitee.com/chenbimo/yicode-cli)
 
 ## 概述说明
 
@@ -26,26 +26,23 @@
 
 ## 功能特性
 
--   [x] 结构式、分散式路由管理和路由自动导入
--   [x] 全局组件/指令/过滤器/混入/插件自动导入
+-   [x] 目录结构即路由，约定大于配置，路由自动导入
+-   [x] 一键生成全局组件/指令/过滤器/混入/插件，且自动导入
 -   [x] 默认提供 JavaScript 可选链，双问号语法
 -   [x] 提供 yicode.config.js 配置文件进行自定义配置
--   [x] 支持种环境变量编译方案
--   [x] 自带样式重置和兼容处理
--   [x] 默认提供浏览器本地存储方案 basil
--   [x] 项目模板默认配置为淘宝镜像地址，加速项目的依赖安装
--   [x] 默认提供 js/css/html/vue 规范
--   [x] 默认提供 git 提交信息规范和代码格式化
+-   [x] 方便简单支持产品、测试、本地等多环境变量开发方案
+-   [x] 统一开发模板，自带样式重置和兼容处理，提供浏览器存储方案
+-   [x] 一键切换 NPM 仓库镜像地址命令
+-   [x] 统一的 js/css/html/vue/git 格式化和提交规范
 -   [x] 提供页面级组件，让项目管理维护更合理，更方便
--   [x] 默认提供接口封装和多服务接口区分处理方案
--   [x] 默认提供统一 404 跳转问题
+-   [x] 提供接口封装和多接口请求区分处理方案
 -   [x] 默认支持国际化多语言方案
 -   [ ] 主题功能
 -   [x] 精研每一个配置参数，提供最大程序的项目性能打包优化和输出资源美化
 -   [ ] 一键生成项目说明文档
--   [ ] 提供 yicode-lib 配套业务工具库
 -   [ ] yicode ui 命令，通过界面管理项目
 -   [ ] 集成错误监控和上报
+-   [ ] 元素一键重命名，避免手动多处改动
 
 ## 社区交流
 

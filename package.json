@@ -1,7 +1,7 @@
 {
     "name": "yicode-cli",
     "version": "0.2.2",
-    "description": "专注于Vue的项目开发脚手架",
+    "description": "让 vue2 再次伟大！vue 一站式项目解决方案开发脚手架！",
     "main": "index.js",
     "bin": {
         "yicode": "index.js"
@@ -19,7 +19,7 @@
         "type": "git",
         "url": "https://github.com/chenbimo/yicode-cli.git"
     },
-    "homepage": "https://yicode.site",
+    "homepage": "https://chensuiyi.com",
     "keywords": [
         "vue.js",
         "vue-cli",
