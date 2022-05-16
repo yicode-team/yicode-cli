@@ -31,7 +31,7 @@ let promptParams = {
     // 是否创建项目
     isCreateProject: true,
     // 是否覆盖当前目录
-    isRewriteDirectory: true,
+    isRewriteDirectory: false,
     // 项目模板类型
     projectTemplateType: 'vue-base',
     // 执行命令
