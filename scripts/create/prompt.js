@@ -19,9 +19,16 @@ const projectTemplateConfig = [
     {
         name: '基础模板(vue2-base-webpack)',
         value: 'vue2-base-webpack',
-        describe: '通用Vue单页应用开发',
+        describe: '通用Vue2基础项目模板',
         filename: 'yicode-template-vue2-base-webpack.zip',
         url: 'https://static.chensuiyi.com/download/yicode-template-vue2-base-webpack.zip'
+    },
+    {
+        name: '后台模板(vue2-admin-webpack)',
+        value: 'vue2-admin-webpack',
+        describe: '通用Vue2后台项目模板',
+        filename: 'yicode-template-vue2-admin-webpack.zip',
+        url: 'https://static.chensuiyi.com/download/yicode-template-vue2-admin-webpack.zip'
     }
 ];
 const projectTemplateConfigByValue = keyBy(projectTemplateConfig, 'value');
