@@ -1,11 +1,11 @@
-export default `
+export const pageRoute = `
 export default {
-    path: '<%= lowerCaseNameRoutePath %>',
-    component: () => import('<%= aliasNames.src %>/layout/default/index.vue'),
+    path: '/<%= filePaths.pageRoute %>',
+    component: () => import('@/layout/default/index.vue'),
     children: [
         {
             path: '/',
-            component: () => import('<%= aliasNames.src %>/pages/<%= lowerCaseNameRouteBackslash %>/index.vue')
+            component: () => import('@/pages/<%= filePaths.pagePath %>')
         }
     ]
 };

@@ -1,12 +1,12 @@
 export const componentTemplate = `<template>
-    <div class="g-comp-<%= kebabCaseName %>">
+    <div class="g-<%= kebabCaseName %>">
         <%= kebabCaseName %>
     </div>
 </template>
 
 <script>
 export default {
-    name: "GComp<%= startCaseName %>",
+    name: "G<%= startCaseName %>",
     data(){
         return {
 
@@ -19,7 +19,6 @@ export default {
 
     },
     methods:{
-        // 通用简单事件注册中心
         on(){
 
         },
@@ -28,7 +27,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.g-comp-<%= kebabCaseName %> {
+.g-<%= kebabCaseName %> {
 }
 </style>
 `;

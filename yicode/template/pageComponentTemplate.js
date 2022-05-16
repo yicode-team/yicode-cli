@@ -1,12 +1,12 @@
 export const componentTemplate = `<template>
-    <div class="comp-<%= lowerCaseName %>">
+    <div class="c-<%= lowerCaseName %>">
         comp-<%= lowerCaseName %>
     </div>
 </template>
 
 <script>
 export default {
-    name: "Comp<%= startCaseName %>",
+    name: "<%= startCaseName %>",
     data(){
         return {};
     },
@@ -23,7 +23,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.comp-<%= lowerCaseName %> {
+.c-<%= lowerCaseName %> {
 }
 </style>
 `;

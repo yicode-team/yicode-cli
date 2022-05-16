@@ -3,18 +3,6 @@ export const pageTemplate = `<template>
         <%= fileNames.kebabCaseName %>
     </div>
 </template>
-<route>
-{
-    path: '/<%= filePaths.pageRoute %>',
-    component: () => import('@/layout/default/index.vue'),
-    children: [
-        {
-            path: '/',
-            component: () => import('@/pages/<%= filePaths.pagePath %>')
-        }
-    ]
-}
-</route>
 <script>
 export default {
     name: "<%= fileNames.startCaseName %>",
