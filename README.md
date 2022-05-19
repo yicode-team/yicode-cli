@@ -4,7 +4,7 @@
 
 ## 文档地址
 
-[请展开 开源项目/yicode](https://chensuiyi.com)
+[yicode-cli 使用文档](https://chensuiyi.com/markdown/%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/yicode/1-%E5%85%A5%E9%97%A8%E6%8C%87%E5%BC%95/1-%E5%9F%BA%E6%9C%AC%E7%AE%80%E4%BB%8B.html)
 
 ## 仓库地址
 
