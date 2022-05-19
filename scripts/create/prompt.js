@@ -13,7 +13,6 @@ import { rootDir, tempDir, cliDir } from '../../yicode/paths.js';
 // import yicodePackage from path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'package.js');
 import { isEmptyDirectory, downloadProject, relativePath, fn_firname, fn_filename } from '../../yicode/utils.js';
 
-// TODO: 后期支持版本下载
 // 项目模板配置
 const projectTemplateConfig = [
     {
