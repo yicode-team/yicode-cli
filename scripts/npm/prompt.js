@@ -23,12 +23,12 @@ export async function prompt(options) {
             message: '请选择要执行的命令',
             choices: [
                 {
-                    name: 'list' + chalk.cyanBright('  显示所有npm源'),
-                    value: 'list'
-                },
-                {
                     name: 'current' + chalk.cyanBright('  显示当前npm源'),
                     value: 'current'
+                },
+                {
+                    name: 'list' + chalk.cyanBright('  显示所有npm源'),
+                    value: 'list'
                 }
             ]
         }
