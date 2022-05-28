@@ -4,6 +4,6 @@ export default {
     loader: 'sass-loader',
     options: {
         sourceMap: process.env.NODE_MODE === 'development' ? true : false,
-        additionalData: `@import "@/styles/variable.scss";`
+        additionalData: `@use "@/styles/variable.scss" as *;`
     }
 };
