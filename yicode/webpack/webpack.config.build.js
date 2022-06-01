@@ -9,7 +9,6 @@ import configCommon from './webpack.config.common.js';
 import { cacheDir } from '../paths.js';
 
 let currentConfig = {
-    // 生产环境禁用缓存
     cache: false,
     devtool: 'nosources-source-map',
     profile: false,

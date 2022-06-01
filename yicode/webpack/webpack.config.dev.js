@@ -18,7 +18,7 @@ import webpackConfigCommon from './webpack.config.common.js';
 
 let currentConfig = {
     // 打包发生错误时不停止打包
-    bail: true,
+    bail: false,
     // 开发环境开启缓存
     // cache: false,
     cache: {

@@ -111,7 +111,7 @@ let webpackConfigCommon = {
     },
     watch: false,
     watchOptions: {
-        ignored: ['**/.cache/**/*', '**/node_modules', '**/routes.js'],
+        ignored: ['**/.cache/**/*', '**/node_modules'],
         aggregateTimeout: 600,
         poll: 1000
     },
