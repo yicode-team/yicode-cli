@@ -23,6 +23,13 @@ const projectTemplateConfig = [
         url: 'https://static.chensuiyi.com/download/yicode-template-vue2-base-webpack.zip'
     },
     {
+        name: '基础模板(vue3-base-vite)',
+        value: 'vue3-base-vite',
+        describe: '通用Vue3基础项目模板',
+        filename: 'yicode-template-vue3-base-vite.zip',
+        url: 'https://static.chensuiyi.com/download/yicode-template-vue3-base-vite.zip'
+    },
+    {
         name: '后台模板(vue2-admin-webpack)',
         value: 'vue2-admin-webpack',
         describe: '通用Vue2后台项目模板',
@@ -39,7 +46,7 @@ let promptParams = {
     // 是否覆盖当前目录
     isRewriteDirectory: false,
     // 项目模板类型
-    projectTemplateType: 'vue-base',
+    projectTemplateType: 'vue2-base-webpack',
     // 执行命令
     executeCommand: 'dev'
 };

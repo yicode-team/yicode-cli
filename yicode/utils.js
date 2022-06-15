@@ -75,6 +75,27 @@ export function getEnvNames() {
     return envFiles;
 }
 
+/**
+ * 获取所有环境变量.env文件的文件名组成的数组
+ * @returns array 环境变量数组
+ */
+export function getViteEnvNames() {
+    let envFiles = fastGlob
+        .sync('*', {
+            dot: true,
+            absolute: false,
+            cwd: resolve(srcDir, 'env'),
+            onlyFiles: true
+        })
+        .map((fileName) => {
+            return {
+                value: fileName,
+                name: fileName
+            };
+        });
+    return envFiles;
+}
+
 // 判断目录是否为空
 export function isEmptyDirectory(path) {
     return fs.readdirSync(path).length === 0;

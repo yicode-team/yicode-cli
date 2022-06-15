@@ -10,6 +10,7 @@ import { fileURLToPath } from 'url';
 import { rootDir, tempDir, cliDir } from '../yicode/paths.js';
 // import yicodePackage from path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'package.js');
 import { isEmptyDirectory, downloadProject, relativePath, fn_firname, fn_filename } from '../yicode/utils.js';
+import yicodeConfig from '../yicode/config.js';
 
 // 提示参数收集
 let promptParams = {
@@ -68,6 +69,14 @@ async function executeCommand() {
         }
     ]);
     merge(promptParams, _executeCommand);
+    if (promptParams.executeCommand === 'dev' && yicodeConfig.projectType.indexOf('vite') !== -1) {
+        // vite 工具命令执行路径
+        let commandPath = relativePath(fn_firname(import.meta.url), path.resolve(cliDir, 'scripts', 'devVite', 'prompt.js'));
+        let { prompt } = await import(commandPath);
+        await prompt();
+
+        return;
+    }
     // 命令执行路径
     let commandPath = relativePath(fn_firname(import.meta.url), path.resolve(cliDir, 'scripts', promptParams.executeCommand, 'prompt.js'));
     let { prompt } = await import(commandPath);

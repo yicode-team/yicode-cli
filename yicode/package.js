@@ -1,9 +1,9 @@
 // 外部模块
-import { resolve } from 'path';
+import path from 'path';
 import fs from 'fs-extra';
 
 // 内部模块
-import { cliDir, rootDir } from './paths.js';
+import * as yicodePaths from './paths.js';
 
-export const yicodePackage = fs.readJSONSync(resolve(cliDir, 'package.json'), { throws: false }) || {};
-export const projectPackage = fs.readJSONSync(resolve(rootDir, 'package.json'), { throws: false }) || {};
+export const yicodePackage = fs.readJSONSync(path.resolve(yicodePaths.cliDir, 'package.json'), { throws: false }) || {};
+export const projectPackage = fs.readJSONSync(path.resolve(yicodePaths.rootDir, 'package.json'), { throws: false }) || {};
