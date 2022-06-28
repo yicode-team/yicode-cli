@@ -1,7 +1,7 @@
 // 外部模块
-import { resolve, basename, dirname, relative } from 'path';
-import { fileURLToPath } from 'url';
-import { toLower, kebabCase, camelCase, replace, startCase } from 'lodash-es';
+import path from 'path';
+import url from 'url';
+import * as _ from 'lodash-es';
 import fs from 'fs-extra';
 import chalk from 'chalk';
 import Downloader from 'nodejs-file-downloader';
@@ -11,7 +11,7 @@ import fastGlob from 'fast-glob';
 import { createRequire } from 'module';
 
 // 配置相关
-import { tempDir, srcDir } from './paths.js';
+import * as yicodePaths from './paths.js';
 
 // 下载项目
 export function downloadProject(options) {
@@ -20,7 +20,7 @@ export function downloadProject(options) {
         try {
             const downloader = new Downloader({
                 url: options.url,
-                directory: tempDir,
+                directory: yicodePaths.tempDir,
                 fileName: options.filename,
                 cloneFiles: false,
                 maxAttempts: 3,
@@ -41,10 +41,10 @@ export function downloadProject(options) {
 
 export function getFileNames(name) {
     // 页面名称转化 HelL_o-wOrld
-    let lowerCaseName = toLower(name); // hell_o-world
-    let kebabCaseName = kebabCase(lowerCaseName); // hell-o-world
-    let camelCaseName = camelCase(kebabCaseName); // hellOWorld
-    let startCaseName = replace(startCase(camelCaseName), /\s+/g, ''); // HellOWorld
+    let lowerCaseName = _.toLower(name); // hell_o-world
+    let kebabCaseName = _.kebabCase(lowerCaseName); // hell-o-world
+    let camelCaseName = _.camelCase(kebabCaseName); // hellOWorld
+    let startCaseName = _.replace(_.startCase(camelCaseName), /\s+/g, ''); // HellOWorld
 
     return {
         lowerCaseName,
@@ -63,12 +63,12 @@ export function getEnvNames() {
         .sync('*.js', {
             dot: false,
             absolute: false,
-            cwd: resolve(srcDir, 'env'),
+            cwd: path.resolve(yicodePaths.srcDir, 'env'),
             onlyFiles: true
         })
         .map((fileName) => {
             return {
-                value: basename(fileName, '.js'),
+                value: path.basename(fileName, '.js'),
                 name: fileName
             };
         });
@@ -84,7 +84,7 @@ export function getViteEnvNames() {
         .sync('*', {
             dot: true,
             absolute: false,
-            cwd: resolve(srcDir, 'env'),
+            cwd: path.resolve(yicodePaths.srcDir, 'env'),
             onlyFiles: true
         })
         .map((fileName) => {
@@ -112,7 +112,7 @@ export function print(strs) {
 }
 
 export function relativePath(from, to) {
-    let _relative = relative(from, to);
+    let _relative = path.relative(from, to);
     let _covertPath = _relative.replace(/\\+/g, '/');
 
     // 如果第一个不是（.），则自动拼接点
@@ -123,16 +123,16 @@ export function relativePath(from, to) {
 }
 
 export function fn_filename(metaUrl) {
-    return fileURLToPath(metaUrl);
+    return url.fileURLToPath(metaUrl);
 }
 
 export function fn_pureFilename(metaUrl) {
-    return basename(fn_filename(metaUrl)).split('.')[0];
+    return path.basename(fn_filename(metaUrl)).split('.')[0];
 }
 
 export function fn_firname(metaUrl) {
-    const filename = fileURLToPath(metaUrl);
-    return dirname(filename);
+    const filename = url.fileURLToPath(metaUrl);
+    return path.dirname(filename);
 }
 
 export function requireResolve(url, name) {

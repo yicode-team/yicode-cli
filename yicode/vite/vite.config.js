@@ -2,16 +2,20 @@ import path from 'path';
 import { defineConfig } from 'vite';
 // import { fileURLToPath, URL } from 'url';
 import vue from '@vitejs/plugin-vue';
-// import Pages from 'vite-plugin-pages';
-// import Layouts from 'vite-plugin-vue-layouts';
-// import AutoImport from 'unplugin-auto-import/vite';
-// import Components from 'unplugin-vue-components/vite';
+import Pages from 'vite-plugin-pages';
+
+console.log('🚀 ~ file: vite.config.js ~ line 6 ~ Pages', typeof Pages.default);
+import Layouts from 'vite-plugin-vue-layouts';
+import AutoImport from 'unplugin-auto-import/vite';
+import Components from 'unplugin-vue-components/vite';
 // import Icons from 'unplugin-icons/vite';
-// import IconsResolver from 'unplugin-icons/resolver';
+import IconsResolver from 'unplugin-icons/resolver';
+import { NaiveUiResolver } from 'unplugin-vue-components/resolvers';
 // import Unocss from 'unocss/vite';
 // import * as yicodePaths from '../paths.js';
 // import * as utils from '../utils.js';
-
+// let Pages2 = Pages.default
+// let Layouts2 = Layouts.default
 // import {
 //     //
 //     presetUno,
@@ -26,14 +30,35 @@ import vue from '@vitejs/plugin-vue';
 export default defineConfig({
     plugins: [
         //
-        vue()
-    ]
-    // css: {
-    //     preprocessorOptions: {
-    //         scss: {
-    //             additionalData: `@use "@/styles/variable.scss" as *;`
-    //         }
-    //     }
-    // }
+        vue(),
+        Layouts,
+        Pages,
+        AutoImport({
+            include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/, /\.md$/],
+            imports: ['vue', '@vueuse/core'],
+            // dirs: ['./src/hooks'],
+            vueTemplate: true
+        }),
+        Components({
+            directoryAsNamespace: true,
+            resolvers: [
+                //
+                IconsResolver(),
+                NaiveUiResolver()
+            ]
+        })
+    ],
+    css: {
+        preprocessorOptions: {
+            scss: {
+                additionalData: `@use "@/styles/variable.scss" as *;`
+            }
+        }
+    },
+    resolve: {
+        alias: {
+            '@': path.resolve(process.cwd(), 'src')
+        }
+    }
     // envDir: path.resolve(yicodePaths.srcDir, 'env')
 });
