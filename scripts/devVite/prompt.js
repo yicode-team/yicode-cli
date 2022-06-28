@@ -15,36 +15,36 @@ export async function prompt(options) {
     promptParams = merge(promptParams, options);
 
     // 提示使用的环境变量文件
-    let _envFile = await inquirer.prompt([
-        {
-            type: 'list',
-            name: 'envFile',
-            choices: getViteEnvNames(),
-            message: '请选择使用的环境变量文件'
-        }
-    ]);
-    promptParams = merge(promptParams, _envFile);
+    // let _envFile = await inquirer.prompt([
+    //     {
+    //         type: 'list',
+    //         name: 'envFile',
+    //         choices: getViteEnvNames(),
+    //         message: '请选择使用的环境变量文件'
+    //     }
+    // ]);
+    // promptParams = merge(promptParams, _envFile);
     // 默认使用开发者模式
     shell.env['NODE_MODE'] = 'development';
     // 选择的环境变量文件
-    shell.env['NODE_ENV_FILE'] = promptParams.envFile;
+    // shell.env['NODE_ENV_FILE'] = promptParams.envFile;
 
     /**
      * ==========================================
      * 选择是否启动分析模式
      * ==========================================
      */
-    const _isAnalyzer = await inquirer.prompt([
-        {
-            type: 'confirm',
-            name: 'isAnalyzer',
-            message: '是否启动分析模式？（默认：否）',
-            default: false
-        }
-    ]);
-    promptParams = merge(promptParams, _isAnalyzer);
+    // const _isAnalyzer = await inquirer.prompt([
+    //     {
+    //         type: 'confirm',
+    //         name: 'isAnalyzer',
+    //         message: '是否启动分析模式？（默认：否）',
+    //         default: false
+    //     }
+    // ]);
+    // promptParams = merge(promptParams, _isAnalyzer);
     // 是否启动分析模式
-    shell.env['NODE_ANALYZER'] = promptParams.isAnalyzer;
+    // shell.env['NODE_ANALYZER'] = promptParams.isAnalyzer;
 
     devMain();
 }

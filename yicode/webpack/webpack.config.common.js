@@ -27,7 +27,6 @@ import _loaderStyleConfig from '../loader/style-loader.config.js';
 import _loaderRouteConfig from '../loader/route-loader.config.js';
 
 // plugin 配置文件
-// import AutoRoutePlugin from '../plugin/auto-route-plugin.js';
 // let _pluginProvideConfig = require("./plugin/provide-plugin.config.js");
 
 // 导出webpack通用配置

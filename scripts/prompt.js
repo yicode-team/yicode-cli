@@ -25,14 +25,6 @@ async function executeCommand() {
     let yicodeConfigPath = path.resolve(rootDir, 'yicode.config.js');
     let choices = [
         {
-            name: 'git' + chalk.cyanBright('  git提交数据可视化'),
-            value: 'git'
-        },
-        {
-            name: 'npm' + chalk.cyanBright('  切换npm源地址'),
-            value: 'npm'
-        },
-        {
             name: 'version' + chalk.cyanBright('  查看版本信息'),
             value: 'version'
         }

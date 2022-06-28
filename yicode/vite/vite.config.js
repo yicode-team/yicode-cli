@@ -1,6 +1,6 @@
 import path from 'path';
 import { defineConfig } from 'vite';
-import { fileURLToPath, URL } from 'url';
+// import { fileURLToPath, URL } from 'url';
 import vue from '@vitejs/plugin-vue';
 // import Pages from 'vite-plugin-pages';
 // import Layouts from 'vite-plugin-vue-layouts';
@@ -9,8 +9,8 @@ import vue from '@vitejs/plugin-vue';
 // import Icons from 'unplugin-icons/vite';
 // import IconsResolver from 'unplugin-icons/resolver';
 // import Unocss from 'unocss/vite';
-import * as yicodePaths from '../paths.js';
-import * as utils from '../utils.js';
+// import * as yicodePaths from '../paths.js';
+// import * as utils from '../utils.js';
 
 // import {
 //     //
