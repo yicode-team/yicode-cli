@@ -2,10 +2,6 @@ import path from 'path';
 import { defineConfig } from 'vite';
 // import { fileURLToPath, URL } from 'url';
 import vue from '@vitejs/plugin-vue';
-import Pages from 'vite-plugin-pages';
-
-console.log('🚀 ~ file: vite.config.js ~ line 6 ~ Pages', typeof Pages.default);
-import Layouts from 'vite-plugin-vue-layouts';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
 // import Icons from 'unplugin-icons/vite';
@@ -14,8 +10,6 @@ import { NaiveUiResolver } from 'unplugin-vue-components/resolvers';
 // import Unocss from 'unocss/vite';
 // import * as yicodePaths from '../paths.js';
 // import * as utils from '../utils.js';
-// let Pages2 = Pages.default
-// let Layouts2 = Layouts.default
 // import {
 //     //
 //     presetUno,
@@ -31,8 +25,6 @@ export default defineConfig({
     plugins: [
         //
         vue(),
-        Layouts,
-        Pages,
         AutoImport({
             include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/, /\.md$/],
             imports: ['vue', '@vueuse/core'],
