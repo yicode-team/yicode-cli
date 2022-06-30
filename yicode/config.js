@@ -1,6 +1,6 @@
 // 外部模块
 import os from 'os';
-import { resolve } from 'path';
+import path from 'path';
 import fs from 'fs-extra';
 import * as _ from 'lodash-es';
 // let schemeUtils = require('schema-utils');
@@ -15,7 +15,7 @@ import * as yicodeUtils from './utils.js';
  * 比如：./D:\codes\project\test1\yicode.config.js
  * 需要去掉前面的 ./
  */
-let _relativePath = yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), resolve(rootDir, 'yicode.config.js'));
+let _relativePath = yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), path.resolve(rootDir, 'yicode.config.js'));
 if (_relativePath.indexOf(':') !== -1) {
     _relativePath = _relativePath.replace('./', 'file://');
 }
@@ -48,8 +48,8 @@ const yicodeConfig = {
             fixTypes: ['problem', 'suggestion', 'layout'],
             // 是否缓存
             cache: true,
-            cacheLocation: resolve(rootDir, '.cache', '.eslintcache'),
-            overrideConfigFile: resolve(cliDir, '.eslintrc.js'),
+            cacheLocation: path.resolve(rootDir, '.cache', '.eslintcache'),
+            overrideConfigFile: path.resolve(cliDir, '.eslintrc.js'),
             // 只检测改变的文件，一开始启动不检测
             lintDirtyModulesOnly: true,
             // 并行数量
@@ -58,12 +58,12 @@ const yicodeConfig = {
     },
     stylelint: {
         options: {
-            configFile: resolve(cliDir, 'stylelint.config.js'),
+            configFile: path.resolve(cliDir, 'stylelint.config.js'),
             context: srcDir,
             configBasedir: cliDir,
             cache: true,
             fix: true,
-            cacheLocation: resolve(rootDir, '.cache'),
+            cacheLocation: path.resolve(rootDir, '.cache'),
             // 只检测改变的文件
             lintDirtyModulesOnly: true
         }

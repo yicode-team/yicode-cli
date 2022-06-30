@@ -1,5 +1,5 @@
-import { resolve } from 'path';
-import { cliDir } from './yicode/paths.js';
+import path from 'path';
+import * as yicodePaths from './yicode/paths.js';
 export default {
     // 找到当前目录就不往上找了
     root: true,
@@ -16,7 +16,7 @@ export default {
         sourceType: 'module',
         // 指定babel的参数 https://github.com/babel/babel/tree/main/eslint/babel-eslint-parser#additional-parser-configuration
         babelOptions: {
-            configFile: resolve(cliDir, 'babel.config.js')
+            configFile: path.resolve(yicodePaths.cliDir, 'babel.config.js')
         }
     },
     plugins: [

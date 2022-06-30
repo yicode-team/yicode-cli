@@ -1,4 +1,4 @@
-import { resolve } from 'path';
+import path from 'path';
 import { cliDir } from '../paths.js';
 
 export default {
@@ -8,7 +8,7 @@ export default {
         root: cliDir,
         rootMode: 'upward',
         cacheDirectory: true,
-        configFile: resolve(cliDir, 'babel.config.js'),
+        configFile: path.resolve(cliDir, 'babel.config.js'),
         presets: [
             [
                 '@babel/preset-env',

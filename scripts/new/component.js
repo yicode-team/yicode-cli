@@ -1,5 +1,5 @@
 import fs from 'fs-extra';
-import { join, resolve } from 'path';
+import path from 'path';
 import * as _ from 'lodash-es';
 import ora from 'ora';
 import chalk from 'chalk';
@@ -9,15 +9,15 @@ const spinner = ora();
 export async function newComponent(options) {
     let dirPath = options.newPath;
     if (options.componentType === 'pageComponent') {
-        dirPath = join(dirPath, 'components');
+        dirPath = path.join(dirPath, 'components');
     }
     fs.ensureDirSync(dirPath);
 
     // 创建页面
-    let htmlFilePath = join(dirPath, options.fileNames.camelCaseName + '.vue');
+    let htmlFilePath = path.join(dirPath, options.fileNames.camelCaseName + '.vue');
     if (fs.existsSync(htmlFilePath) === false) {
         let compTemplate = options.componentType === 'globalComponent' ? 'globalComponentTemplate' : 'pageComponentTemplate';
-        const { componentTemplate } = await import(yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), resolve(webpackDir, 'template', `${compTemplate}.js`)));
+        const { componentTemplate } = await import(yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), path.resolve(webpackDir, 'template', `${compTemplate}.js`)));
         let htmlFileData = _.template(componentTemplate)(options.fileNames);
         fs.outputFileSync(htmlFilePath, htmlFileData);
         spinner.succeed(chalk.green(chalk.blue(options.fileNames.camelCaseName + '.vue') + ' 组件创建成功'));

@@ -1,5 +1,5 @@
 // 内部模块
-import { resolve } from 'path';
+import path from 'path';
 
 // 第三方模块
 import Webpack from 'webpack';
@@ -40,7 +40,7 @@ let webpackConfigCommon = {
     mode: 'development',
     // mode: 'production',
     // 入口
-    entry: resolve(srcDir, 'main.js'),
+    entry: path.resolve(srcDir, 'main.js'),
     // 基础目录，绝对路径，用于从配置中解析入口点(entry point)和 加载器(loader)。
     context: rootDir,
     // 出口
@@ -69,7 +69,7 @@ let webpackConfigCommon = {
         // 模块加载路径
         modules: [
             //
-            resolve(cliDir, 'node_modules'),
+            path.resolve(cliDir, 'node_modules'),
             'node_modules'
         ],
         fallback: {
@@ -102,9 +102,9 @@ let webpackConfigCommon = {
     resolveLoader: {
         modules: [
             //
-            resolve(cliDir, 'yicode'),
-            resolve(cliDir, 'yicode', 'webpack'),
-            resolve(cliDir, 'node_modules'),
+            path.resolve(cliDir, 'yicode'),
+            path.resolve(cliDir, 'yicode', 'webpack'),
+            path.resolve(cliDir, 'node_modules'),
             'node_modules'
         ]
     },
@@ -210,8 +210,8 @@ let webpackConfigCommon = {
         new CopyWebpackPlugin({
             patterns: [
                 {
-                    from: resolve(srcDir, 'static'),
-                    to: resolve(distDir, 'static')
+                    from: path.resolve(srcDir, 'static'),
+                    to: path.resolve(distDir, 'static')
                 }
             ]
         }),
@@ -222,7 +222,7 @@ let webpackConfigCommon = {
         }),
         new HtmlWebpackPlugin({
             minify: false,
-            template: resolve(srcDir, 'tpls', 'index.html')
+            template: path.resolve(srcDir, 'tpls', 'index.html')
         }),
         new VueLoaderPlugin(),
         new ProgressBarPlugin(),
@@ -234,7 +234,7 @@ let webpackConfigCommon = {
  * 设置环境变量文件
  * [修改/新增/删除]环境变量时，自动更新其值，无需重新启动yicode
  */
-let envFilePath = resolve(srcDir, 'env', process.env.NODE_ENV_FILE + '.js');
+let envFilePath = path.resolve(srcDir, 'env', process.env.NODE_ENV_FILE + '.js');
 webpackConfigCommon.plugins.push(
     new Webpack.DefinePlugin({
         YICODE_ENV: Webpack.DefinePlugin.runtimeValue(
@@ -246,7 +246,7 @@ webpackConfigCommon.plugins.push(
                 fileDependencies: [
                     //
                     envFilePath,
-                    resolve(rootDir, 'yicode.config.js')
+                    path.resolve(rootDir, 'yicode.config.js')
                 ]
             }
         )

@@ -1,17 +1,17 @@
 // 导入模块
-import { resolve, basename, join } from 'path';
+import path from 'path';
 
 import Webpack from 'webpack';
 
 import FriendlyErrorsWebpackPlugin from '@nuxt/friendly-errors-webpack-plugin';
 
 // 配置相关
-import { cliDir } from '../../yicode/paths.js';
+import * as yicodePaths from '../../yicode/paths.js';
 import * as yicodeUtils from '../../yicode/utils.js';
 import friendlyErrorsConfig from '../../yicode/plugin/friendly-errors.config.js';
 
 export async function buildMain() {
-    let { webpackConfig } = await import(yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), resolve(cliDir, 'yicode', 'webpack', 'webpack.config.build.js')));
+    let { webpackConfig } = await import(yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), path.resolve(yicodePaths.cliDir, 'yicode', 'webpack', 'webpack.config.build.js')));
 
     // 追加友好错误提示插件
     friendlyErrorsConfig.compilationSuccessInfo.messages.push(`项目编译成功！！！`);

@@ -1,4 +1,4 @@
-import { resolve } from 'path';
+import path from 'path';
 import { srcDir } from '../paths.js';
 export default {
     loader: 'sass-loader',

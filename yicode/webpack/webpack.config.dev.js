@@ -1,5 +1,5 @@
 // 内置模块
-import { resolve } from 'path';
+import path from 'path';
 // 第三方模块
 import Webpack from 'webpack';
 import { merge as webpackMerge } from 'webpack-merge';
@@ -12,7 +12,6 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 // 配置
 import { cliDir, cacheDir } from '../paths.js';
 import * as yicodeUtils from '../utils.js';
-// let yicodeConfig = require(path.resolve(cliDir, 'yicode', 'helper', 'config.js'));
 
 import webpackConfigCommon from './webpack.config.common.js';
 
