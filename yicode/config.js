@@ -3,7 +3,6 @@ import os from 'os';
 import path from 'path';
 import fs from 'fs-extra';
 import * as _ from 'lodash-es';
-// let schemeUtils = require('schema-utils');
 
 // 内部模块
 import * as yicodePaths from './paths.js';
@@ -15,7 +14,7 @@ import * as yicodeUtils from './utils.js';
  * 比如：./D:\codes\project\test1\yicode.config.js
  * 需要去掉前面的 ./
  */
-let _relativePath = yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), path.resolve(yicodePaths.rootDir, 'yicode.config.js'));
+let _relativePath = yicodeUtils.relativePath(yicodeUtils.fn_dirname(import.meta.url), path.resolve(yicodePaths.rootDir, 'yicode.config.js'));
 if (_relativePath.indexOf(':') !== -1) {
     _relativePath = _relativePath.replace('./', 'file://');
 }

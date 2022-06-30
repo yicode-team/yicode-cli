@@ -130,7 +130,7 @@ export function fn_pureFilename(metaUrl) {
     return path.basename(fn_filename(metaUrl)).split('.')[0];
 }
 
-export function fn_firname(metaUrl) {
+export function fn_dirname(metaUrl) {
     const filename = url.fileURLToPath(metaUrl);
     return path.dirname(filename);
 }

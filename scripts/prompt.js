@@ -63,14 +63,14 @@ async function executeCommand() {
     // 如果项目类型（productType）字符串中带有vite字样，则表示使用vite打包。
     if (promptParams.executeCommand === 'dev' && yicodeConfig.projectType.indexOf('-vite') !== -1) {
         // vite 工具命令执行路径
-        let commandPath = yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), path.resolve(yicodePaths.cliDir, 'scripts', 'devVite', 'prompt.js'));
+        let commandPath = yicodeUtils.relativePath(yicodeUtils.fn_dirname(import.meta.url), path.resolve(yicodePaths.cliDir, 'scripts', 'devVite', 'prompt.js'));
         let { prompt } = await import(commandPath);
         await prompt();
 
         return;
     }
     // 命令执行路径
-    let commandPath = yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), path.resolve(yicodePaths.cliDir, 'scripts', promptParams.executeCommand, 'prompt.js'));
+    let commandPath = yicodeUtils.relativePath(yicodeUtils.fn_dirname(import.meta.url), path.resolve(yicodePaths.cliDir, 'scripts', promptParams.executeCommand, 'prompt.js'));
     let { prompt } = await import(commandPath);
     await prompt();
 }

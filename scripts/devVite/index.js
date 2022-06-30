@@ -14,7 +14,7 @@ import yicodeConfig from '../../yicode/config.js';
 // 导出函数
 export async function devMain(options) {
     // 开发环境的webpack配置参数
-    // let viteConfig = await import(yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), path.resolve(yicodePaths.cliDir, 'yicode', 'vite', 'vite.config.js')));
+    // let viteConfig = await import(yicodeUtils.relativePath(yicodeUtils.fn_dirname(import.meta.url), path.resolve(yicodePaths.cliDir, 'yicode', 'vite', 'vite.config.js')));
 
     // 判断协议类型
     // let protocol = devServerConfig.https === true ? 'https' : 'http';

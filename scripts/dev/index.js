@@ -56,7 +56,7 @@ let defaultDevServer = {
 // 导出函数
 export async function devMain(options) {
     // 开发环境的webpack配置参数
-    let { webpackConfig } = await import(yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), path.resolve(yicodePaths.cliDir, 'yicode', 'webpack', 'webpack.config.dev.js')));
+    let { webpackConfig } = await import(yicodeUtils.relativePath(yicodeUtils.fn_dirname(import.meta.url), path.resolve(yicodePaths.cliDir, 'yicode', 'webpack', 'webpack.config.dev.js')));
 
     // 默认的devServer配置参数
 
