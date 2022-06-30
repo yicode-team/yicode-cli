@@ -22,7 +22,7 @@ if (_relativePath.indexOf(':') !== -1) {
 // 项目配置
 const { default: projectConfig } = await import(_relativePath);
 
-const yicodeConfig = {
+const defaultConfig = {
     // 项目类型
     projectType: '',
     /**
@@ -82,5 +82,7 @@ const yicodeConfig = {
 
 // schemeUtils.validate(yicodeScheme, yicodeConfig, { name: '[ yicode.config.js ]' });
 
+const yicodeConfig = _.merge(defaultConfig, projectConfig);
+
 // 配置合并
-export default _.merge(yicodeConfig, projectConfig);
+export { yicodeConfig };

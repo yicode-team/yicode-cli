@@ -15,8 +15,8 @@ import ImportFresh from 'import-fresh';
 //  配置文件
 import * as yicodePaths from '../paths.js';
 import * as yicodePkgs from '../package.js';
-import yicodeConfig from '../config.js';
 import * as yicodeUtils from '../utils.js';
+import { yicodeConfig } from '../config.js';
 
 //  loader配置文件
 import _loaderPostCssConfig from '../loader/postcss-loader.config.js';

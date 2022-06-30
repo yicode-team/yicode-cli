@@ -3,7 +3,7 @@ import autoprefixer from 'autoprefixer';
 
 // 配置
 import * as yicodePaths from '../paths.js';
-import yicodeConfig from '../config.js';
+import { yicodeConfig } from '../config.js';
 
 // 默认内置插件
 let postcssPlugin = [autoprefixer()];

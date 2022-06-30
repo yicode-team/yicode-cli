@@ -13,7 +13,7 @@ import webpackDevServer from 'webpack-dev-server';
 import * as yicodePaths from '../../yicode/paths.js';
 import * as yicodeUtils from '../../yicode/utils.js';
 import * as yicodePkgs from '../../yicode/package.js';
-import yicodeConfig from '../../yicode/config.js';
+import { yicodeConfig } from '../../yicode/config.js';
 import friendlyErrorsConfig from '../../yicode/plugin/friendly-errors.config.js';
 
 let defaultDevServer = {

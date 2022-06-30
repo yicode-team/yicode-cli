@@ -8,7 +8,7 @@ import inquirer from 'inquirer';
 // yicode相关
 import * as yicodePaths from '../yicode/paths.js';
 import * as yicodeUtils from '../yicode/utils.js';
-import yicodeConfig from '../yicode/config.js';
+import { yicodeConfig } from '../yicode/config.js';
 
 // 提示参数收集
 let promptParams = {

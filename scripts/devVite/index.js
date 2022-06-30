@@ -9,7 +9,7 @@ import updateNotifier from 'update-notifier';
 import * as yicodePaths from '../../yicode/paths.js';
 import * as yicodeUtils from '../../yicode/utils.js';
 import * as yicodePkgs from '../../yicode/package.js';
-import yicodeConfig from '../../yicode/config.js';
+import { yicodeConfig } from '../../yicode/config.js';
 
 // 导出函数
 export async function devMain(options) {
