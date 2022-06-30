@@ -4,7 +4,6 @@ import * as _ from 'lodash-es';
 import fs from 'fs-extra';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
-import { fileURLToPath } from 'url';
 
 // yicode相关
 import * as yicodePaths from '../yicode/paths.js';

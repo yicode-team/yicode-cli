@@ -6,7 +6,6 @@ import chalk from 'chalk';
 import inquirer from 'inquirer';
 import ora from 'ora';
 import AdmZip from 'adm-zip';
-import { fileURLToPath } from 'url';
 
 // yicode相关
 import * as yicodePaths from '../../yicode/paths.js';
