@@ -2,7 +2,7 @@ import * as _ from 'lodash-es';
 import autoprefixer from 'autoprefixer';
 
 // 配置
-import { cliDir } from '../paths.js';
+import * as yicodePaths from '../paths.js';
 import yicodeConfig from '../config.js';
 
 // 默认内置插件

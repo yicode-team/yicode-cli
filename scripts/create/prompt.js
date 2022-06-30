@@ -9,7 +9,7 @@ import AdmZip from 'adm-zip';
 import { fileURLToPath } from 'url';
 
 // yicode相关
-import { rootDir, tempDir, cliDir } from '../../yicode/paths.js';
+import * as yicodePaths from '../../yicode/paths.js';
 import * as yicodeUtils from '../../yicode/utils.js';
 
 // 项目模板配置
@@ -81,7 +81,7 @@ async function prompt() {
  * 是否覆盖当前目录
  */
 async function isRewriteDirectory() {
-    if (yicodeUtils.isEmptyDirectory(rootDir) === false) {
+    if (yicodeUtils.isEmptyDirectory(yicodePaths.rootDir) === false) {
         let _isRewriteDirectory = await inquirer.prompt([
             {
                 type: 'confirm',
@@ -119,22 +119,22 @@ async function projectTemplateType() {
         await yicodeUtils.downloadProject(projectItem);
 
         // 创建zip压缩实例
-        const zip = new AdmZip(path.resolve(tempDir, projectItem.filename));
+        const zip = new AdmZip(path.resolve(yicodePaths.tempDir, projectItem.filename));
 
         /**
          * 如果覆盖当前目录的话，则清空根目录
          */
         if (promptParams.isRewriteDirectory === true) {
-            fs.emptyDirSync(rootDir);
-            await zip.extractAllTo(rootDir, true);
+            fs.emptyDirSync(yicodePaths.rootDir);
+            await zip.extractAllTo(yicodePaths.rootDir, true);
         } else {
-            await zip.extractAllTo(tempDir, true);
-            await fs.removeSync(path.join(tempDir, projectItem.filename));
-            await fs.copySync(tempDir, rootDir);
+            await zip.extractAllTo(yicodePaths.tempDir, true);
+            await fs.removeSync(path.join(yicodePaths.tempDir, projectItem.filename));
+            await fs.copySync(yicodePaths.tempDir, yicodePaths.rootDir);
         }
 
         // 移除临时目录
-        fs.removeSync(tempDir);
+        fs.removeSync(yicodePaths.tempDir);
     } catch (err) {
         chalk.bgRed('下载失败');
     }

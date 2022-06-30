@@ -6,7 +6,7 @@ import TerserPlugin from 'terser-webpack-plugin';
 import configCommon from './webpack.config.common.js';
 
 // 配置
-import { cacheDir } from '../paths.js';
+import * as yicodePaths from '../paths.js';
 
 let currentConfig = {
     cache: false,
@@ -74,7 +74,7 @@ let currentConfig = {
 if (process.env.NODE_ANALYZER === 'true') {
     currentConfig.plugins.push(
         new WebpackConfigDumpPlugin({
-            outputPath: cacheDir,
+            outputPath: yicodePaths.cacheDir,
             name: 'webpack.config.dump.js',
             keepCircularReferences: true,
             showFunctionNames: false,

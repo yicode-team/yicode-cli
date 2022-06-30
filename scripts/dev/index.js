@@ -10,7 +10,7 @@ import updateNotifier from 'update-notifier';
 import webpackDevServer from 'webpack-dev-server';
 
 // 配置相关
-import { cliDir, srcDir, staticDir, rootDir, distDir } from '../../yicode/paths.js';
+import * as yicodePaths from '../../yicode/paths.js';
 import * as yicodeUtils from '../../yicode/utils.js';
 import { yicodePackage } from '../../yicode/package.js';
 import yicodeConfig from '../../yicode/config.js';
@@ -44,7 +44,7 @@ let defaultDevServer = {
     port: '',
     // proxy: {},
     static: {
-        directory: staticDir,
+        directory: yicodePaths.staticDir,
         staticOptions: {},
         publicPath: '/static/',
         serveIndex: true,
@@ -56,7 +56,7 @@ let defaultDevServer = {
 // 导出函数
 export async function devMain(options) {
     // 开发环境的webpack配置参数
-    let { webpackConfig } = await import(yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), path.resolve(cliDir, 'yicode', 'webpack', 'webpack.config.dev.js')));
+    let { webpackConfig } = await import(yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), path.resolve(yicodePaths.cliDir, 'yicode', 'webpack', 'webpack.config.dev.js')));
 
     // 默认的devServer配置参数
 

@@ -3,7 +3,7 @@ import path from 'path';
 import * as _ from 'lodash-es';
 import ora from 'ora';
 import chalk from 'chalk';
-import { webpackDir } from '../../yicode/paths.js';
+import * as yicodePaths from '../../yicode/paths.js';
 import * as yicodeUtils from '../../yicode/utils.js';
 const spinner = ora();
 export async function newComponent(options) {
@@ -17,7 +17,7 @@ export async function newComponent(options) {
     let htmlFilePath = path.join(dirPath, options.fileNames.camelCaseName + '.vue');
     if (fs.existsSync(htmlFilePath) === false) {
         let compTemplate = options.componentType === 'globalComponent' ? 'globalComponentTemplate' : 'pageComponentTemplate';
-        const { componentTemplate } = await import(yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), path.resolve(webpackDir, 'template', `${compTemplate}.js`)));
+        const { componentTemplate } = await import(yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), path.resolve(yicodePaths.webpackDir, 'template', `${compTemplate}.js`)));
         let htmlFileData = _.template(componentTemplate)(options.fileNames);
         fs.outputFileSync(htmlFilePath, htmlFileData);
         spinner.succeed(chalk.green(chalk.blue(options.fileNames.camelCaseName + '.vue') + ' 组件创建成功'));

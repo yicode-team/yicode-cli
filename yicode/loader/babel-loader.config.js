@@ -1,14 +1,14 @@
 import path from 'path';
-import { cliDir } from '../paths.js';
+import * as yicodePaths from '../paths.js';
 
 export default {
     loader: 'babel-loader',
     options: {
-        cwd: cliDir,
-        root: cliDir,
+        cwd: yicodePaths.cliDir,
+        root: yicodePaths.cliDir,
         rootMode: 'upward',
         cacheDirectory: true,
-        configFile: path.resolve(cliDir, 'babel.config.js'),
+        configFile: path.resolve(yicodePaths.cliDir, 'babel.config.js'),
         presets: [
             [
                 '@babel/preset-env',

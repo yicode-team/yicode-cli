@@ -6,7 +6,7 @@ import * as _ from 'lodash-es';
 // let schemeUtils = require('schema-utils');
 
 // 内部模块
-import { rootDir, srcDir, cliDir } from './paths.js';
+import * as yicodePaths from './paths.js';
 import * as yicodeUtils from './utils.js';
 // let yicodeScheme = require('./scheme.js');
 
@@ -15,7 +15,7 @@ import * as yicodeUtils from './utils.js';
  * 比如：./D:\codes\project\test1\yicode.config.js
  * 需要去掉前面的 ./
  */
-let _relativePath = yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), path.resolve(rootDir, 'yicode.config.js'));
+let _relativePath = yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), path.resolve(yicodePaths.rootDir, 'yicode.config.js'));
 if (_relativePath.indexOf(':') !== -1) {
     _relativePath = _relativePath.replace('./', 'file://');
 }
@@ -37,19 +37,19 @@ const yicodeConfig = {
     eslint: {
         options: {
             // 检测根目录
-            cwd: srcDir,
+            cwd: yicodePaths.srcDir,
             // 检测的扩展文件
             extensions: ['.js', '.vue'],
             // 解析插件的相对路径，指定为yipck-cli目录，可以减少项目的依赖
-            resolvePluginsRelativeTo: cliDir,
+            resolvePluginsRelativeTo: yicodePaths.cliDir,
             // 是否自动修复
             fix: false,
             // 修复的类型
             fixTypes: ['problem', 'suggestion', 'layout'],
             // 是否缓存
             cache: true,
-            cacheLocation: path.resolve(rootDir, '.cache', '.eslintcache'),
-            overrideConfigFile: path.resolve(cliDir, '.eslintrc.js'),
+            cacheLocation: path.resolve(yicodePaths.rootDir, '.cache', '.eslintcache'),
+            overrideConfigFile: path.resolve(yicodePaths.cliDir, '.eslintrc.js'),
             // 只检测改变的文件，一开始启动不检测
             lintDirtyModulesOnly: true,
             // 并行数量
@@ -58,12 +58,12 @@ const yicodeConfig = {
     },
     stylelint: {
         options: {
-            configFile: path.resolve(cliDir, 'stylelint.config.js'),
-            context: srcDir,
-            configBasedir: cliDir,
+            configFile: path.resolve(yicodePaths.cliDir, 'stylelint.config.js'),
+            context: yicodePaths.srcDir,
+            configBasedir: yicodePaths.cliDir,
             cache: true,
             fix: true,
-            cacheLocation: path.resolve(rootDir, '.cache'),
+            cacheLocation: path.resolve(yicodePaths.rootDir, '.cache'),
             // 只检测改变的文件
             lintDirtyModulesOnly: true
         }

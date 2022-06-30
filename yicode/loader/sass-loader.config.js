@@ -1,5 +1,5 @@
 import path from 'path';
-import { srcDir } from '../paths.js';
+import * as yicodePaths from '../paths.js';
 export default {
     loader: 'sass-loader',
     options: {

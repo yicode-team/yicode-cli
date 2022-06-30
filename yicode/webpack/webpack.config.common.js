@@ -13,7 +13,7 @@ import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 import ImportFresh from 'import-fresh';
 
 //  配置文件
-import { cliDir, srcDir, rootDir, distDir } from '../paths.js';
+import * as yicodePaths from '../paths.js';
 import { yicodePackage } from '../package.js';
 import yicodeConfig from '../config.js';
 import * as yicodeUtils from '../utils.js';
@@ -40,12 +40,12 @@ let webpackConfigCommon = {
     mode: 'development',
     // mode: 'production',
     // 入口
-    entry: path.resolve(srcDir, 'main.js'),
+    entry: path.resolve(yicodePaths.srcDir, 'main.js'),
     // 基础目录，绝对路径，用于从配置中解析入口点(entry point)和 加载器(loader)。
-    context: rootDir,
+    context: yicodePaths.rootDir,
     // 出口
     output: {
-        path: distDir,
+        path: yicodePaths.distDir,
         filename: 'js/[name].[fullhash:7].js',
         publicPath: './',
         sourceMapFilename: 'sourcemaps/[file].map[query]'
@@ -64,12 +64,12 @@ let webpackConfigCommon = {
     resolve: {
         // 别名
         alias: {
-            '@': srcDir
+            '@': yicodePaths.srcDir
         },
         // 模块加载路径
         modules: [
             //
-            path.resolve(cliDir, 'node_modules'),
+            path.resolve(yicodePaths.cliDir, 'node_modules'),
             'node_modules'
         ],
         fallback: {
@@ -102,9 +102,9 @@ let webpackConfigCommon = {
     resolveLoader: {
         modules: [
             //
-            path.resolve(cliDir, 'yicode'),
-            path.resolve(cliDir, 'yicode', 'webpack'),
-            path.resolve(cliDir, 'node_modules'),
+            path.resolve(yicodePaths.cliDir, 'yicode'),
+            path.resolve(yicodePaths.cliDir, 'yicode', 'webpack'),
+            path.resolve(yicodePaths.cliDir, 'node_modules'),
             'node_modules'
         ]
     },
@@ -210,8 +210,8 @@ let webpackConfigCommon = {
         new CopyWebpackPlugin({
             patterns: [
                 {
-                    from: path.resolve(srcDir, 'static'),
-                    to: path.resolve(distDir, 'static')
+                    from: path.resolve(yicodePaths.srcDir, 'static'),
+                    to: path.resolve(yicodePaths.distDir, 'static')
                 }
             ]
         }),
@@ -222,7 +222,7 @@ let webpackConfigCommon = {
         }),
         new HtmlWebpackPlugin({
             minify: false,
-            template: path.resolve(srcDir, 'tpls', 'index.html')
+            template: path.resolve(yicodePaths.srcDir, 'tpls', 'index.html')
         }),
         new VueLoaderPlugin(),
         new ProgressBarPlugin(),
@@ -234,7 +234,7 @@ let webpackConfigCommon = {
  * 设置环境变量文件
  * [修改/新增/删除]环境变量时，自动更新其值，无需重新启动yicode
  */
-let envFilePath = path.resolve(srcDir, 'env', process.env.NODE_ENV_FILE + '.js');
+let envFilePath = path.resolve(yicodePaths.srcDir, 'env', process.env.NODE_ENV_FILE + '.js');
 webpackConfigCommon.plugins.push(
     new Webpack.DefinePlugin({
         YICODE_ENV: Webpack.DefinePlugin.runtimeValue(
@@ -246,7 +246,7 @@ webpackConfigCommon.plugins.push(
                 fileDependencies: [
                     //
                     envFilePath,
-                    path.resolve(rootDir, 'yicode.config.js')
+                    path.resolve(yicodePaths.rootDir, 'yicode.config.js')
                 ]
             }
         )

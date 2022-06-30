@@ -10,7 +10,7 @@ import { WebpackConfigDumpPlugin } from 'webpack-config-dump-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 // 配置
-import { cliDir, cacheDir } from '../paths.js';
+import * as yicodePaths from '../paths.js';
 import * as yicodeUtils from '../utils.js';
 
 import webpackConfigCommon from './webpack.config.common.js';
@@ -68,7 +68,7 @@ let currentConfig = {
 if (process.env.NODE_ANALYZER === 'true') {
     currentConfig.plugins.push(
         new WebpackConfigDumpPlugin({
-            outputPath: cacheDir,
+            outputPath: yicodePaths.cacheDir,
             name: 'webpack.config.dump.js',
             keepCircularReferences: true,
             showFunctionNames: false,

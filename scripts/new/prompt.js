@@ -9,7 +9,7 @@ import { newComponent } from './component.js';
 import { newDirective } from './directive.js';
 import { newFilter } from './filter.js';
 
-import { rootDir, pageDir, componentDir } from '../../yicode/paths.js';
+import * as yicodePaths from '../../yicode/paths.js';
 
 inquirer.registerPrompt('file-tree-selection', inquirerFileTreeSelection);
 // 提示参数收集
@@ -57,7 +57,7 @@ export async function prompt(options) {
             name: 'newPath',
             message: '请选择目录',
             onlyShowDir: true,
-            root: pageDir
+            root: yicodePaths.pageDir
         });
         promptParams = _.merge(promptParams, _newPath);
 
@@ -93,13 +93,13 @@ export async function prompt(options) {
             name: 'newPath',
             message: '请选择组件目录',
             onlyShowDir: true,
-            root: promptParams.componentType === 'pageComponent' ? pageDir : componentDir
+            root: promptParams.componentType === 'pageComponent' ? yicodePaths.pageDir : yicodePaths.componentDir
         };
 
         // 排除页面目录本身
         if (promptParams.componentType === 'pageComponent') {
             promptObject.validate = (path) => {
-                return path !== pageDir;
+                return path !== yicodePaths.pageDir;
             };
         }
         const _newPath = await inquirer.prompt(promptObject);
