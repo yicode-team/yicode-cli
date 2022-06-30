@@ -8,8 +8,7 @@ import { fileURLToPath } from 'url';
 
 // yicode相关
 import { rootDir, tempDir, cliDir } from '../yicode/paths.js';
-// import yicodePackage from path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'package.js');
-import { isEmptyDirectory, downloadProject, relativePath, fn_firname, fn_filename } from '../yicode/utils.js';
+import * as yicodeUtils from '../yicode/utils.js';
 import yicodeConfig from '../yicode/config.js';
 
 // 提示参数收集
@@ -61,16 +60,18 @@ async function executeCommand() {
         }
     ]);
     merge(promptParams, _executeCommand);
-    if (promptParams.executeCommand === 'dev' && yicodeConfig.projectType.indexOf('vite') !== -1) {
+
+    // 如果项目类型（productType）字符串中带有vite字样，则表示使用vite打包。
+    if (promptParams.executeCommand === 'dev' && yicodeConfig.projectType.indexOf('-vite') !== -1) {
         // vite 工具命令执行路径
-        let commandPath = relativePath(fn_firname(import.meta.url), path.resolve(cliDir, 'scripts', 'devVite', 'prompt.js'));
+        let commandPath = yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), path.resolve(cliDir, 'scripts', 'devVite', 'prompt.js'));
         let { prompt } = await import(commandPath);
         await prompt();
 
         return;
     }
     // 命令执行路径
-    let commandPath = relativePath(fn_firname(import.meta.url), path.resolve(cliDir, 'scripts', promptParams.executeCommand, 'prompt.js'));
+    let commandPath = yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), path.resolve(cliDir, 'scripts', promptParams.executeCommand, 'prompt.js'));
     let { prompt } = await import(commandPath);
     await prompt();
 }

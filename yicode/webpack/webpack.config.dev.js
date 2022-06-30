@@ -11,7 +11,7 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
 // 配置
 import { cliDir, cacheDir } from '../paths.js';
-import { fn_filename } from '../utils.js';
+import * as yicodeUtils from '../utils.js';
 // let yicodeConfig = require(path.resolve(cliDir, 'yicode', 'helper', 'config.js'));
 
 import webpackConfigCommon from './webpack.config.common.js';

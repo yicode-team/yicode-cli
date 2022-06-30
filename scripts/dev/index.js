@@ -11,7 +11,7 @@ import webpackDevServer from 'webpack-dev-server';
 
 // 配置相关
 import { cliDir, srcDir, staticDir, rootDir, distDir } from '../../yicode/paths.js';
-import { relativePath, getEnvNames, fn_firname } from '../../yicode/utils.js';
+import * as yicodeUtils from '../../yicode/utils.js';
 import { yicodePackage } from '../../yicode/package.js';
 import yicodeConfig from '../../yicode/config.js';
 import friendlyErrorsConfig from '../../yicode/plugin/friendly-errors.config.js';
@@ -56,7 +56,7 @@ let defaultDevServer = {
 // 导出函数
 export async function devMain(options) {
     // 开发环境的webpack配置参数
-    let { webpackConfig } = await import(relativePath(fn_firname(import.meta.url), resolve(cliDir, 'yicode', 'webpack', 'webpack.config.dev.js')));
+    let { webpackConfig } = await import(yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), resolve(cliDir, 'yicode', 'webpack', 'webpack.config.dev.js')));
 
     // 默认的devServer配置参数
 

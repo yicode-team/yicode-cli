@@ -9,7 +9,7 @@ import IconsResolver from 'unplugin-icons/resolver';
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers';
 // import Unocss from 'unocss/vite';
 // import * as yicodePaths from '../paths.js';
-// import * as utils from '../utils.js';
+// import * as yicodeUtils from '../utils.js';
 // import {
 //     //
 //     presetUno,

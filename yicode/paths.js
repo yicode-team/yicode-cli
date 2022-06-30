@@ -1,8 +1,8 @@
 import path from 'path';
-import { fn_firname } from './utils.js';
+import * as yicodeUtils from './utils.js';
 
 // yicode命令路径
-export const cliDir = path.join(fn_firname(import.meta.url), '..');
+export const cliDir = path.join(yicodeUtils.fn_firname(import.meta.url), '..');
 
 // 项目根目录路径
 export const rootDir = path.join(process.cwd());

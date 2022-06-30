@@ -16,7 +16,7 @@ import ImportFresh from 'import-fresh';
 import { cliDir, srcDir, rootDir, distDir } from '../paths.js';
 import { yicodePackage } from '../package.js';
 import yicodeConfig from '../config.js';
-import { requireResolve } from '../utils.js';
+import * as yicodeUtils from '../utils.js';
 
 //  loader配置文件
 import _loaderPostCssConfig from '../loader/postcss-loader.config.js';

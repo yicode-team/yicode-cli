@@ -4,7 +4,7 @@ import { template } from 'lodash-es';
 import ora from 'ora';
 import chalk from 'chalk';
 import { webpackDir, pageDir } from '../../yicode/paths.js';
-import { relativePath, fn_firname } from '../../yicode/utils.js';
+import * as yicodeUtils from '../../yicode/utils.js';
 const spinner = ora();
 export async function newPage(options) {
     let htmlFilePath = '';
@@ -19,13 +19,13 @@ export async function newPage(options) {
 
     if (fs.existsSync(htmlFilePath) === false) {
         // 创建页面
-        const { pageTemplate } = await import(relativePath(fn_firname(import.meta.url), resolve(webpackDir, 'template', 'pageTemplate.js')));
+        const { pageTemplate } = await import(yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), resolve(webpackDir, 'template', 'pageTemplate.js')));
 
         let htmlFileData = template(pageTemplate)(options);
         fs.outputFileSync(htmlFilePath, htmlFileData);
 
         // 创建页面路由
-        const { pageRoute } = await import(relativePath(fn_firname(import.meta.url), resolve(webpackDir, 'template', 'pageRoute.js')));
+        const { pageRoute } = await import(yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), resolve(webpackDir, 'template', 'pageRoute.js')));
 
         let routeFileData = template(pageRoute)(options);
         fs.outputFileSync(routePath, routeFileData);

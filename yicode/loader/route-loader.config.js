@@ -1,6 +1,6 @@
 import { resolve } from 'path';
-import { fn_firname } from '../utils.js';
+import * as yicodeUtils from '../utils.js';
 export default {
-    loader: resolve(fn_firname(import.meta.url), 'route-loader.cjs'),
+    loader: resolve(yicodeUtils.fn_firname(import.meta.url), 'route-loader.cjs'),
     options: {}
 };

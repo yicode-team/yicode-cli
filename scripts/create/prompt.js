@@ -11,7 +11,7 @@ import { fileURLToPath } from 'url';
 // yicode相关
 import { rootDir, tempDir, cliDir } from '../../yicode/paths.js';
 // import yicodePackage from path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'package.js');
-import { isEmptyDirectory, downloadProject, relativePath, fn_firname, fn_filename } from '../../yicode/utils.js';
+import * as yicodeUtils from '../../yicode/utils.js';
 
 // 项目模板配置
 const projectTemplateConfig = [
@@ -82,7 +82,7 @@ async function prompt() {
  * 是否覆盖当前目录
  */
 async function isRewriteDirectory() {
-    if (isEmptyDirectory(rootDir) === false) {
+    if (yicodeUtils.isEmptyDirectory(rootDir) === false) {
         let _isRewriteDirectory = await inquirer.prompt([
             {
                 type: 'confirm',
@@ -117,7 +117,7 @@ async function projectTemplateType() {
         let projectItem = projectTemplateConfigByValue[promptParams.projectTemplateType];
 
         // 下载项目
-        await downloadProject(projectItem);
+        await yicodeUtils.downloadProject(projectItem);
 
         // 创建zip压缩实例
         const zip = new AdmZip(path.resolve(tempDir, projectItem.filename));

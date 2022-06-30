@@ -2,7 +2,7 @@ import shell from 'shelljs';
 import inquirer from 'inquirer';
 // 第三方模块
 import { merge } from 'lodash-es';
-import { getViteEnvNames } from '../../yicode/utils.js';
+import * as yicodeUtils from '../../yicode/utils.js';
 import { devMain } from './index.js';
 
 // 提示参数收集
@@ -19,7 +19,7 @@ export async function prompt(options) {
     //     {
     //         type: 'list',
     //         name: 'envFile',
-    //         choices: getViteEnvNames(),
+    //         choices: yicodeUtils.getViteEnvNames(),
     //         message: '请选择使用的环境变量文件'
     //     }
     // ]);

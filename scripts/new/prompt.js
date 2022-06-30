@@ -3,7 +3,7 @@ import { resolve, join } from 'path';
 import shell from 'shelljs';
 import inquirer from 'inquirer';
 import inquirerFileTreeSelection from 'inquirer-file-tree-selection-prompt';
-import { getEnvNames, getFileNames } from '../../yicode/utils.js';
+import * as yicodeUtils from '../../yicode/utils.js';
 import { newPage } from './page.js';
 import { newComponent } from './component.js';
 import { newDirective } from './directive.js';
@@ -67,7 +67,7 @@ export async function prompt(options) {
             message: '请输入页面名称'
         });
 
-        promptParams = merge(promptParams, _newName, { fileNames: getFileNames(_newName.newName) });
+        promptParams = merge(promptParams, _newName, { fileNames: yicodeUtils.getFileNames(_newName.newName) });
         await newPage(promptParams);
     }
 
@@ -110,7 +110,7 @@ export async function prompt(options) {
             name: 'newName',
             message: '请输入组件名称'
         });
-        promptParams = merge(promptParams, _newName, { fileNames: getFileNames(_newName.newName) });
+        promptParams = merge(promptParams, _newName, { fileNames: yicodeUtils.getFileNames(_newName.newName) });
         await newComponent(promptParams);
     }
 
@@ -120,7 +120,7 @@ export async function prompt(options) {
             name: 'newName',
             message: '请输入指令名称'
         });
-        promptParams = merge(promptParams, _newName, { fileNames: getFileNames(_newName.newName) });
+        promptParams = merge(promptParams, _newName, { fileNames: yicodeUtils.getFileNames(_newName.newName) });
         await newDirective(promptParams);
     }
 
@@ -130,7 +130,7 @@ export async function prompt(options) {
             name: 'newName',
             message: '请输入过滤器名称'
         });
-        promptParams = merge(promptParams, _newName, { fileNames: getFileNames(_newName.newName) });
+        promptParams = merge(promptParams, _newName, { fileNames: yicodeUtils.getFileNames(_newName.newName) });
         await newFilter(promptParams);
     }
 }

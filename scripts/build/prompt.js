@@ -1,7 +1,7 @@
 import { merge } from 'lodash-es';
 import shell from 'shelljs';
 import inquirer from 'inquirer';
-import { getEnvNames } from '../../yicode/utils.js';
+import * as yicodeUtils from '../../yicode/utils.js';
 import { buildMain } from './index.js';
 
 // 使用产品模式
@@ -23,7 +23,7 @@ export async function prompt(options) {
         {
             type: 'list',
             name: 'envFile',
-            choices: getEnvNames(),
+            choices: yicodeUtils.getEnvNames(),
             message: '选择使用的环境变量文件'
         }
     ]);
