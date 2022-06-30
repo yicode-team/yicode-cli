@@ -1,6 +1,6 @@
 // 模块导入
 import path from 'path';
-import { keyBy, merge } from 'lodash-es';
+import * as _ from 'lodash-es';
 import fs from 'fs-extra';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
@@ -59,7 +59,7 @@ async function executeCommand() {
             choices: choices
         }
     ]);
-    merge(promptParams, _executeCommand);
+    _.merge(promptParams, _executeCommand);
 
     // 如果项目类型（productType）字符串中带有vite字样，则表示使用vite打包。
     if (promptParams.executeCommand === 'dev' && yicodeConfig.projectType.indexOf('-vite') !== -1) {

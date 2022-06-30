@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 import { join, resolve } from 'path';
-import { template } from 'lodash-es';
+import * as _ from 'lodash-es';
 import ora from 'ora';
 import chalk from 'chalk';
 import { webpackDir, directiveDir } from '../../yicode/paths.js';
@@ -12,7 +12,7 @@ export async function newDirective(options) {
     let htmlFilePath = join(directiveDir, options.fileNames.camelCaseName + '.js');
     if (fs.existsSync(htmlFilePath) === false) {
         const { directiveTemplate } = await import(yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), resolve(webpackDir, 'template', 'directiveTemplate.js')));
-        let htmlFileData = template(directiveTemplate)(options.fileNames);
+        let htmlFileData = _.template(directiveTemplate)(options.fileNames);
         fs.outputFileSync(htmlFilePath, htmlFileData);
         spinner.succeed(chalk.green(chalk.blue(options.fileNames.camelCaseName + '.vue') + ' 指令创建成功'));
     } else {

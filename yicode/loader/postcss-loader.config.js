@@ -1,4 +1,4 @@
-import { merge } from 'lodash-es';
+import * as _ from 'lodash-es';
 import autoprefixer from 'autoprefixer';
 
 // 配置
@@ -12,7 +12,7 @@ let postcssPlugin = [autoprefixer()];
 if (yicodeConfig.px2viewport && yicodeConfig.px2viewport.enable === true) {
     postcssPlugin.push([
         'postcss-px-to-viewport',
-        merge(
+        _.merge(
             {
                 unitToConvert: 'px',
                 viewportWidth: 750,

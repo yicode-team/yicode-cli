@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 import { join, resolve, relative } from 'path';
-import { template } from 'lodash-es';
+import * as _ from 'lodash-es';
 import ora from 'ora';
 import chalk from 'chalk';
 import { webpackDir, pageDir } from '../../yicode/paths.js';
@@ -21,13 +21,13 @@ export async function newPage(options) {
         // 创建页面
         const { pageTemplate } = await import(yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), resolve(webpackDir, 'template', 'pageTemplate.js')));
 
-        let htmlFileData = template(pageTemplate)(options);
+        let htmlFileData = _.template(pageTemplate)(options);
         fs.outputFileSync(htmlFilePath, htmlFileData);
 
         // 创建页面路由
         const { pageRoute } = await import(yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), resolve(webpackDir, 'template', 'pageRoute.js')));
 
-        let routeFileData = template(pageRoute)(options);
+        let routeFileData = _.template(pageRoute)(options);
         fs.outputFileSync(routePath, routeFileData);
 
         spinner.succeed(chalk.green(chalk.blue(pagePath) + ' 页面创建成功'));

@@ -1,6 +1,6 @@
 import fs from 'fs-extra';
 import { join, resolve } from 'path';
-import { template } from 'lodash-es';
+import * as _ from 'lodash-es';
 import ora from 'ora';
 import chalk from 'chalk';
 import { webpackDir } from '../../yicode/paths.js';
@@ -18,7 +18,7 @@ export async function newComponent(options) {
     if (fs.existsSync(htmlFilePath) === false) {
         let compTemplate = options.componentType === 'globalComponent' ? 'globalComponentTemplate' : 'pageComponentTemplate';
         const { componentTemplate } = await import(yicodeUtils.relativePath(yicodeUtils.fn_firname(import.meta.url), resolve(webpackDir, 'template', `${compTemplate}.js`)));
-        let htmlFileData = template(componentTemplate)(options.fileNames);
+        let htmlFileData = _.template(componentTemplate)(options.fileNames);
         fs.outputFileSync(htmlFilePath, htmlFileData);
         spinner.succeed(chalk.green(chalk.blue(options.fileNames.camelCaseName + '.vue') + ' 组件创建成功'));
     } else {

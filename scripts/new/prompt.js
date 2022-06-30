@@ -1,4 +1,4 @@
-import { merge } from 'lodash-es';
+import * as _ from 'lodash-es';
 import { resolve, join } from 'path';
 import shell from 'shelljs';
 import inquirer from 'inquirer';
@@ -17,7 +17,7 @@ let promptParams = {};
 
 export async function prompt(options) {
     // 合并参数
-    promptParams = merge(promptParams, options);
+    promptParams = _.merge(promptParams, options);
 
     /**
      * ==========================================
@@ -49,7 +49,7 @@ export async function prompt(options) {
             message: '请选择新建类型'
         }
     ]);
-    promptParams = merge(promptParams, _newType);
+    promptParams = _.merge(promptParams, _newType);
 
     if (promptParams.newType === 'page') {
         const _newPath = await inquirer.prompt({
@@ -59,7 +59,7 @@ export async function prompt(options) {
             onlyShowDir: true,
             root: pageDir
         });
-        promptParams = merge(promptParams, _newPath);
+        promptParams = _.merge(promptParams, _newPath);
 
         const _newName = await inquirer.prompt({
             type: 'input',
@@ -67,7 +67,7 @@ export async function prompt(options) {
             message: '请输入页面名称'
         });
 
-        promptParams = merge(promptParams, _newName, { fileNames: yicodeUtils.getFileNames(_newName.newName) });
+        promptParams = _.merge(promptParams, _newName, { fileNames: yicodeUtils.getFileNames(_newName.newName) });
         await newPage(promptParams);
     }
 
@@ -87,7 +87,7 @@ export async function prompt(options) {
             ],
             message: '创建全局组件还是页面组件？'
         });
-        promptParams = merge(promptParams, _componentType);
+        promptParams = _.merge(promptParams, _componentType);
         let promptObject = {
             type: 'file-tree-selection',
             name: 'newPath',
@@ -103,14 +103,14 @@ export async function prompt(options) {
             };
         }
         const _newPath = await inquirer.prompt(promptObject);
-        promptParams = merge(promptParams, _newPath);
+        promptParams = _.merge(promptParams, _newPath);
 
         const _newName = await inquirer.prompt({
             type: 'input',
             name: 'newName',
             message: '请输入组件名称'
         });
-        promptParams = merge(promptParams, _newName, { fileNames: yicodeUtils.getFileNames(_newName.newName) });
+        promptParams = _.merge(promptParams, _newName, { fileNames: yicodeUtils.getFileNames(_newName.newName) });
         await newComponent(promptParams);
     }
 
@@ -120,7 +120,7 @@ export async function prompt(options) {
             name: 'newName',
             message: '请输入指令名称'
         });
-        promptParams = merge(promptParams, _newName, { fileNames: yicodeUtils.getFileNames(_newName.newName) });
+        promptParams = _.merge(promptParams, _newName, { fileNames: yicodeUtils.getFileNames(_newName.newName) });
         await newDirective(promptParams);
     }
 
@@ -130,7 +130,7 @@ export async function prompt(options) {
             name: 'newName',
             message: '请输入过滤器名称'
         });
-        promptParams = merge(promptParams, _newName, { fileNames: yicodeUtils.getFileNames(_newName.newName) });
+        promptParams = _.merge(promptParams, _newName, { fileNames: yicodeUtils.getFileNames(_newName.newName) });
         await newFilter(promptParams);
     }
 }

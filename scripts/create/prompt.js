@@ -1,6 +1,6 @@
 // 模块导入
 import path from 'path';
-import { keyBy, merge } from 'lodash-es';
+import * as _ from 'lodash-es';
 import fs from 'fs-extra';
 import chalk from 'chalk';
 import inquirer from 'inquirer';
@@ -10,7 +10,6 @@ import { fileURLToPath } from 'url';
 
 // yicode相关
 import { rootDir, tempDir, cliDir } from '../../yicode/paths.js';
-// import yicodePackage from path.resolve(yicodePaths.cliDir, 'yicode', 'helper', 'package.js');
 import * as yicodeUtils from '../../yicode/utils.js';
 
 // 项目模板配置
@@ -37,7 +36,7 @@ const projectTemplateConfig = [
         url: 'https://static.chensuiyi.com/download/yicode-template-vue2-admin-webpack.zip'
     }
 ];
-const projectTemplateConfigByValue = keyBy(projectTemplateConfig, 'value');
+const projectTemplateConfigByValue = _.keyBy(projectTemplateConfig, 'value');
 
 // 提示参数收集
 let promptParams = {
@@ -68,7 +67,7 @@ async function prompt() {
             default: promptParams.isCreateProject
         }
     ]);
-    merge(promptParams, _isCreateProject);
+    _.merge(promptParams, _isCreateProject);
 
     // 如果选择不创建新项目
     if (promptParams.isCreateProject === false) {
@@ -91,7 +90,7 @@ async function isRewriteDirectory() {
                 default: promptParams.isRewriteDirectory
             }
         ]);
-        merge(promptParams, _isRewriteDirectory);
+        _.merge(promptParams, _isRewriteDirectory);
     }
     await projectTemplateType();
 }
@@ -112,7 +111,7 @@ async function projectTemplateType() {
             }
         ]);
 
-        merge(promptParams, _projectTemplateType);
+        _.merge(promptParams, _projectTemplateType);
 
         let projectItem = projectTemplateConfigByValue[promptParams.projectTemplateType];
 

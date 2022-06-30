@@ -1,7 +1,7 @@
 import shell from 'shelljs';
 import inquirer from 'inquirer';
 // 第三方模块
-import { merge } from 'lodash-es';
+import * as _ from 'lodash-es';
 import * as yicodeUtils from '../../yicode/utils.js';
 import { devMain } from './index.js';
 
@@ -12,7 +12,7 @@ let promptParams = {};
 shell.env['NODE_MODE'] = 'development';
 
 export async function prompt(options) {
-    promptParams = merge(promptParams, options);
+    promptParams = _.merge(promptParams, options);
 
     // 提示使用的环境变量文件
     let _envFile = await inquirer.prompt([
@@ -23,7 +23,7 @@ export async function prompt(options) {
             message: '请选择使用的环境变量文件'
         }
     ]);
-    promptParams = merge(promptParams, _envFile);
+    promptParams = _.merge(promptParams, _envFile);
     // 默认使用开发者模式
     shell.env['NODE_MODE'] = 'development';
     // 选择的环境变量文件
@@ -42,7 +42,7 @@ export async function prompt(options) {
             default: false
         }
     ]);
-    promptParams = merge(promptParams, _isAnalyzer);
+    promptParams = _.merge(promptParams, _isAnalyzer);
     // 是否启动分析模式
     shell.env['NODE_ANALYZER'] = promptParams.isAnalyzer;
 

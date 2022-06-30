@@ -1,4 +1,4 @@
-import { merge } from 'lodash-es';
+import * as _ from 'lodash-es';
 import shell from 'shelljs';
 import inquirer from 'inquirer';
 import * as yicodeUtils from '../../yicode/utils.js';
@@ -12,7 +12,7 @@ let promptParams = {};
 
 export async function prompt(options) {
     // 合并参数
-    promptParams = merge(promptParams, options);
+    promptParams = _.merge(promptParams, options);
 
     /**
      * ==========================================
@@ -27,7 +27,7 @@ export async function prompt(options) {
             message: '选择使用的环境变量文件'
         }
     ]);
-    promptParams = merge(promptParams, _envFile);
+    promptParams = _.merge(promptParams, _envFile);
 
     // 默认使用开发者模式
     shell.env['NODE_MODE'] = 'production';
@@ -47,7 +47,7 @@ export async function prompt(options) {
             default: false
         }
     ]);
-    promptParams = merge(promptParams, _isAnalyzer);
+    promptParams = _.merge(promptParams, _isAnalyzer);
     // 是否启动分析模式
     shell.env['NODE_ANALYZER'] = promptParams.isAnalyzer;
 
