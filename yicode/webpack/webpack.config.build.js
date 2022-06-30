@@ -3,7 +3,7 @@ import { merge as webpackMerge } from 'webpack-merge';
 import { WebpackConfigDumpPlugin } from 'webpack-config-dump-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import TerserPlugin from 'terser-webpack-plugin';
-import configCommon from './webpack.config.common.js';
+import { webpackConfigCommon } from './webpack.config.common.js';
 
 // 配置
 import * as yicodePaths from '../paths.js';
@@ -90,4 +90,4 @@ if (process.env.NODE_ANALYZER === 'true') {
         })
     );
 }
-export const webpackConfig = webpackMerge(configCommon, currentConfig);
+export const webpackConfig = webpackMerge(webpackConfigCommon, currentConfig);

@@ -4,6 +4,7 @@ import path from 'path';
 // 第三方模块
 import Webpack from 'webpack';
 import * as _ from 'lodash-es';
+import { merge as webpackMerge } from 'webpack-merge';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import { VueLoaderPlugin } from 'vue-loader';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
@@ -30,7 +31,7 @@ import _loaderRouteConfig from '../loader/route-loader.config.js';
 // let _pluginProvideConfig = require("./plugin/provide-plugin.config.js");
 
 // 导出webpack通用配置
-let webpackConfigCommon = {
+let currentConfig = {
     name: 'yicode-cli',
     // 打包发生错误时停止打包
     bail: false,
@@ -235,7 +236,7 @@ let webpackConfigCommon = {
  * [修改/新增/删除]环境变量时，自动更新其值，无需重新启动yicode
  */
 let envFilePath = path.resolve(yicodePaths.srcDir, 'env', process.env.NODE_ENV_FILE + '.js');
-webpackConfigCommon.plugins.push(
+currentConfig.plugins.push(
     new Webpack.DefinePlugin({
         YICODE_ENV: Webpack.DefinePlugin.runtimeValue(
             function getRuntimeValue() {
@@ -253,5 +254,7 @@ webpackConfigCommon.plugins.push(
     })
 );
 
+const webpackConfigCommon = webpackMerge(currentConfig, yicodeConfig.webpack);
+
 // 导出通用配置
-export default webpackConfigCommon;
+export { webpackConfigCommon };

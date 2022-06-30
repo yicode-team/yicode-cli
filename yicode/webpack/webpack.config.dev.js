@@ -13,7 +13,7 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 import * as yicodePaths from '../paths.js';
 import * as yicodeUtils from '../utils.js';
 
-import webpackConfigCommon from './webpack.config.common.js';
+import { webpackConfigCommon } from './webpack.config.common.js';
 
 let currentConfig = {
     // 打包发生错误时不停止打包
