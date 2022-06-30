@@ -1,6 +1,6 @@
 {
     "name": "@yicode/yicode-cli",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "description": "让 vue2 再次伟大！vue 一站式项目解决方案开发脚手架！",
     "main": "index.js",
     "bin": {
