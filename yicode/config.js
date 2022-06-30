@@ -69,9 +69,11 @@ const defaultConfig = {
     },
     webpack: {
         // 全局模块，增加2个默认垫片模块，测试
-        providePlugin: {
-            process: 'process/browser.js',
-            Buffer: ['buffer', 'Buffer']
+        plugins: {
+            providePlugin: {
+                process: 'process/browser.js',
+                Buffer: ['buffer', 'Buffer']
+            }
         },
         // 外部链接
         externals: {},
