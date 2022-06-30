@@ -8,7 +8,7 @@ import updateNotifier from 'update-notifier';
 // 配置相关
 import * as yicodePaths from '../../yicode/paths.js';
 import * as yicodeUtils from '../../yicode/utils.js';
-import { yicodePackage } from '../../yicode/package.js';
+import * as yicodePkgs from '../../yicode/package.js';
 import yicodeConfig from '../../yicode/config.js';
 
 // 导出函数

@@ -14,7 +14,7 @@ import ImportFresh from 'import-fresh';
 
 //  配置文件
 import * as yicodePaths from '../paths.js';
-import { yicodePackage } from '../package.js';
+import * as yicodePkgs from '../package.js';
 import yicodeConfig from '../config.js';
 import * as yicodeUtils from '../utils.js';
 
