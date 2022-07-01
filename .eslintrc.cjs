@@ -1,6 +1,7 @@
-import path from 'path';
-import * as yicodePaths from './yicode/paths.js';
-export default {
+const path = require('path');
+const localPkg = require('local-pkg');
+// const yicodePaths = localPkg.importModule('./yicode/paths.js');
+module.exports = {
     // 找到当前目录就不往上找了
     root: true,
     parser: 'vue-eslint-parser',
@@ -16,7 +17,7 @@ export default {
         sourceType: 'module',
         // 指定babel的参数 https://github.com/babel/babel/tree/main/eslint/babel-eslint-parser#additional-parser-configuration
         babelOptions: {
-            configFile: path.resolve(yicodePaths.cliDir, 'babel.config.js')
+            configFile: path.resolve(__dirname, 'babel.config2.cjs')
         }
     },
     plugins: [
@@ -35,12 +36,14 @@ export default {
         'prettier/prettier': [
             'warn',
             {
-                printWidth: 80,
-                singleQuote: true,
-                semi: true,
-                tabWidth: 4,
                 trailingComma: 'none',
-                bracketSpacing: true
+                tabWidth: 4,
+                semi: true,
+                singleQuote: true,
+                printWidth: 1024,
+                bracketSpacing: true,
+                useTabs: false,
+                arrowParens: 'always'
             },
             {
                 usePrettierrc: false
@@ -55,6 +58,7 @@ export default {
                 order: ['template', 'script', 'style']
             }
         ],
+        'vue/multi-word-component-names': 'off',
         'vue/html-end-tags': 'warn',
         'vue/html-self-closing': [
             'warn',

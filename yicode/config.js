@@ -42,13 +42,13 @@ const defaultConfig = {
             // 解析插件的相对路径，指定为yipck-cli目录，可以减少项目的依赖
             resolvePluginsRelativeTo: yicodePaths.cliDir,
             // 是否自动修复
-            fix: false,
+            fix: true,
             // 修复的类型
             fixTypes: ['problem', 'suggestion', 'layout'],
             // 是否缓存
             cache: true,
             cacheLocation: path.resolve(yicodePaths.rootDir, '.cache', '.eslintcache'),
-            overrideConfigFile: path.resolve(yicodePaths.cliDir, '.eslintrc.js'),
+            overrideConfigFile: path.resolve(yicodePaths.cliDir, '.eslintrc.cjs'),
             // 只检测改变的文件，一开始启动不检测
             lintDirtyModulesOnly: true,
             // 并行数量

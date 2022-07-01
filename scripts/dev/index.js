@@ -80,8 +80,4 @@ export async function devMain(options) {
     let compiler = await Webpack(webpackConfig);
     let server = new webpackDevServer(devServerConfig, compiler);
     await server.start();
-
-    // server.listen(devServerConfig.port, devServerConfig.host, () => {
-    // console.log(`开发环境已启动：${protocol}://${devServerConfig.host}:${port}`);
-    // });
 }

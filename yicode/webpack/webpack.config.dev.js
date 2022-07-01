@@ -12,6 +12,7 @@ import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 // 配置
 import * as yicodePaths from '../paths.js';
 import * as yicodeUtils from '../utils.js';
+import { yicodeConfig } from '../config.js';
 
 import { webpackConfigCommon } from './webpack.config.common.js';
 
@@ -61,7 +62,7 @@ let currentConfig = {
     // },
     plugins: [
         //
-        // new ESLintPlugin(yicodeConfig.eslint.options),
+        new ESLintPlugin(yicodeConfig.eslint.options)
         // new StylelintPlugin(yicodeConfig.stylelint.options)
     ]
 };

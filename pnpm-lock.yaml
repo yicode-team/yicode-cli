@@ -40,6 +40,7 @@ specifiers:
     inquirer: ^9.0.0
     inquirer-file-tree-selection-prompt: ^1.0.19
     lint-staged: ^13.0.3
+    local-pkg: ^0.4.1
     lodash-es: ^4.17.21
     mini-css-extract-plugin: ^2.6.1
     nodejs-file-downloader: ^4.9.3
@@ -119,6 +120,7 @@ dependencies:
     import-fresh: 3.3.0
     inquirer: 9.0.0
     inquirer-file-tree-selection-prompt: 1.0.19
+    local-pkg: 0.4.1
     lodash-es: 4.17.21
     mini-css-extract-plugin: 2.6.1_webpack@5.73.0
     nodejs-file-downloader: 4.9.3
