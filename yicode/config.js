@@ -57,7 +57,7 @@ const defaultConfig = {
     },
     stylelint: {
         options: {
-            configFile: path.resolve(yicodePaths.cliDir, 'stylelint.config.js'),
+            configFile: path.resolve(yicodePaths.cliDir, 'stylelint.config.cjs'),
             context: yicodePaths.srcDir,
             configBasedir: yicodePaths.cliDir,
             cache: true,

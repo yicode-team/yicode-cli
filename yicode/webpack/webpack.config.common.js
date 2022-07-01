@@ -56,7 +56,7 @@ let currentConfig = {
     profile: false,
     parallelism: 100,
     infrastructureLogging: {
-        level: 'error'
+        level: 'warn'
     },
     // stats: 'verbose',
     stats: 'errors-warnings',
