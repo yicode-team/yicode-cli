@@ -42,7 +42,7 @@ const defaultConfig = {
             // 解析插件的相对路径，指定为yipck-cli目录，可以减少项目的依赖
             resolvePluginsRelativeTo: yicodePaths.cliDir,
             // 是否自动修复
-            fix: true,
+            fix: false,
             // 修复的类型
             fixTypes: ['problem', 'suggestion', 'layout'],
             // 是否缓存

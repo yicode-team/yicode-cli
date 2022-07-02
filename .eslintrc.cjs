@@ -64,12 +64,12 @@ module.exports = {
             'warn',
             {
                 html: {
-                    void: 'never',
-                    normal: 'never',
-                    component: 'never'
+                    void: 'any',
+                    normal: 'any',
+                    component: 'any'
                 },
-                svg: 'never',
-                math: 'never'
+                svg: 'always',
+                math: 'always'
             }
         ],
         'vue/prop-name-casing': ['warn', 'camelCase'],
