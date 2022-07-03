@@ -61,7 +61,7 @@ export async function devMain(options) {
     // 默认的devServer配置参数
 
     // 合并开发服务配置参数
-    let devServerConfig = webpackMerge(defaultDevServer, yicodeConfig?.webpackConfig?.devServer || {});
+    let devServerConfig = webpackMerge(defaultDevServer, yicodeConfig?.webpack?.devServer || {});
 
     // 如果port没有值，则从8000 - 9000端口中选择一个
     if (!devServerConfig.port) {
@@ -73,7 +73,7 @@ export async function devMain(options) {
 
     // 追加友好错误提示插件
     friendlyErrorsConfig.compilationSuccessInfo.messages.push(`应用已启动：${protocol}://${devServerConfig.host}:${devServerConfig.port}`);
-    friendlyErrorsConfig.compilationSuccessInfo.notes.unshift('官方文档：[ https://yicode.site ]');
+    friendlyErrorsConfig.compilationSuccessInfo.notes.unshift('官方文档：[ https://chensuiyi.com ]');
 
     webpackConfig.plugins.push(new FriendlyErrorsWebpackPlugin(friendlyErrorsConfig));
 
