@@ -62,7 +62,7 @@ let currentConfig = {
     // },
     plugins: [
         //
-        new ESLintPlugin(yicodeConfig.eslint.options)
+        // new ESLintPlugin(yicodeConfig.eslint.options)
         // new StylelintPlugin(yicodeConfig.stylelint.options)
     ]
 };
