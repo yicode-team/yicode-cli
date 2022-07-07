@@ -16,6 +16,9 @@ let promptParams = {
     executeCommand: 'dev'
 };
 
+// 使用vite运行的项目名称枚举
+let viteProjectType = ['vue3-base-vite'];
+
 /**
  * 选择要执行的命令
  */
@@ -61,7 +64,7 @@ async function executeCommand() {
     _.merge(promptParams, _executeCommand);
 
     // 如果项目类型（productType）字符串中带有vite字样，则表示使用vite打包。
-    if (promptParams.executeCommand === 'dev' && yicodeConfig.projectType.indexOf('-vite') !== -1) {
+    if (promptParams.executeCommand === 'dev' && viteProjectType.includes(yicodeConfig.projectType)) {
         // vite 工具命令执行路径
         let commandPath = yicodeUtils.relativePath(yicodeUtils.fn_dirname(import.meta.url), path.resolve(yicodePaths.cliDir, 'scripts', 'devVite', 'prompt.js'));
         let { prompt } = await import(commandPath);
