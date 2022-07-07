@@ -138,3 +138,21 @@ export function fn_dirname(metaUrl) {
 export function requireResolve(url, name) {
     return createRequire(url).resolve(name);
 }
+
+// 导入ESM或commonjs模块
+export function importModule(path, defaultValue) {
+    try {
+        if (fs.existsSync(path) === false) {
+            return defaultValue;
+        }
+        return import(path).then((i) => {
+            if (i && i.default && i.default.__esModule) {
+                return i.default;
+            } else {
+                return i;
+            }
+        });
+    } catch (err) {
+        return defaultValue;
+    }
+}

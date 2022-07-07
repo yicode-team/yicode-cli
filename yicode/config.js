@@ -20,7 +20,7 @@ if (_relativePath.indexOf(':') !== -1) {
 }
 
 // 项目配置
-const { default: projectConfig } = await import(_relativePath);
+const projectConfig = await yicodeUtils.importModule(_relativePath, {});
 
 const defaultConfig = {
     // 项目类型
