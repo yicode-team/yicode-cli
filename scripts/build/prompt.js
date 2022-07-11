@@ -2,7 +2,7 @@ import * as _ from 'lodash-es';
 import shell from 'shelljs';
 import inquirer from 'inquirer';
 import * as yicodeUtils from '../../yicode/utils.js';
-import { buildMain } from './index.js';
+import { main } from './index.js';
 
 // 使用产品模式
 shell.env['NODE_MODE'] = 'production';
@@ -29,11 +29,6 @@ export async function prompt(options) {
     ]);
     promptParams = _.merge(promptParams, _envFile);
 
-    // 默认使用开发者模式
-    shell.env['NODE_MODE'] = 'production';
-    // 选择的环境变量文件
-    shell.env['NODE_ENV_FILE'] = promptParams.envFile;
-
     /**
      * ==========================================
      * 选择是否启动分析模式
@@ -48,9 +43,7 @@ export async function prompt(options) {
         }
     ]);
     promptParams = _.merge(promptParams, _isAnalyzer);
-    // 是否启动分析模式
-    shell.env['NODE_ANALYZER'] = promptParams.isAnalyzer;
 
     // 开发脚本
-    buildMain(promptParams);
+    main(promptParams);
 }

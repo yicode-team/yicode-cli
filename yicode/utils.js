@@ -111,6 +111,15 @@ export function print(strs) {
     return chalkArray.join('');
 }
 
+// 获取file协议的路径
+export function getFileProtocolPath(_path) {
+    if (_.startsWith(_path, 'file:')) {
+        return _path;
+    } else {
+        return 'file://' + path.normalize(_path);
+    }
+}
+
 export function relativePath(from, to) {
     let _relative = path.relative(from, to);
     let _covertPath = _relative.replace(/\\+/g, '/');
@@ -140,18 +149,14 @@ export function requireResolve(url, name) {
 }
 
 // 导入ESM或commonjs模块
-export function importModule(path, defaultValue) {
+export async function importModule(path, defaultValue) {
     try {
-        if (fs.existsSync(path) === false) {
-            return defaultValue;
+        let i = await import(path);
+        if (i && i.default) {
+            return i.default;
+        } else {
+            return i;
         }
-        return import(path).then((i) => {
-            if (i && i.default && i.default.__esModule) {
-                return i.default;
-            } else {
-                return i;
-            }
-        });
     } catch (err) {
         return defaultValue;
     }

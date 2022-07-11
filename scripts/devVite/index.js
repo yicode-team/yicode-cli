@@ -12,7 +12,7 @@ import * as yicodePkgs from '../../yicode/package.js';
 import { yicodeConfig } from '../../yicode/config.js';
 
 // 导出函数
-export async function devMain(options) {
+export async function main(options) {
     // 开发环境的webpack配置参数
     // let viteConfig = await import(yicodeUtils.relativePath(yicodeUtils.fn_dirname(import.meta.url), path.resolve(yicodePaths.cliDir, 'yicode', 'vite', 'vite.config.js')));
 

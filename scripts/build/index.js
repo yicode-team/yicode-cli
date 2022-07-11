@@ -1,7 +1,7 @@
 // 导入模块
 import path from 'path';
-
 import Webpack from 'webpack';
+import shell from 'shelljs';
 
 import FriendlyErrorsWebpackPlugin from '@nuxt/friendly-errors-webpack-plugin';
 
@@ -10,7 +10,15 @@ import * as yicodePaths from '../../yicode/paths.js';
 import * as yicodeUtils from '../../yicode/utils.js';
 import friendlyErrorsConfig from '../../yicode/plugin/friendly-errors.config.js';
 
-export async function buildMain() {
+export async function main(promptParams) {
+    // 默认使用开发者模式
+    shell.env['NODE_MODE'] = 'production';
+    // 选择的环境变量文件
+    shell.env['NODE_ENV_FILE'] = promptParams.envFile;
+    // 是否启动分析模式
+    shell.env['NODE_ANALYZER'] = promptParams.isAnalyzer;
+
+    // 环境变量
     let { webpackConfig } = await import(yicodeUtils.relativePath(yicodeUtils.fn_dirname(import.meta.url), path.resolve(yicodePaths.cliDir, 'yicode', 'webpack', 'webpack.config.build.js')));
 
     // 追加友好错误提示插件

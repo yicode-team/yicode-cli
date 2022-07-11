@@ -8,6 +8,7 @@ import portfinder from 'portfinder';
 import FriendlyErrorsWebpackPlugin from '@nuxt/friendly-errors-webpack-plugin';
 import updateNotifier from 'update-notifier';
 import webpackDevServer from 'webpack-dev-server';
+import shell from 'shelljs';
 
 // 配置相关
 import * as yicodePaths from '../../yicode/paths.js';
@@ -54,7 +55,14 @@ let defaultDevServer = {
 };
 
 // 导出函数
-export async function devMain(options) {
+export async function main(promptParams) {
+    // 默认使用开发者模式
+    shell.env['NODE_MODE'] = 'development';
+    // 选择的环境变量文件
+    shell.env['NODE_ENV_FILE'] = promptParams.envFile;
+    // 是否启动分析模式
+    shell.env['NODE_ANALYZER'] = promptParams.isAnalyzer;
+
     // 开发环境的webpack配置参数
     let { webpackConfig } = await import(yicodeUtils.relativePath(yicodeUtils.fn_dirname(import.meta.url), path.resolve(yicodePaths.cliDir, 'yicode', 'webpack', 'webpack.config.dev.js')));
 

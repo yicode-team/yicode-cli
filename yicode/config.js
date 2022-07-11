@@ -9,19 +9,10 @@ import * as yicodePaths from './paths.js';
 import * as yicodeUtils from './utils.js';
 // let yicodeScheme = require('./scheme.js');
 
-/**
- * 处理yiocde-cli安装位置和项目位置，不在同一个盘符的问题
- * 比如：./D:\codes\project\test1\yicode.config.js
- * 需要去掉前面的 ./
- */
-let _relativePath = yicodeUtils.relativePath(yicodeUtils.fn_dirname(import.meta.url), path.resolve(yicodePaths.rootDir, 'yicode.config.js'));
-if (_relativePath.indexOf(':') !== -1) {
-    _relativePath = _relativePath.replace('./', 'file://');
-}
-
 // 项目配置
-const projectConfig = await yicodeUtils.importModule(_relativePath, {});
+const projectConfig = await yicodeUtils.importModule(yicodeUtils.getFileProtocolPath(path.resolve(yicodePaths.rootDir, 'yicode.config.js')), {});
 
+// 默认配置
 const defaultConfig = {
     // 项目类型
     projectType: '',
