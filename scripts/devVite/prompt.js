@@ -3,7 +3,7 @@ import inquirer from 'inquirer';
 // 第三方模块
 import * as _ from 'lodash-es';
 import * as yicodeUtils from '../../yicode/utils.js';
-import { devMain } from './index.js';
+import { main } from './index.js';
 
 // 提示参数收集
 let promptParams = {};
@@ -46,5 +46,5 @@ export async function prompt(options) {
     // 是否启动分析模式
     // shell.env['NODE_ANALYZER'] = promptParams.isAnalyzer;
 
-    devMain();
+    main(promptParams);
 }

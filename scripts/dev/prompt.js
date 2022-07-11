@@ -40,5 +40,5 @@ export async function prompt(options) {
     ]);
     promptParams = _.merge(promptParams, _isAnalyzer);
 
-    main();
+    main(promptParams);
 }
