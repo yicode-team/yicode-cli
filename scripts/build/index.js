@@ -2,6 +2,7 @@
 import path from 'path';
 import Webpack from 'webpack';
 import shell from 'shelljs';
+import { build } from 'vite';
 
 import FriendlyErrorsWebpackPlugin from '@nuxt/friendly-errors-webpack-plugin';
 
@@ -18,17 +19,32 @@ export async function main(promptParams) {
     // 是否启动分析模式
     shell.env['NODE_ANALYZER'] = promptParams.isAnalyzer;
 
-    // 环境变量
-    let { webpackConfig } = await import(yicodeUtils.relativePath(yicodeUtils.fn_dirname(import.meta.url), path.resolve(yicodePaths.cliDir, 'yicode', 'webpack', 'webpack.config.build.js')));
+    // 如果是vite项目，则使用vite启动
+    if (promptParams.isViteProject === true) {
+        await build({
+            root: yicodePaths.rootDir,
+            base: '',
+            build: {
+                rollupOptions: {
+                    external: /{{.*/
+                }
+            }
+        });
+    } else {
+        let configPath = yicodeUtils.getFileProtocolPath(path.resolve(yicodePaths.cliDir, 'yicode', 'webpack', 'webpack.config.build.js'));
 
-    // 追加友好错误提示插件
-    friendlyErrorsConfig.compilationSuccessInfo.messages.push(`项目编译成功！！！`);
-    friendlyErrorsConfig.compilationSuccessInfo.notes.unshift('友情提示：[ 请将 /dist 目录下的文件上传到服务器 ]');
-    webpackConfig.plugins.push(new FriendlyErrorsWebpackPlugin(friendlyErrorsConfig));
+        // 环境变量
+        let { webpackConfig = {} } = await yicodeUtils.importModule(configPath, {});
 
-    Webpack(webpackConfig, (err, stats) => {
-        if (err) {
-            console.log(err);
-        }
-    });
+        // 追加友好错误提示插件
+        friendlyErrorsConfig.compilationSuccessInfo.messages.push(`项目编译成功！！！`);
+        friendlyErrorsConfig.compilationSuccessInfo.notes.unshift('友情提示：[ 请将 /dist 目录下的文件上传到服务器 ]');
+        webpackConfig.plugins.push(new FriendlyErrorsWebpackPlugin(friendlyErrorsConfig));
+
+        Webpack(webpackConfig, (err, stats) => {
+            if (err) {
+                console.log(err);
+            }
+        });
+    }
 }

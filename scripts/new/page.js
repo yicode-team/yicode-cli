@@ -19,13 +19,15 @@ export async function newPage(options) {
 
     if (fs.existsSync(htmlFilePath) === false) {
         // 创建页面
-        const { pageTemplate } = await import(yicodeUtils.relativePath(yicodeUtils.fn_dirname(import.meta.url), path.resolve(yicodePaths.webpackDir, 'template', 'pageTemplate.js')));
+        let pagePath = yicodeUtils.getFileProtocolPath(path.resolve(yicodePaths.webpackDir, 'template', 'pageTemplate.js'));
+        const { pageTemplate = '' } = await yicodeUtils.importModule(pagePath, {});
 
         let htmlFileData = _.template(pageTemplate)(options);
         fs.outputFileSync(htmlFilePath, htmlFileData);
 
         // 创建页面路由
-        const { pageRoute } = await import(yicodeUtils.relativePath(yicodeUtils.fn_dirname(import.meta.url), path.resolve(yicodePaths.webpackDir, 'template', 'pageRoute.js')));
+        let pageRoutePath = yicodeUtils.getFileProtocolPath(path.resolve(yicodePaths.webpackDir, 'template', 'pageRoute.js'));
+        const { pageRoute = '' } = await yicodeUtils.importModule(pageRoutePath, {});
 
         let routeFileData = _.template(pageRoute)(options);
         fs.outputFileSync(routePath, routeFileData);

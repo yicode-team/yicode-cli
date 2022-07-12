@@ -57,8 +57,21 @@ const defaultConfig = {
             // 只检测改变的文件
             lintDirtyModulesOnly: true
         }
-    },
-    webpack: {
+    }
+};
+
+// 如果有vite相关配置，则增加vite默认配置
+if (!!projectConfig.viteConfig) {
+    defaultConfig.viteConfig = {
+        // 开发配置
+        devServer: {},
+        // 全局模块
+        providePlugin: {},
+        // 外部模块
+        externals: {}
+    };
+} else {
+    defaultConfig.webpackConfig = {
         // 全局模块，增加2个默认垫片模块，测试
         plugins: {
             providePlugin: {
@@ -70,8 +83,8 @@ const defaultConfig = {
         externals: {},
         // 开发配置
         devServer: {}
-    }
-};
+    };
+}
 
 // schemeUtils.validate(yicodeScheme, yicodeConfig, { name: '[ yicode.config.js ]' });
 

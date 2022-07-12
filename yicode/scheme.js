@@ -1,5 +1,5 @@
 // TODO: 待处理
-module.exports = {
+const schemaConfig = {
     // yicode配置参数验证
     yicodeConfig: {
         type: 'object',
@@ -11,3 +11,5 @@ module.exports = {
         additionalProperties: false
     }
 };
+
+export { schemaConfig };

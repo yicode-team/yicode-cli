@@ -9,15 +9,15 @@ import inquirer from 'inquirer';
 import * as yicodePaths from '../yicode/paths.js';
 import * as yicodeUtils from '../yicode/utils.js';
 import { yicodeConfig } from '../yicode/config.js';
+import { yicodeConstant } from '../yicode/constant.js';
 
 // 提示参数收集
 let promptParams = {
     // 执行命令
-    executeCommand: 'dev'
+    executeCommand: 'dev',
+    // 根据是否有viteConfig配置字段，判断是否是vite类型的项目
+    isViteProject: !!yicodeConfig.viteConfig
 };
-
-// 使用vite运行的项目名称枚举
-let viteProjectType = ['vue3-base-vite'];
 
 /**
  * 选择要执行的命令
@@ -46,6 +46,7 @@ async function executeCommand() {
             value: 'dev'
         });
     } else {
+        // 把创建命令放到列表第一个
         choices.unshift({
             name: 'create' + chalk.cyanBright('  创建新项目'),
             value: 'create'
@@ -63,19 +64,10 @@ async function executeCommand() {
     ]);
     _.merge(promptParams, _executeCommand);
 
-    // 如果项目类型（productType）字符串中带有vite字样，则表示使用vite打包。
-    if (promptParams.executeCommand === 'dev' && viteProjectType.includes(yicodeConfig.projectType)) {
-        // vite 工具命令执行路径
-        let commandPath = yicodeUtils.relativePath(yicodeUtils.fn_dirname(import.meta.url), path.resolve(yicodePaths.cliDir, 'scripts', 'devVite', 'prompt.js'));
-        let { prompt } = await import(commandPath);
-        await prompt();
-
-        return;
-    }
     // 命令执行路径
-    let commandPath = yicodeUtils.relativePath(yicodeUtils.fn_dirname(import.meta.url), path.resolve(yicodePaths.cliDir, 'scripts', promptParams.executeCommand, 'prompt.js'));
+    let commandPath = yicodeUtils.getFileProtocolPath(path.resolve(yicodePaths.cliDir, 'scripts', promptParams.executeCommand, 'prompt.js'));
     let { prompt } = await import(commandPath);
-    await prompt();
+    await prompt(promptParams);
 }
 
 export default executeCommand;

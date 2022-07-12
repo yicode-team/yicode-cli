@@ -16,9 +16,19 @@ export async function newComponent(options) {
     // 创建页面
     let htmlFilePath = path.join(dirPath, options.fileNames.camelCaseName + '.vue');
     if (fs.existsSync(htmlFilePath) === false) {
+        // 组件模板
         let compTemplate = options.componentType === 'globalComponent' ? 'globalComponentTemplate' : 'pageComponentTemplate';
-        const { componentTemplate } = await import(yicodeUtils.relativePath(yicodeUtils.fn_dirname(import.meta.url), path.resolve(yicodePaths.webpackDir, 'template', `${compTemplate}.js`)));
+
+        // 组件路径
+        let compPath = yicodeUtils.getFileProtocolPath(path.resolve(yicodePaths.webpackDir, 'template', `${compTemplate}.js`));
+
+        // 导入组件模板
+        const { componentTemplate = '' } = await yicodeUtils.importModule(compPath, {});
+
+        // 获取模板字符串内容
         let htmlFileData = _.template(componentTemplate)(options.fileNames);
+
+        // 写数据，生成模板文件
         fs.outputFileSync(htmlFilePath, htmlFileData);
         spinner.succeed(chalk.green(chalk.blue(options.fileNames.camelCaseName + '.vue') + ' 组件创建成功'));
     } else {
