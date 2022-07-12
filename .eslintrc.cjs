@@ -1,6 +1,4 @@
 const path = require('path');
-const localPkg = require('local-pkg');
-// const yicodePaths = localPkg.importModule('./yicode/paths.js');
 module.exports = {
     // 找到当前目录就不往上找了
     root: true,
