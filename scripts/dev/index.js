@@ -35,7 +35,6 @@ export async function main(promptParams) {
         const server = await createServer({
             // 任何合法的用户配置选项，加上 `mode` 和 `configFile`
             configFile: path.resolve(yicodePaths.cliDir, 'yicode', 'vite', 'vite.config.js'),
-            root: yicodePaths.rootDir,
             server: {
                 port: port
             }

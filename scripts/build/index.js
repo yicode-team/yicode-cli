@@ -22,13 +22,7 @@ export async function main(promptParams) {
     // 如果是vite项目，则使用vite启动
     if (promptParams.isViteProject === true) {
         await build({
-            root: yicodePaths.rootDir,
-            base: '',
-            build: {
-                rollupOptions: {
-                    external: /{{.*/
-                }
-            }
+            configFile: path.resolve(yicodePaths.cliDir, 'yicode', 'vite', 'vite.config.js')
         });
     } else {
         let configPath = yicodeUtils.getFileProtocolPath(path.resolve(yicodePaths.cliDir, 'yicode', 'webpack', 'webpack.config.build.js'));
