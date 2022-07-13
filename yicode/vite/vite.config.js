@@ -54,7 +54,7 @@ export default defineConfig(({ command, mode }) => {
             visualizer({
                 open: false,
                 brotliSize: true,
-                filename: 'buildReport.html'
+                filename: '.cache/buildReport.html'
             })
         ],
         css: {
