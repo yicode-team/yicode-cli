@@ -35,7 +35,11 @@ export default defineConfig(({ command, mode }) => {
             AutoImport({
                 include: [/\.[tj]sx?$/, /\.vue$/, /\.vue\?vue/, /\.md$/],
                 imports: ['vue', '@vueuse/core'],
-                dirs: [path.resolve(srcDir, 'hooks')],
+                dirs: [
+                    //
+                    path.resolve(srcDir, 'components'),
+                    path.resolve(srcDir, 'hooks')
+                ],
                 vueTemplate: true
             }),
             Components({
