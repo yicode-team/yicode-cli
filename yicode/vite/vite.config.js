@@ -4,11 +4,10 @@ import { defineConfig, loadEnv } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
-import { nodeResolve } from '@rollup/plugin-node-resolve';
-import commonjs from '@rollup/plugin-commonjs';
 // import Icons from 'unplugin-icons/vite';
 import IconsResolver from 'unplugin-icons/resolver';
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 let rootDir = path.resolve(process.cwd());
 let srcDir = path.resolve(rootDir, 'src');
@@ -51,6 +50,11 @@ export default defineConfig(({ command, mode }) => {
                     // IconsResolver(),
                     NaiveUiResolver()
                 ]
+            }),
+            visualizer({
+                open: false,
+                brotliSize: true,
+                filename: 'buildReport.html'
             })
         ],
         css: {
