@@ -59,9 +59,7 @@ export default defineConfig(({ command, mode }) => {
                 '@': srcDir
             }
         },
-        define: {
-            'process.env': env
-        },
+        define: {},
         envDir: path.resolve(srcDir, 'env')
     };
 });
