@@ -66,23 +66,23 @@ let currentConfig = {
         // new StylelintPlugin(yicodeConfig.stylelint.options)
     ]
 };
-if (process.env.NODE_ANALYZER === 'true') {
-    currentConfig.plugins.push(
-        new WebpackConfigDumpPlugin({
-            outputPath: yicodePaths.cacheDir,
-            name: 'webpack.config.dump.js',
-            keepCircularReferences: true,
-            showFunctionNames: false,
-            includeFalseValues: true
-        })
-    );
-    currentConfig.plugins.push(
-        new BundleAnalyzerPlugin({
-            analyzerMode: 'static',
-            defaultSizes: 'parsed',
-            generateStatsFile: false,
-            openAnalyzer: true
-        })
-    );
-}
+// if (process.env.NODE_ANALYZER === 'true') {
+//     currentConfig.plugins.push(
+//         new WebpackConfigDumpPlugin({
+//             outputPath: yicodePaths.cacheDir,
+//             name: 'webpack.config.dump.js',
+//             keepCircularReferences: true,
+//             showFunctionNames: false,
+//             includeFalseValues: true
+//         })
+//     );
+//     currentConfig.plugins.push(
+//         new BundleAnalyzerPlugin({
+//             analyzerMode: 'static',
+//             defaultSizes: 'parsed',
+//             generateStatsFile: false,
+//             openAnalyzer: true
+//         })
+//     );
+// }
 export const webpackConfig = webpackMerge(webpackConfigCommon, currentConfig);

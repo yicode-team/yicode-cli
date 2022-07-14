@@ -26,17 +26,17 @@ export async function prompt(options) {
      * 选择是否启动分析模式
      * 如果不是vite项目，才启动分析模式
      */
-    if (promptParams.isViteProject === false) {
-        const _isAnalyzer = await inquirer.prompt([
-            {
-                type: 'confirm',
-                name: 'isAnalyzer',
-                message: '是否启动分析模式？（默认：否）',
-                default: false
-            }
-        ]);
-        promptParams = _.merge(promptParams, _isAnalyzer);
-    }
+    // if (promptParams.isViteProject === false) {
+    //     const _isAnalyzer = await inquirer.prompt([
+    //         {
+    //             type: 'confirm',
+    //             name: 'isAnalyzer',
+    //             message: '是否启动分析模式？（默认：否）',
+    //             default: false
+    //         }
+    //     ]);
+    //     promptParams = _.merge(promptParams, _isAnalyzer);
+    // }
 
     main(promptParams);
 }

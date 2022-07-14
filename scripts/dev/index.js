@@ -26,7 +26,7 @@ export async function main(promptParams) {
     // 选择的环境变量文件
     shell.env['NODE_ENV_FILE'] = promptParams.envFile;
     // 是否启动分析模式
-    shell.env['NODE_ANALYZER'] = promptParams.isAnalyzer;
+    // shell.env['NODE_ANALYZER'] = promptParams.isAnalyzer;
 
     // 如果是vite项目，则使用vite启动
     if (promptParams.isViteProject === true) {
