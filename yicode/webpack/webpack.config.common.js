@@ -227,7 +227,7 @@ let currentConfig = {
         }),
         new VueLoaderPlugin(),
         new ProgressBarPlugin(),
-        new Webpack.ProvidePlugin(yicodeConfig.webpack.plugins.providePlugin)
+        new Webpack.ProvidePlugin(yicodeConfig.webpackConfig.plugins.providePlugin)
     ]
 };
 
@@ -254,7 +254,7 @@ currentConfig.plugins.push(
     })
 );
 
-const webpackConfigCommon = webpackMerge(currentConfig, _.omit(yicodeConfig.webpack, ['plugins']));
+const webpackConfigCommon = webpackMerge(currentConfig, _.omit(yicodeConfig.webpackConfig, ['plugins']));
 
 // 导出通用配置
 export { webpackConfigCommon };

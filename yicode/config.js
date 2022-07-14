@@ -65,8 +65,6 @@ if (!!projectConfig.viteConfig) {
     defaultConfig.viteConfig = {
         // 开发配置
         devServer: {},
-        // 全局模块
-        providePlugin: {},
         // 外部模块
         externals: {}
     };

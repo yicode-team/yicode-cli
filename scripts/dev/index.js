@@ -83,12 +83,12 @@ export async function main(promptParams) {
         let webpackConfigPath = yicodeUtils.getFileProtocolPath(path.resolve(yicodePaths.cliDir, 'yicode', 'webpack', 'webpack.config.dev.js'));
 
         // 开发环境的webpack配置参数
-        let { webpackConfig = {} } = await yicodeUtils.importModule(webpackConfigPath, {});
+        let { webpackConfig = {} } = await import(webpackConfigPath);
 
         // 默认的devServer配置参数
 
         // 合并开发服务配置参数
-        let devServerConfig = webpackMerge(defaultDevServer, yicodeConfig?.webpack?.devServer || {});
+        let devServerConfig = webpackMerge(defaultDevServer, yicodeConfig?.webpackConfig?.devServer || {});
 
         // 如果port没有值，则从8000 - 9000端口中选择一个
         if (!devServerConfig.port) {
