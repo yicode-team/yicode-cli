@@ -57,6 +57,10 @@ const defaultConfig = {
             // 只检测改变的文件
             lintDirtyModulesOnly: true
         }
+    },
+    providePlugin: {
+        // process: 'process/browser.js',
+        // Buffer: ['buffer', 'Buffer']
     }
 };
 
@@ -71,12 +75,6 @@ if (!!projectConfig.viteConfig) {
 } else {
     defaultConfig.webpackConfig = {
         // 全局模块，增加2个默认垫片模块，测试
-        plugins: {
-            providePlugin: {
-                process: 'process/browser.js',
-                Buffer: ['buffer', 'Buffer']
-            }
-        },
         // 外部链接
         externals: {},
         // 开发配置

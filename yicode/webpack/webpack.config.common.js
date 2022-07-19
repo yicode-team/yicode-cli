@@ -1,5 +1,6 @@
 // 内部模块
 import path from 'path';
+import fs from 'fs-extra';
 
 // 第三方模块
 import Webpack from 'webpack';
@@ -12,6 +13,8 @@ import CopyWebpackPlugin from 'copy-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 import ImportFresh from 'import-fresh';
+import Dotenv from 'dotenv';
+import DotenvExpand from 'dotenv-expand';
 
 //  配置文件
 import * as yicodePaths from '../paths.js';
@@ -29,6 +32,40 @@ import _loaderRouteConfig from '../loader/route-loader.config.js';
 
 // plugin 配置文件
 // let _pluginProvideConfig = require("./plugin/provide-plugin.config.js");
+
+let env = {};
+const envFiles = [
+    //
+    `.env.${process.env.NODE_ENV_FILE}.local`,
+    `.env.${process.env.NODE_ENV_FILE}`,
+    `.env.local`,
+    `.env`
+];
+
+// 把环境变量已有的YICODE_开头的变量搜集
+for (const key in process.env) {
+    if (key.startsWith('YICODE_') && env[key] === undefined) {
+        env[key] = process.env[key];
+    }
+}
+
+// 按照环境变量文件的优先级加载环境变量
+for (let envFile of envFiles) {
+    let envPath = path.resolve(yicodePaths.envDir, envFile);
+    if (fs.existsSync(envPath)) {
+        let parsed = Dotenv.parse(fs.readFileSync(envPath, 'utf-8'));
+        let envVars = DotenvExpand.expand({
+            parsed,
+            ignoreProcessEnv: false
+        });
+
+        for (const [key, value] of Object.entries(envVars.parsed)) {
+            if (key.startsWith('YICODE_') && env[key] === undefined) {
+                env[key] = value;
+            }
+        }
+    }
+}
 
 // 导出webpack通用配置
 let currentConfig = {
@@ -216,8 +253,6 @@ let currentConfig = {
                 }
             ]
         }),
-        // new WindiCSSWebpackPlugin(),
-        // new AutoRoutePlugin(),
         new MiniCssExtractPlugin({
             filename: 'css/[name].[fullhash:7].css'
         }),
@@ -227,34 +262,15 @@ let currentConfig = {
         }),
         new VueLoaderPlugin(),
         new ProgressBarPlugin(),
-        new Webpack.ProvidePlugin(yicodeConfig.webpackConfig.plugins.providePlugin)
+        new Webpack.DefinePlugin({
+            'import.meta.env': JSON.stringify(env)
+        }),
+        new Webpack.ProvidePlugin(yicodeConfig?.webpackConfig?.providePlugin || {})
     ]
 };
 
-/**
- * 设置环境变量文件
- * [修改/新增/删除]环境变量时，自动更新其值，无需重新启动yicode
- */
-let envFilePath = path.resolve(yicodePaths.srcDir, 'env', process.env.NODE_ENV_FILE + '.js');
-currentConfig.plugins.push(
-    new Webpack.DefinePlugin({
-        YICODE_ENV: Webpack.DefinePlugin.runtimeValue(
-            function getRuntimeValue() {
-                let envFileHash = ImportFresh(envFilePath);
-                return JSON.stringify(envFileHash);
-            },
-            {
-                fileDependencies: [
-                    //
-                    envFilePath,
-                    path.resolve(yicodePaths.rootDir, 'yicode.config.js')
-                ]
-            }
-        )
-    })
-);
-
-const webpackConfigCommon = webpackMerge(currentConfig, _.omit(yicodeConfig.webpackConfig, ['plugins']));
+// 合并配合文件，并排除掉无用的字段
+const webpackConfigCommon = webpackMerge(currentConfig, _.omit(yicodeConfig.webpackConfig, ['plugins', 'providePlugin']));
 
 // 导出通用配置
 export { webpackConfigCommon };

@@ -28,7 +28,7 @@ let srcDir = path.resolve(rootDir, 'src');
 // TODO: 完成图标使用方案
 
 export default defineConfig(({ command, mode }) => {
-    const env = loadEnv(shell.env['NODE_ENV_FILE'], path.resolve(process.cwd(), 'src', 'env'));
+    const env = loadEnv(shell.env['NODE_ENV_FILE'], path.resolve(process.cwd(), 'src', 'env'), 'YICODE_');
     return {
         plugins: [
             //
@@ -73,6 +73,7 @@ export default defineConfig(({ command, mode }) => {
             ]
         },
         envDir: path.resolve(srcDir, 'env'),
+        envPrefix: 'yicode',
         build: {
             rollupOptions: {
                 plugins: []

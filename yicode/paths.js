@@ -10,6 +10,9 @@ export const rootDir = path.join(process.cwd());
 // 项目源码路径
 export const srcDir = path.join(rootDir, 'src');
 
+// 项目环境变量路径
+export const envDir = path.join(srcDir, 'env');
+
 // 静态目录
 export const staticDir = path.join(rootDir, 'static');
 

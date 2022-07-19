@@ -59,38 +59,38 @@ export function getFileNames(name) {
  * @returns array 环境变量数组
  */
 export function getEnvNames(promptParams) {
-    if (promptParams.isViteProject === true) {
-        let envFiles = fastGlob
-            .sync('.env.*', {
-                dot: true,
-                absolute: false,
-                cwd: path.resolve(yicodePaths.srcDir, 'env'),
-                onlyFiles: true,
-                ignore: ['.env.*.local']
-            })
-            .map((fileName) => {
-                return {
-                    value: fileName.replace('.env.', ''),
-                    name: fileName
-                };
-            });
-        return envFiles;
-    } else {
-        let envFiles = fastGlob
-            .sync('*.js', {
-                dot: false,
-                absolute: false,
-                cwd: path.resolve(yicodePaths.srcDir, 'env'),
-                onlyFiles: true
-            })
-            .map((fileName) => {
-                return {
-                    value: path.basename(fileName, '.js'),
-                    name: fileName
-                };
-            });
-        return envFiles;
-    }
+    // if (promptParams.isViteProject === true) {
+    let envFiles = fastGlob
+        .sync('.env.*', {
+            dot: true,
+            absolute: false,
+            cwd: path.resolve(yicodePaths.srcDir, 'env'),
+            onlyFiles: true,
+            ignore: ['.env.*.local']
+        })
+        .map((fileName) => {
+            return {
+                value: fileName.replace('.env.', ''),
+                name: fileName.replace('.env.', '')
+            };
+        });
+    return envFiles;
+    // } else {
+    //     let envFiles = fastGlob
+    //         .sync('*.js', {
+    //             dot: false,
+    //             absolute: false,
+    //             cwd: path.resolve(yicodePaths.srcDir, 'env'),
+    //             onlyFiles: true
+    //         })
+    //         .map((fileName) => {
+    //             return {
+    //                 value: path.basename(fileName, '.js'),
+    //                 name: fileName
+    //             };
+    //         });
+    //     return envFiles;
+    // }
 }
 
 /**
